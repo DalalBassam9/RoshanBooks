@@ -18,10 +18,21 @@
         "name": "next"
       }
     ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+  "baseUrl": ".",
+  "paths": {
+    "@/components/*": [
+      "components/*"
+    ],
+
+    "@/pages/*": [
+      "pages/*"
+    ],
+    "@/utils/*": [
+      "utils/*"
+    ]
+    // Add more aliases as needed
+  }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/Checkout", "src/app/components/sidebar/sidebar.jsx", "src/app/components/Layout.jsx", "src/app/components/Sidebar.jsx", "src/app/admin/components/Navbar.js"],
   "exclude": ["node_modules"]
 }
