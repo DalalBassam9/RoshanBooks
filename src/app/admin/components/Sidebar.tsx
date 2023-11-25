@@ -1,6 +1,3 @@
-
-
-
 "use client";
 import create from "zustand";
 import { persist } from "zustand/middleware";
@@ -14,7 +11,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
-
 import { useNavigate } from "react-router-dom";
 import GroupIcon from '@mui/icons-material/Group';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -23,11 +19,14 @@ import AnalyticsIcon from '@mui/icons-material/Analytics';
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import CategoryIcon from '@mui/icons-material/Category';
 
 
 const drawerWidth = 240;
 
-const openedMixin = (theme) => ({
+import { Theme } from "@mui/material/styles";
+
+const openedMixin = (theme: Theme) => ({
     width: drawerWidth,
     transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
@@ -36,7 +35,7 @@ const openedMixin = (theme) => ({
     overflowX: "hidden",
 });
 
-const closedMixin = (theme) => ({
+const closedMixin = (theme:any) => ({
     transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -91,7 +90,7 @@ export default function Sidenav() {
                     disablePadding
                     sx={{ display: "block" }}
                     onClick={() => {
-                        navigate("/");
+                        router.push('/admin');
                     }}
                 >
                     <ListItemButton
@@ -194,7 +193,7 @@ export default function Sidenav() {
                                 justifyContent: "center",
                             }}
                         >
-                            <SettingsIcon />
+                            <CategoryIcon />
                         </ListItemIcon>
                         <ListItemText primary="Categories" sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>

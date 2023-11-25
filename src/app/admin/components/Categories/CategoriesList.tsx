@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import CategoryForm from "./CategoryForm";
-import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Stack, Skeleton, Divider, TableRow, Paper, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Stack, Skeleton, Divider, TableRow, Paper, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Swal from "sweetalert2";
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,6 +9,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import axios from "axios";
+import moment from 'moment';
+import Link from 'next/link';
 
 function CategoriesList() {
     const [loading, setLoading] = React.useState(false);
@@ -16,8 +18,6 @@ function CategoriesList() {
     const [showCategoryForm, setShowCategoryForm] = React.useState(false);
     const [selectedCategory, setSelectedCategory] = React.useState<any>(null);
     const [categories, setCategories] = React.useState([]);
-    const [errorMessage, setErrorMessage] = React.useState('');
-    const [successMessage, setSuccessMessage] = React.useState('');
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -25,7 +25,7 @@ function CategoriesList() {
         setSelectedCategory(category);
         setShowCategoryForm(true);
     };
-
+    6
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
@@ -99,6 +99,7 @@ function CategoriesList() {
 
     return (
         <div>
+
             {showCategoryForm && (
                 <CategoryForm
                     showCategoryForm={showCategoryForm}
@@ -130,7 +131,7 @@ function CategoriesList() {
                         ></Typography>
                         <Button
                             variant="outlined"
-                            color="primary" 
+                            color="primary"
                             endIcon={<AddCircleIcon />}
                             onClick={() => { setShowCategoryForm(true) }}
 
@@ -169,44 +170,39 @@ function CategoriesList() {
                                                 hover
                                                 role="checkbox"
                                                 tabIndex={-1}
-                                                key={category.cityId}
+                                                key={category.categoryId}
                                             >
                                                 <TableCell align="left">{category.categoryId}</TableCell>
                                                 <TableCell align="left">{category.name}</TableCell>
-                                                <TableCell align="left">{String(category.created_at)}</TableCell>
-                                                <TableCell align="left">{String(category.updated_at)}</TableCell>
+                                                <TableCell align="left">{moment(category.created_at).format("DD MMM YYYY hh:mm A")}</TableCell>
+                                                <TableCell align="left">{moment(category.updated_at).format("DD MMM YYYY hh:mm A")}</TableCell>
+ 
 
                                                 <TableCell align="left">
                                                     <Stack spacing={2} direction="row">
                                                         <EditIcon
                                                             style={{
                                                                 fontSize: "20px",
-
+                                                                marginTop: "10px",
                                                                 color: "primary",
                                                                 cursor: "pointer",
                                                             }}
                                                             className="cursor-pointer"
                                                             onClick={() => handleShowCategoryForm(category)
-
-
                                                             }
                                                         />
-
-
-                                                        {loadingForDelete && selectedCategory?.categoryId === category.categoryId
-                                                            ? <CircularProgress /> :
-                                                            <DeleteIcon
-
-                                                                style={{
-                                                                    fontSize: "20px",
-                                                                    color: "darkred",
-                                                                    cursor: "pointer",
-                                                                }}
-                                                                onClick={() => [
-                                                                    setSelectedCategory(category),
-                                                                    deleteCategory(category.categoryId),
-                                                                ]}
-                                                            />}
+                                                        <IconButton
+                                                            disabled={loadingForDelete}
+                                                            onClick={() => [
+                                                                setSelectedCategory(category),
+                                                                deleteCategory(category.categoryId),
+                                                            ]}
+                                                        >
+                                                            {loadingForDelete && selectedCategory?.categoryId === category.categoryId
+                                                                ? <CircularProgress size={24} /> :
+                                                                <DeleteIcon
+                                                                />}
+                                                        </IconButton>
                                                     </Stack>
                                                 </TableCell>
                                             </TableRow>
@@ -223,24 +219,11 @@ function CategoriesList() {
                             onPageChange={handleChangePage}
                             onRowsPerPageChange={handleChangeRowsPerPage}
                         />
-
-
                     </TableContainer>
-
                 </Paper>
             )
             }
-            {
-                categories.length == 0 && (
-                    <>
-                        <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
-                            <Box height={30} >
 
-                            </Box>
-                        </Paper>
-                    </>
-                )
-            }
 
         </div >
 

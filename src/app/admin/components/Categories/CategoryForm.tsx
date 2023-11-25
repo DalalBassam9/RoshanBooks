@@ -3,7 +3,9 @@ import React from "react";
 import axios from "axios";
 import { Button, Dialog, DialogActions, Box, DialogContent, DialogTitle, IconButton, TextField } from '@mui/material';
 import Swal from "sweetalert2";
+import CircularProgress from '@mui/material/CircularProgress';
 import CloseIcon from '@mui/icons-material/Close';
+import * as Yup from 'yup';
 
 interface CategoryFormProps {
     showCategoryForm: boolean;
@@ -12,6 +14,13 @@ interface CategoryFormProps {
     selectedCategory: any;
     setSelectedCategory: (category: any) => void;
 }
+interface FormData {
+    name: any;
+}
+const schema = Yup.object().shape({
+    name: Yup.string().required('Name is required'),
+    // Add more fields as needed
+});
 
 function CategoryForm({
     showCategoryForm,
@@ -20,10 +29,43 @@ function CategoryForm({
     selectedCategory,
     setSelectedCategory,
 }: CategoryFormProps) {
-    const [loading, setLoading] = React.useState(false);
-    const [formData, setFormData] = React.useState({ name: '' });
-    const [errorMessage, setErrorMessage] = React.useState('');
-    const [successMessage, setSuccessMessage] = React.useState('');
+    const [loading = false, setLoading] = React.useState<boolean>(false);
+    const [errors, setErrors] = React.useState<Record<string, string>>({});
+    const [formData, setFormData] = React.useState<FormData>({
+        name: '',
+    });
+
+
+    const handleClose = () => {
+        setShowCategoryForm(false);
+        setSelectedCategory(null);
+
+    };
+    const validateField = async (field: string, value: string) => {
+        try {
+            await schema.validateAt(field, { [field]: value });
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [field]: '',
+            }));
+        } catch (error: any) {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [field]: error.message,
+            }));
+        }
+    };
+    const handleChange = (field: string, value: string) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            [field]: value,
+        }));
+
+        // Validate the field using Yup
+        validateField(field, value);
+    };
+
+
 
     React.useEffect(() => {
         if (selectedCategory) {
@@ -34,20 +76,13 @@ function CategoryForm({
     }, [selectedCategory]);
 
 
-    const handleClose = () => {
-        setShowCategoryForm(false);
-        setSelectedCategory(null); 
-        
-    };
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
 
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
         try {
             setLoading(true);
+            await schema.validate(formData, { abortEarly: false });
             if (selectedCategory) {
                 await axios.put(process.env.NEXT_PUBLIC_API_URL + `/api/admin/categories/` + selectedCategory.categoryId, formData);
                 Swal.fire({
@@ -67,17 +102,25 @@ function CategoryForm({
             setSelectedCategory(null);
             reloadData();
         } catch (error: any) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.response.data.message || error.message,
-            });
+            if (error instanceof Yup.ValidationError) {
+                const errors: { [key: string]: string } = {}; // Specify the type of 'errors' object
+                error.inner.forEach((error: any) => {
+                    errors[error.path] = error.message;
+                });
+                setErrors(errors);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.response?.data?.message || error.message, // Use optional chaining to access nested properties
+                });
 
+                setShowCategoryForm(false);
+            }
         } finally {
             setLoading(false);
         }
     };
-
 
     return (
         <Dialog open={showCategoryForm} onClose={handleClose}
@@ -99,32 +142,44 @@ function CategoryForm({
 
                         },
                     }}
-                        edge="end" color="inherit" onClick={handleClose } aria-label="close">
+                        edge="end" color="inherit" onClick={handleClose} aria-label="close">
                         <CloseIcon />
                     </IconButton>
                 </Box>
             </DialogTitle>
-            <DialogContent>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    name="name"
-                    label="Name"
-                    type="text"
-                    fullWidth
-                    value={formData.name}
-                    onChange={handleInputChange}
-                />
+            <form  onSubmit={handleSubmit}>
 
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={ handleClose } color="primary">
-                    Cancel
-                </Button>
-                <Button onClick={handleSubmit} color="primary">
-                    {selectedCategory ? 'Update' : 'Add'}
-                </Button>
-            </DialogActions>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        name="name"
+                        label="Name"
+                        type="text"
+                        fullWidth
+                        value={formData.name}
+                        onChange={(e) => handleChange('name', e.target.value)}
+                        error={Boolean(errors.name)}
+                        helperText={errors.name}
+                    />
+
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        variant="outlined" onClick={handleClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        type="submit"
+                        disabled={loading}
+                        startIcon={loading ? <CircularProgress size={20} /> : null}
+                    >
+                        {selectedCategory ? 'Update' : 'Save'}
+                    </Button>
+                </DialogActions>
+            </form>
         </Dialog>
 
 

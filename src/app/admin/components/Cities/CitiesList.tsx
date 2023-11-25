@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
 import CityForm from "./CityForm";
-import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Stack, Skeleton, Divider, TableRow, Paper, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Stack, IconButton, Divider, TableRow, Paper, Box, Button, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Swal from "sweetalert2";
 import EditIcon from "@mui/icons-material/Edit";
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import moment from 'moment';
 import axios from "axios";
 
 function CitiesList() {
@@ -131,10 +132,10 @@ function CitiesList() {
                         ></Typography>
                         <Button
                             variant="outlined"
-                            color="primary" 
+                            color="primary"
                             endIcon={<AddCircleIcon />}
                             onClick={() => setShowCityForm(true)}
-                          
+
                         >
                             Add City
                         </Button>
@@ -174,13 +175,14 @@ function CitiesList() {
                                             >
                                                 <TableCell align="left">{city.cityId}</TableCell>
                                                 <TableCell align="left">{city.name}</TableCell>
-                                                <TableCell align="left">{String(city.created_at)}</TableCell>
-                                                <TableCell align="left">{String(city.updated_at)}</TableCell>
+                                                <TableCell align="left">{moment(city.created_at).format("DD MMM YYYY hh:mm A")}</TableCell>
+                                                <TableCell align="left">{moment(city.updated_at).format("DD MMM YYYY hh:mm A")}</TableCell>
 
                                                 <TableCell align="left">
                                                     <Stack spacing={2} direction="row">
                                                         <EditIcon
                                                             style={{
+                                                                marginTop: "10px",
                                                                 fontSize: "20px",
                                                                 color: "primary",
                                                                 cursor: "pointer",
@@ -189,22 +191,20 @@ function CitiesList() {
                                                             onClick={() => handleShowCityForm(city)
                                                             }
                                                         />
+                                                        <IconButton
+                                                            disabled={loadingForDelete}
+                                                            onClick={() => [
+                                                                setSelectedCity(city),
+                                                                deleteCity(city.cityId),
+                                                            ]}
+                                                        >
+                                                            {loadingForDelete && selectedCity?.cityId === city.cityId
+                                                                ? <CircularProgress size={24} /> :
+                                                                <DeleteIcon
+                                                                />}
+                                                        </IconButton>
 
 
-                                                        {loadingForDelete && selectedCity?.cityId === city.cityId
-                                                            ? <CircularProgress /> :
-                                                            <DeleteIcon
-
-                                                                style={{
-                                                                    fontSize: "20px",
-                                                                    color: "darkred",
-                                                                    cursor: "pointer",
-                                                                }}
-                                                                onClick={() => [
-                                                                    setSelectedCity(city),
-                                                                    deleteCity(city.cityId),
-                                                                ]}
-                                                            />}
                                                     </Stack>
                                                 </TableCell>
                                             </TableRow>
@@ -226,19 +226,19 @@ function CitiesList() {
                     </TableContainer>
 
                 </Paper>
-    )
-}
-{
-    cities.length == 0 && (
-        <>
-            <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
-                <Box height={30} >
-              
-                </Box>
-            </Paper>
-        </>
-    )
-}
+            )
+            }
+            {
+                cities.length == 0 && (
+                    <>
+                        <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
+                            <Box height={30} >
+
+                            </Box>
+                        </Paper>
+                    </>
+                )
+            }
 
         </div >
 

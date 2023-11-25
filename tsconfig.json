@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,21 +22,33 @@
         "name": "next"
       }
     ],
-  "baseUrl": ".",
-  "paths": {
-    "@/components/*": [
-      "components/*"
-    ],
-
-    "@/pages/*": [
-      "pages/*"
-    ],
-    "@/utils/*": [
-      "utils/*"
-    ]
-    // Add more aliases as needed
-  }
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/pages/*": [
+        "pages/*"
+      ],
+      "@/utils/*": [
+        "utils/*"
+      ]
+      // Add more aliases as needed
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/Checkout", "src/app/components/sidebar/sidebar.jsx", "src/app/components/Layout.jsx", "src/app/components/Sidebar.jsx", "src/app/admin/components/Navbar.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/components/Checkout",
+    "src/app/components/sidebar/sidebar.jsx",
+    "src/app/components/Layout.jsx",
+    "src/app/components/Sidebar.jsx",
+    "src/app/admin/components/Navbar.js",
+    "src/app/helpers/. validateTextField tsx"
+, "src/app/admin/page.tsx"  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
