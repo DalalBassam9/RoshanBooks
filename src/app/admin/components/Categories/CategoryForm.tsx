@@ -19,7 +19,6 @@ interface FormData {
 }
 const schema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
-    // Add more fields as needed
 });
 
 function CategoryForm({
