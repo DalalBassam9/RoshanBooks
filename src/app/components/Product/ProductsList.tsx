@@ -1,6 +1,8 @@
-
 "use client"
+import React from "react";
 import { Fragment, useState } from 'react'
+import axios from 'axios';
+import Swal from "sweetalert2";
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
@@ -11,7 +13,10 @@ const sortOptions = [
     { name: 'Newest', href: '#', current: false },
     { name: 'Price: Low to High', href: '#', current: false },
     { name: 'Price: High to Low', href: '#', current: false },
-]
+];
+
+
+
 
 const filters = [
     {
@@ -39,7 +44,13 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductsList() {
+interface ProductListProps {
+    data: Product[];
+}
+function ProductsList({
+    data
+}: ProductListProps) {
+
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
     return (
@@ -246,13 +257,19 @@ export default function ProductsList() {
                                     </Disclosure>
                                 ))}
                             </form>
-
                             {/* Product grid */}
-                            <div className="lg:col-span-3"><ProductCard /></div>
-                        </div>
+                                <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
+                                        {data.map((product: any) => (
+                                            <ProductCard key={product.productId} product={product} />
+                                        ))}
+
+                                    </div>
+                                </div>
                     </section>
                 </main>
             </div>
         </div>
-    )
+    );
+
 }
+export default ProductsList;

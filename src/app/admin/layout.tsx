@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
-
 import Sidebar from '../admin/components/Sidebar';
 import Navbar from '../admin/components/Navbar';
-
 import Box from "@mui/material/Box";
 import { Inter } from 'next/font/google'
 import './globals.css'

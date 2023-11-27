@@ -1,6 +1,12 @@
 "use client"
-export default function ProductDetail() {
+import React, { useState, useEffect } from 'react';
 
+interface ProductDetailProps {
+    product: any;
+}
+
+
+const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
     return (
         <div>
             <section className="text-gray-700 body-font overflow-hidden bg-white">
@@ -12,7 +18,7 @@ export default function ProductDetail() {
                             <div className="flex  justify-between ">
                                 <div className="flex-1 truncate">
 
-                                    <h1 className="text-gray-900 text-2xl title-font font-medium mb-1">The Catcher in the Rye</h1>
+                                    <h1 className="text-gray-900 text-2xl title-font font-medium mb-1">{ product.name}</h1>
                                     <span className="flex items-center">
                                         <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4   text-beige" viewBox="0 0 24 24">
                                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -33,7 +39,6 @@ export default function ProductDetail() {
                                     </span>
 
                                 </div>
-
                                 <div className="
  flex-shrink-0">   <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                                         <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
@@ -42,13 +47,10 @@ export default function ProductDetail() {
                                     </button>
                                 </div>
                             </div>
-
-
-
-                            <p className="mt-3 text-lg text-3xl leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
+                            <p className="mt-3 text-lg text-3xl leading-relaxed">{product.description }</p>
                             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                                 <div className="flex">
-                                    <span className="title-font font-medium text-2xl text-gray-900">$58.00</span>
+                                    <span className="title-font font-medium text-2xl text-gray-900">${product.price}</span>
 
                                 </div>
                                 <div className="flex ml-6 items-center">
@@ -61,17 +63,10 @@ export default function ProductDetail() {
                     </div>
                 </div>
             </section>
-
-
-
-
-
-
-
         </div>
-
     )
 }
 
 
+export default ProductDetail ;
 
