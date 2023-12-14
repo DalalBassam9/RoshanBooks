@@ -141,6 +141,7 @@ function add() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+
             Swal.fire({
                 icon: 'success',
                 title: 'Success',

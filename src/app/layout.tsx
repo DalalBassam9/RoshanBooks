@@ -1,11 +1,17 @@
 import React from 'react';
 import type { Metadata } from 'next'
-import Navigation from './components/Navigation';
-import HeaderSection from './components/HeaderSection';
-import Footer from './components/Footer';
+import Navigation from '../components/Navigation';
+import HeaderSection from '../components/HeaderSection';
+import Footer from '../components/Footer';
 import { Inter } from 'next/font/google'
-import './globals.css'
-const inter = Inter({ subsets: ['latin'] })
+import { Provider } from 'react-redux';
+import { useLayoutEffect } from 'react';
+import { Providers } from "../redux/provider";
+import store from '../redux/store';
+import './globals.css';
+import { Inter as NextInter } from 'next/font/google';
+
+const inter = NextInter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,10 +27,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navigation />
-        <HeaderSection/>
+
+        <Providers>
           {children}
-        <Footer/>
+        </Providers>
+        <Footer />
       </body>
     </html>
   )

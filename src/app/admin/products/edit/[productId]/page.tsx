@@ -11,8 +11,6 @@ import { Typography, Card, CardContent } from '@mui/material';
 import { Container } from '@mui/material';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import HomeIcon from "@mui/icons-material/Home";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import LocalMallIcon from '@mui/icons-material/LocalMall'
 import EditIcon from '@mui/icons-material/Edit';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 
@@ -52,10 +50,9 @@ function edit({ params }: { params: any }) {
   const router = useRouter();
   const [loadingProduct = false, setLoadingProduct] =
     React.useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = React.useState('');
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [loading = false, setLoading] = React.useState<boolean>(false);
-  const [selectedCategory, setSelectedCategory] = useState('');
+
 
   const breadcrumbs = [
 

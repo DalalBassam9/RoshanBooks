@@ -1,12 +1,18 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import { addToCart, removeFromCart } from '../../redux/cartSlice';
+import { AnyAction } from 'redux';
+import CartItem from '../../redux/cartSlice';
+import { AsyncThunkAction } from '@reduxjs/toolkit';
+import { Provider, useDispatch } from 'react-redux';
+import { createStore } from 'redux';
 
 interface ProductDetailProps {
     product: any;
 }
 
-
 const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
+
     return (
         <div>
             <section className="text-gray-700 body-font overflow-hidden bg-white">
@@ -18,7 +24,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                             <div className="flex  justify-between ">
                                 <div className="flex-1 truncate">
 
-                                    <h1 className="text-gray-900 text-2xl title-font font-medium mb-1">{ product.name}</h1>
+                                    <h1 className="text-gray-900 text-2xl title-font font-medium mb-1">{product.name}</h1>
                                     <span className="flex items-center">
                                         <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4   text-beige" viewBox="0 0 24 24">
                                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -47,14 +53,27 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                                     </button>
                                 </div>
                             </div>
-                            <p className="mt-3 text-lg text-3xl leading-relaxed">{product.description }</p>
+                            <p className="mt-3 text-lg text-3xl leading-relaxed">{product.description}</p>
                             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                                 <div className="flex">
                                     <span className="title-font font-medium text-2xl text-gray-900">${product.price}</span>
 
                                 </div>
                                 <div className="flex ml-6 items-center">
-                                    <button className="flex ml-auto text-white bg-beige border-0 py-2 px-6 focus:outline-none rounded">Add to cart</button>
+                                    <button
+                                        onClick={() => {
+                                            dispatch(
+                                                addToCart({
+                                                    productId: product.productId,
+                                                    quantity: 2,
+                                                }) as unknown as AnyAction
+                                            );
+                                        }}
+                                        className="flex ml-auto text-white bg-beige border-0"
+                                    >
+                                        Add to cart
+                                    </button>
+
 
                                 </div>
                             </div>
@@ -63,10 +82,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                     </div>
                 </div>
             </section>
+
         </div>
     )
 }
 
 
-export default ProductDetail ;
-
+export default ProductDetail;
