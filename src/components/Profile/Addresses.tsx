@@ -19,7 +19,7 @@ const Addresses: React.FC = () => {
     const getAddresses = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/addresses`,
+            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/addresses`,
                 {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -43,6 +43,26 @@ const Addresses: React.FC = () => {
         setSelectedAddress(address);
         setShowAddressForm(true);
     };
+    const setDefaultAddress = async (addressId: string) => {
+        try {
+            setLoading(true);
+            await axios.put(process.env.NEXT_PUBLIC_API_URL + `/api/addresses/set-default-address/${addressId}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                }
+            );
+
+            getAddresses();
+        } catch (error: any) {
+
+        } finally {
+            setLoading(false);
+        }
+    }
+
+
 
     const deleteAddress = (addressId: string) => {
         Swal.fire({
@@ -126,6 +146,14 @@ const Addresses: React.FC = () => {
                     <div className="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start sm:justify-between">
                         <div className="sm:flex sm:items-start">
                             <div className="mt-3 sm:ml-4 sm:mt-0">
+                                {address.default === 1 ? (
+                                    <p className="rounded-full bg-indigo-500 px-2.5 py-1 text-xs font-semibold leading-5 text-white">
+                                        default
+                                    </p>
+                                ) :
+                                    null
+
+                                }
 
                                 <div className="text-sm font-medium text-gray-900">{address.phone}</div>
                                 <div className="text-sm font-medium text-gray-900">{address.firstName} {address.lastName}</div>
@@ -139,6 +167,19 @@ const Addresses: React.FC = () => {
                             </div>
                         </div>
                         <div className="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
+                            {address.default === 0 ? (
+                                <button
+                                    type="button"
+                                    onClick={() => setDefaultAddress(address.addressId)}
+                                    className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                >
+                                    set default
+                                </button>
+                            ) :
+                                null
+
+                            }
+
                             <button
                                 type="button"
                                 onClick={() => handleShowAddressForm(address)}

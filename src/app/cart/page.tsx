@@ -14,8 +14,6 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
-
-
 export default function Cart() {
     const { user, isLoading } = useAuth({ middleware: 'auth' })
     const dispatch: ThunkDispatch<CartState, unknown, AnyAction> = useDispatch();
