@@ -14,6 +14,7 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { useNavigate } from "react-router-dom";
 import GroupIcon from '@mui/icons-material/Group';
 import SettingsIcon from '@mui/icons-material/Settings';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import HomeIcon from '@mui/icons-material/Home';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import { useState } from 'react';
@@ -196,6 +197,32 @@ export default function Sidenav() {
                             <CategoryIcon />
                         </ListItemIcon>
                         <ListItemText primary="Categories" sx={{ opacity: open ? 1 : 0 }} />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem
+                    disablePadding
+                    sx={{ display: "block" }}
+                    onClick={() => {
+                        router.push('/admin/orders');
+                    }}
+                >
+                    <ListItemButton
+                        sx={{
+                            minHeight: 48,
+                            justifyContent: open ? "initial" : "center",
+                            px: 2.5,
+                        }}
+                    >
+                        <ListItemIcon
+                            sx={{
+                                minWidth: 0,
+                                mr: open ? 3 : "auto",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <ShoppingCartIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Orders" sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                 </ListItem>
             </List>

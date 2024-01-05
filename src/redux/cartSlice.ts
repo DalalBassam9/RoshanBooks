@@ -14,7 +14,6 @@ interface CartState {
   items: CartItem[];
   loading: 'idle' | 'loading' | 'succeeded' | 'failed';
   error?: string;
-
 }
 
 const initialState: CartState = { items: [], loading: 'idle' }
@@ -77,7 +76,11 @@ export const removeFromCart = createAsyncThunk('cart/removeFromCart',
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    clearCart: (state) => {
+      state.items=[]
+    }
+  },
   extraReducers: builder => {
     builder.addCase(getCartItems.pending, (state) => {
       state.loading = 'loading';
@@ -111,7 +114,6 @@ const cartSlice = createSlice({
       }
     })
 
-
     builder.addCase(updateQuantity.fulfilled, (state, action: PayloadAction<CartItem>) => {
       const item = state.items.find((item: CartItem) => item.productId === action.payload.productId);
       if (item) {
@@ -130,5 +132,5 @@ const cartSlice = createSlice({
     })
   }
 })
-
+export const { clearCart } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

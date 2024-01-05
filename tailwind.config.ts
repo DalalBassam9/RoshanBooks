@@ -25,9 +25,8 @@ const config: Config = {
         Purpl: '#E5BEA0',
         beige:"#E3BC9A",
       
-
       },
-    
+
 
     backgroundImage: {
       'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -36,6 +35,6 @@ const config: Config = {
     },
   },
 },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 }
 export default config

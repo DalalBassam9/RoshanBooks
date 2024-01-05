@@ -12,9 +12,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '../../redux/cartSlice';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { ThunkDispatch } from 'redux-thunk';
+import {  clearCart } from '../../redux/cartSlice';
 import { AnyAction } from 'redux';
-
+import { useRouter } from 'next/navigation';
 export default function Cart() {
+    const router = useRouter();
     const { user, isLoading } = useAuth({ middleware: 'auth' })
     const dispatch: ThunkDispatch<CartState, unknown, AnyAction> = useDispatch();
     const items = useSelector((state: { cart: CartState }) => state.cart.items);
@@ -53,7 +55,7 @@ export default function Cart() {
                                 <p className="mb-1 text-lg font-bold">{total} </p>
                             </div>
                         </div>
-                        <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+                        <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={() => router.push('/checkout')} >Check out</button>
                     </div>
                 </div>
             </div>

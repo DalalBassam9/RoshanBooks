@@ -7,24 +7,31 @@ import { WishlistState } from "../../redux/wishlistSlice";
 import { getMyWishlist, removeFromWishlist, isWishlisted, addToWishlist } from '../../redux/wishlistSlice';
 import { useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
+import Rating from '@mui/material/Rating';
+
 interface Product {
     productId: number;
     name: string;
     price: number;
-    image: string
+    image: string;
+    sumRatings: number;
 }
 
 interface ProductCardProps {
     product: Product;
+    handleAddToWishlist: (productId: number) => void;
     checkIfWishlisted: (productId: number) => boolean;
     handleRemoveFromWishlist: (productId: number) => void;
 }
+
 function ProductCard({
     product,
+    handleAddToWishlist,
     handleRemoveFromWishlist
 }: ProductCardProps) {
     const dispatch = useDispatch();
     useSelector(isWishlisted);
+    const token:any = localStorage.getItem('token');
 
     return (
         <div className="relative  bg-white shadow-md rounded-3xl p-2 my-3 cursor-pointer">
@@ -32,35 +39,34 @@ function ProductCard({
 
                 <img className="h-full rounded-2xl w-full object-cover" src={product.image} />
                 <p className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
-                    {isWishlisted(product.productId) ? (
-                        <svg onClick={() => {
-                            dispatch(
-                                removeFromWishlist({
-                                    productId: product.productId
-                                }) as unknown as AnyAction
-                            );
-                        }} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                    <button onClick={
+                            handleAddToWishlist(
+                                product.productId)     
+                        
+                    }>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                         </svg>
-                    ) : (
-                        <button onClick={() => {
-                            dispatch(
-                                addToWishlist(
-                                    product.productId
-                                ) as unknown as AnyAction
-                            );
-                        }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </svg>
-                        </button>
-                    )}
+                    </button>
+
                 </p>
 
             </div>
             <div className="mt-4 pl-2 mb-2 flex justify-between ">
                 <div>
                     <p className="text-lg font-semibold text-gray-900 mb-0">{product.name}</p>
+                    <span className="mt-2">
+                        <Rating
+                            readOnly
+                            precision={0.5}
+                            name="read-only"
+                            value={product?.sumRatings || 0}
+                            style={{
+                                color: "#E5BEA0"
+                            }} size="small"
+                        />
+                    </span>
                     <p className="text-xl  text-Purpl mt-0">${product.price}</p>
                 </div>
                 <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">

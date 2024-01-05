@@ -6,7 +6,7 @@ interface User {
     name: string;
     email: string;
     firstName: string;
-    lastName:string
+    lastName: string
 }
 
 interface UserState {
@@ -38,7 +38,22 @@ export const fetchUser = createAsyncThunk(
         }
     }
 );
-
+export const logoutUser = createAsyncThunk(
+    'user/logoutUser',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`http://127.0.0.1:8000/api/logout`, {}, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            localStorage.removeItem('token'); // remove the token from local storage
+            return response.data;
+        } catch (err: any) {
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -47,17 +62,20 @@ const userSlice = createSlice({
         builder.addCase(fetchUser.pending, (state) => {
             state.loading = true;
         })
-
+        builder.addCase(logoutUser.fulfilled, (state) => {
+            // Reset the state to its initial state.
+            return initialState;
+        })
             .addCase(fetchUser.fulfilled, (state, action) => {
                 state.user = action.payload;
                 state.loading = false;
             })
-      
+
             .addCase(fetchUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error ? action.error.message : null;
             })
-           
+
     },
 });
 

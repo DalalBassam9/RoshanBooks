@@ -7,15 +7,6 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import ProductCard from './ProductCard';
-const sortOptions = [
-    { name: 'Price: Low to High', href: '#', current: false },
-    { name: 'Price: High to Low', href: '#', current: false },
-    { name: 'Most Popular', href: '#', current: true },
-    { name: 'Best Rating', href: '#', current: false },
-    { name: 'Newest', href: '#', current: false },
-];
-
-
 
 
 const filters = [
@@ -44,9 +35,11 @@ function classNames(...classes) {
 
 interface ProductListProps {
     data: Product[];
-}
+    sortOptions: string[];
+}  
 function ProductsList({
-    data
+    data,
+    sortOptions
 }: ProductListProps) {
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
@@ -172,7 +165,7 @@ function ProductsList({
                                     <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <div className="py-1">
                                             {sortOptions.map((option) => (
-                                                <Menu.Item key={option.name}>
+                                                <Menu.Item key={option.sort || ''}>
                                                     {({ active }) => (
                                                         <a
                                                             href={option.href}
@@ -182,7 +175,7 @@ function ProductsList({
                                                                 'block px-4 py-2 text-sm'
                                                             )}
                                                         >
-                                                            {option.name}
+                                                            {option.sort}
                                                         </a>
                                                     )}
                                                 </Menu.Item>
@@ -258,7 +251,7 @@ function ProductsList({
                             {/* Product grid */}
                                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
                                         {data.map((product: any) => (
-                                            <ProductCard key={product.productId} product={product} />
+                                            <ProductCard key={product.productId} product={product}  />
                                         ))}
 
                                     </div>

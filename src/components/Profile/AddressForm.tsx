@@ -46,7 +46,6 @@ function AddressForm({
 }: AddressFormProps) {
     const [loading = false, setLoading] = React.useState<boolean>(false);
     const [errors, setErrors] = React.useState<Record<string, string>>({});
-
     const [cities, setCities] = React.useState([]);
     const [formData, setFormData] = React.useState<FormData>({
         phone: "",
@@ -100,7 +99,6 @@ function AddressForm({
     };
 
 
-
     React.useEffect(() => {
         getCities();
 
@@ -132,7 +130,7 @@ function AddressForm({
             setLoading(true);
             await schema.validate(formData, { abortEarly: false });
             if (selectedAddress) {
-                await axios.put(process.env.NEXT_PUBLIC_API_URL + `/api/my/addresses/` + selectedAddress.addressId, formData,
+                await axios.put(process.env.NEXT_PUBLIC_API_URL + `/api/addresses/` + selectedAddress.addressId, formData,
                     {
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -146,7 +144,7 @@ function AddressForm({
                     text: 'Address updated successfully',
                 })
             } else {
-                await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/my/addresses`, formData,
+                await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/addresses`, formData,
                     {
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -184,22 +182,14 @@ function AddressForm({
         }
     };
 
-
-
-
-
     return (
-
-
-        <div className="bg-white ">
+        <div>
             <Modal
                 isOpen={showAddressForm}
                 onRequestClose={handleClose}
-
-                className="m-auto p-4 bg-white rounded shadow-lg w-1/3"
+                className="m-auto p-4 bg-white rounded shadow-lg w-1/2"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex"
             >
-
                 <form noValidate autoComplete="off" onSubmit={handleSubmit} >
                     <div className="p-6 border-b border-gray-900/10 pb-12">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>

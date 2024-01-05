@@ -8,8 +8,6 @@ import Swal from "sweetalert2";
 
 const Addresses: React.FC = () => {
     const router = useRouter();
-
-
     const [loading, setLoading] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
     const [showAddressForm, setShowAddressForm] = React.useState(false);
@@ -45,22 +43,27 @@ const Addresses: React.FC = () => {
     };
     const setDefaultAddress = async (addressId: string) => {
         try {
-            setLoading(true);
-            await axios.put(process.env.NEXT_PUBLIC_API_URL + `/api/addresses/set-default-address/${addressId}`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
+
+            const response = await axios.put(process.env.NEXT_PUBLIC_API_URL + "/api/set-default-address/" + addressId, {}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
-            );
+            });
 
             getAddresses();
         } catch (error: any) {
-
-        } finally {
-            setLoading(false);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data?.message || error.message,
+            })
         }
-    }
+    };
 
 
 
@@ -84,7 +87,7 @@ const Addresses: React.FC = () => {
     const onDelete = async (addressId: string) => {
         try {
             setLoadingForDelete(true);
-            await axios.delete(process.env.NEXT_PUBLIC_API_URL + "/api/my/addresses/" + addressId,
+            await axios.delete(process.env.NEXT_PUBLIC_API_URL + "/api/addresses/" + addressId,
                 {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -147,7 +150,7 @@ const Addresses: React.FC = () => {
                         <div className="sm:flex sm:items-start">
                             <div className="mt-3 sm:ml-4 sm:mt-0">
                                 {address.default === 1 ? (
-                                    <p className="rounded-full bg-indigo-500 px-2.5 py-1 text-xs font-semibold leading-5 text-white">
+                                    <p className="rounded-full bg-beige px-2.5 py-1 text-md font-semibold leading-5 text-white">
                                         default
                                     </p>
                                 ) :
@@ -155,15 +158,15 @@ const Addresses: React.FC = () => {
 
                                 }
 
-                                <div className="text-sm font-medium text-gray-900">{address.phone}</div>
-                                <div className="text-sm font-medium text-gray-900">{address.firstName} {address.lastName}</div>
-                                <div className="mt-1 text-sm text-gray-600 sm:flex sm:items-center">
-                                    <div>Expires 12/20</div>
-                                    <span className="hidden sm:mx-2 sm:inline" aria-hidden="true">
-                                        &middot;
-                                    </span>
-                                    <div className="mt-1 sm:mt-0">Last updated on 22 Aug 2017</div>
-                                </div>
+                       <ul>
+                                <li className="text-sm font-medium text-gray-900">{address.phone}</li>
+                                <li className="text-sm font-medium text-gray-900">{address.firstName} {address.lastName}</li>
+                                <li className="text-sm font-medium text-gray-900">{address.district}</li>
+                                <li className="text-sm font-medium text-gray-900">{address.city?.name}</li>
+                                <li className="text-sm font-medium text-gray-900">{address.address}</li>
+
+                                </ul>
+                               
                             </div>
                         </div>
                         <div className="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">

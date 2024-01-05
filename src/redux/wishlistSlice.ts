@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { rejectWithValue } from '@reduxjs/toolkit';
-
+import Swal from 'sweetalert2';
 interface Item {
     productId: any;
     // other properties
@@ -16,7 +16,7 @@ const initialState: WishlistState = { items: [], loading: 'idle' };
 
 
 export const isWishlisted = (state: WishlistState) => (productId: any) => {
-    return  state.items.some(item => item.productId === productId);
+    return state.items.some(item => item.productId === productId);
 };
 // Async thunk for getting the wishlist
 
@@ -33,22 +33,22 @@ export const getMyWishlist = createAsyncThunk('wishlist/getMyWishlist', async ()
 // Async thunk for adding to wishlist
 
 export const addToWishlist = createAsyncThunk('wishlist/add',
-    async ({ productId }: { productId: string }) => {
+    async ({ productId }: { productId: string,token:string }) => {
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/api/my/wishlist-add/${productId}`,
+            const response = await axios.post(`http://127.0.0.1:8000/api/my/wishlist/${productId}`,
                 {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            });
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
             return response.data.data;
         } catch (err: any) {
-            return err.response.data;
+      
         }
     });
 
 export const removeFromWishlist = createAsyncThunk('wishlist/remove',
-    async ({ productId}: { productId: string }) => {
+    async ({ productId }: { productId: string }) => {
         try {
             const response = await axios.delete(`http://127.0.0.1:8000/api/my/wishlist/${productId}`, {
                 headers: {
@@ -95,3 +95,4 @@ export const wishlistSlice = createSlice({
 });
 
 export default wishlistSlice.reducer;
+

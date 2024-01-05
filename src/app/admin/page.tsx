@@ -1,12 +1,12 @@
-"use client";
-import useAuth from "../lib/useAuth";
-export default function home() {
+import Layout from './components/Layout';// Replace with your actual content component
 
-    const { user, isLoading } = useAuth({ middleware: 'auth' })
+
+export default function Page() {
+ 
 
     return (
         <div className="bgcolor">
+            <Layout>tytyt</Layout>
         </div>
-    )
+    );
 }
-
