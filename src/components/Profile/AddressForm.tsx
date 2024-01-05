@@ -192,9 +192,9 @@ function AddressForm({
             >
                 <form noValidate autoComplete="off" onSubmit={handleSubmit} >
                     <div className="p-6 border-b border-gray-900/10 pb-12">
-                        <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
-                        <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
-
+                        <h2 className="text-base font-semibold leading-7 text-gray-900">
+                            {selectedAddress ?  'Update Address'  :  'Add Address' }</h2>
+                    
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
                                 <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
@@ -208,7 +208,8 @@ function AddressForm({
                                         value={formData.firstName}
                                         onChange={(e) => handleChange('firstName', e.target.value)}
                                         autoComplete="given-name"
-                                        className={`block appearance-none w-full bg-white border px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline ${errors.firstName ? 'border-red-500' : 'border-gray-400 hover:border-gray-500'}`}
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.firstName} 'border-red-500' : ''}`}
+
 
                                     />
                                 </div>
@@ -226,8 +227,7 @@ function AddressForm({
                                         value={formData.lastName}
                                         onChange={(e) => handleChange('lastName', e.target.value)}
                                         autoComplete="family-name"
-                                        className={`block appearance-none w-full bg-white border px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline ${errors.lastName ? 'border-red-500' : 'border-gray-400 hover:border-gray-500'}`}
-
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.lastName} 'border-red-500' : ''}`}
 
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.lastName}</div>
@@ -243,7 +243,7 @@ function AddressForm({
                                 </label>
                                 <div className="mt-2">
                                     <select
-                                        className={`block appearance-none w-full bg-white border px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline ${errors.cityId ? 'border-red-500' : 'border-gray-400 hover:border-gray-500'}`}
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.cityId ? 'border-red-500' : ''}`}
                                         value={formData.cityId}
                                         onChange={(e) => handleChange('cityId', e.target.value)}
                                     >
@@ -271,7 +271,10 @@ function AddressForm({
 
                                         autoComplete="phone"
 
-                                        className={`block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.phone ? 'border-red-500' : ''}`}
+                                          className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.phone ? 'border-red-500' : ''}`}
+
+
+
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.phone}</div>
 
@@ -290,7 +293,9 @@ function AddressForm({
                                         value={formData.district}
                                         onChange={(e) => handleChange('district', e.target.value)}
                                         autoComplete="district"
-                                        className={`block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.district ? 'border-red-500' : ''}`}
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.district ? 'border-red-500' : ''}`}
+
+
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.district}</div>
 
@@ -309,8 +314,9 @@ function AddressForm({
                                         value={formData.address}
                                         onChange={(e) => handleChange('address', e.target.value)}
                                         rows={4}
-                                        className={`block appearance-none w-full bg-white border px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline ${errors.address ? 'border-red-500' : 'border-gray-400 hover:border-gray-500'}`}
-                                        defaultValue={''}
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.address ? 'border-red-500' : ''}`}
+
+                                                 defaultValue={''}
                                     />
 
                                     <div className="text-red-500 text-sm mt-2">{errors.address}</div>
@@ -327,7 +333,7 @@ function AddressForm({
                             </button>
                             <button
                                 type="submit"
-                                className="rounded-md bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="rounded-md bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige"
                             >
                                 Save
                             </button>
