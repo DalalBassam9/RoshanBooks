@@ -438,7 +438,7 @@ const AccountInformation: React.FC = () => {
                                             id="first-name"
                                             value={userData.firstName}
                                             onChange={(e) => handleChange('firstName', e.target.value)}
-                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm ${errors.firstName ? 'border-red-500' : ''}`}
+                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm ${errors.firstName ? 'border-red-500' : ''}`}
                                             autoComplete="given-name"
                                         />
 
@@ -456,7 +456,7 @@ const AccountInformation: React.FC = () => {
                                             name="lastName"
                                             id="last-name" value={userData.lastName}
                                             onChange={(e) => handleChange('firstName', e.target.value)}
-                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm ${errors.lastName ? 'border-red-500' : ''}`}
+                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.lastName ? 'border-red-500' : ''}`}
 
 
                                         />
@@ -475,7 +475,7 @@ const AccountInformation: React.FC = () => {
                                             id="phone"
                                             value={userData.phone}
                                             onChange={(e) => handleChange('phone', e.target.value)}
-                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm ${errors.phone ? 'border-red-500' : ''}`}
+                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.phone ? 'border-red-500' : ''}`}
 
                                         />
 
@@ -495,7 +495,7 @@ const AccountInformation: React.FC = () => {
                                             autoComplete="email"
                                             value={userData.email}
                                             onChange={(e) => handleChange('firstName', e.target.value)}
-                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm ${errors.email ? 'border-red-500' : ''}`}
+                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.email ? 'border-red-500' : ''}`}
 
                                         />
 
@@ -542,7 +542,7 @@ const AccountInformation: React.FC = () => {
                                             name="password"
                                             id="password"
                                             onChange={(e) => handlePasswordChange('password', e.target.value)}
-                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm ${errors.password ? 'border-red-500' : ''}`}
+                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.password ? 'border-red-500' : ''}`}
 
 
                                         />
@@ -562,7 +562,7 @@ const AccountInformation: React.FC = () => {
                                             name="passwordConfirmation"
                                             id="password"
                                             onChange={(e) => handlePasswordChange('passwordConfirmation', e.target.value)}
-                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm ${errors.password ? 'border-red-500' : ''}`}
+                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.password ? 'border-red-500' : ''}`}
 
                                         />
 
@@ -584,7 +584,7 @@ const AccountInformation: React.FC = () => {
                             </button>
                             <button
                                 type="submit"
-                                className="rounded-md bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="rounded-md bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige"
                             >
                                 change password
                             </button>
@@ -593,48 +593,6 @@ const AccountInformation: React.FC = () => {
 
                 </div>
 
-
-
-
-
-                <div className="px-4 sm:px-6 ">
-
-                    <div className="overflow-hidden rounded-lg bg-white mt-8
-          max-w-6xl
-          mx-auto
-          grid grid-cols-1
-          gap-6
-          sm:px-6
-          lg:max-w-7xl  shadow">
-                        <div className="bg-white p-6">
-                            <div className="sm:flex sm:items-center sm:justify-between">
-                                <div className="sm:flex sm:space-x-5">
-                                    <div className="flex-shrink-0">
-                                        {user?.image ? (
-                                            <img
-                                                className="mx-auto h-40 w-40 rounded-full border-beige border-4"
-                                                src={user?.image}
-                                            />
-                                        ) : (
-                                            <img
-                                                className='rounded-full h-44 w-44 border-beige border-4'
-                                                src="https://www.ubuy.com.jo/skin/frontend/default/ubuycom-v1/images/default-avatar.jpg"
-                                            />
-                                        )}
-
-
-                                    </div>
-                                    <div className="mt-4 text-center sm:mt-4 sm:pt-1 sm:text-left">
-                                        <p className="text-xl font-medium text-gray-600">Welcome back,</p>
-                                        <p className="text-xl font-bold text-gray-900 sm:text-2xl">{user?.firstName}</p>
-                                        <p className="text-xl font-medium text-gray-600">{user?.email}</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </SidebarProfile>
         </div>
     );

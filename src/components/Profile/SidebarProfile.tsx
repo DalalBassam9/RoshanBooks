@@ -1,11 +1,5 @@
 "use client";
-import React from 'react';
-import Tabs from '../Tabs/Tabs';
-import AccountInformation from './AccountInformation';
-import Addresses from './Addresses';
-import Orders from './Orders';
-import Ratings from './Ratings';
-import Wishlist from './Wishlist';
+import React from 'react'
 import { UserState } from '../../redux/userSlice';
 import Link from 'next/link';
 import {
@@ -20,13 +14,8 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {
     Bars3Icon,
-    CalendarIcon,
-    ChartPieIcon,
-    DocumentDuplicateIcon,
-    FolderIcon,
     GlobeAltIcon,
     UserIcon,
-    UsersIcon,
     XMarkIcon,
     ShoppingCartIcon,
     HeartIcon,
@@ -121,14 +110,14 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
                                                               
                                                                 className={classNames(
                                                                     item.current
-                                                                        ? 'bg-gray-50 text-indigo-600'
-                                                                        : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
+                                                                        ? 'bg-gray-50 text-beige'
+                                                                        : 'text-gray-700 hover:text-beige hover:bg-gray-50',
                                                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                                                                 )}
                                                                     passHref>
                                                                 <item.icon
                                                                     className={classNames(
-                                                                        item.current ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600',
+                                                                        item.current ? 'text-beige' : 'text-gray-400 group-hover:text-beige',
                                                                         'h-6 w-6 shrink-0'
                                                                     )}
                                                                     aria-hidden="true"
@@ -163,8 +152,8 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
                                        
                                                 className={classNames(
                                                     item.current
-                                                        ? 'bg-gray-50 text-indigo-600'
-                                                        : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
+                                                        ? 'bg-gray-50 text-beige'
+                                                        : 'text-gray-700 hover:text-beige hover:bg-gray-50',
                                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                                                 )}
                                                 passHref >
@@ -172,7 +161,7 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
 
                                                 <item.icon
                                                     className={classNames(
-                                                        item.current ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600',
+                                                        item.current ? 'text-beige' : 'text-gray-400 group-hover:text-beige',
                                                         'h-6 w-6 shrink-0'
                                                     )}
                                                     aria-hidden="true"
