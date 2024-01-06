@@ -1,6 +1,4 @@
 "use client";
-import Head from 'next/head'
-import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import axios from "axios";
@@ -61,7 +59,6 @@ export default function Register() {
             [field]: value,
         }));
 
-        // Validate the field using Yup
         validateField(field, value);
     };
 
@@ -81,7 +78,7 @@ export default function Register() {
             router.push("/login");
         } catch (error: any) {
             if (error instanceof Yup.ValidationError) {
-                const errors: { [key: string]: string } = {}; // Specify the type of 'errors' object
+                const errors: { [key: string]: string } = {}; 
                 error.inner.forEach((error: any) => {
                     errors[error.path] = error.message;
                 });
@@ -90,7 +87,7 @@ export default function Register() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: error.response?.data?.message || error.message, // Use optional chaining to access nested properties
+                    text: error.response?.data?.message || error.message, 
                 });
 
             }
@@ -101,7 +98,6 @@ export default function Register() {
     };
     return (
         <div>
-
             <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
          
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
@@ -120,9 +116,6 @@ export default function Register() {
                         </div>
 
 
-
-
-
                         <form className="space-y-6" noValidate autoComplete="off" onSubmit={handleSubmit} >
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -137,7 +130,7 @@ export default function Register() {
                                         onChange={(e) => handleChange('email', e.target.value)}
                                         autoComplete="email"
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.email}</div>
 
@@ -157,7 +150,7 @@ export default function Register() {
                                         onChange={(e) => handleChange('password', e.target.value)}
                                         autoComplete="current-password"
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.password}</div>
 
@@ -174,10 +167,9 @@ export default function Register() {
                                         id="first-name"
                                         value={formData.firstName}
                                         onChange={(e) => handleChange('firstName', e.target.value)}
-                                        autoComplete="given-name"
-                                        className={`block appearance-none w-full bg-white border px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline ${errors.firstName ? 'border-red-500' : 'border-gray-400 hover:border-gray-500'}`}
-
-                                    />
+                                        autoComplete="name"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
+                                        />
                                     <div className="text-red-500 text-sm mt-2">{errors.firstName}</div>
 
                                 </div>
@@ -193,15 +185,11 @@ export default function Register() {
                                     value={formData.lastName}
                                     onChange={(e) => handleChange('lastName', e.target.value)}
                                     autoComplete="family-name"
-                                    className={`block appearance-none w-full bg-white border px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline ${errors.lastName ? 'border-red-500' : 'border-gray-400 hover:border-gray-500'}`}
-
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
 
                                 />
                                 <div className="text-red-500 text-sm mt-2">{errors.lastName}</div>
-
                             </div>
-
-
 
                             <div>
                                 <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
@@ -216,7 +204,7 @@ export default function Register() {
                                         autoComplete="phone"
                                         required
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
-                                    />
+                                       />
                                     <div className="text-red-500 text-sm mt-2">{errors.phone}</div>
 
                                 </div>
@@ -236,7 +224,7 @@ export default function Register() {
                                 </div>
 
                                 <div className="text-sm leading-6">
-                                    <a href="#" className="font-semibold text-beige hover:text-indigo-500">
+                                    <a href="#" className="font-semibold text-beige hover:text-beige">
                                         Forgot password?
                                     </a>
                                 </div>
@@ -244,10 +232,12 @@ export default function Register() {
 
                             <div>
                                 <button
+                                    disabled={loading}
                                     type="submit"
-                                    className="flex w-full justify-center rounded-md bg-beige px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    className={`flex w-full justify-center rounded-md bg-beige px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige  ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 >
-                                    Sign in
+
+                                    {loading ? 'Loading...' : 'Sign in'}
                                 </button>
                             </div>
                         </form>

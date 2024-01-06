@@ -2,11 +2,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
-import Label from '../../components/label'
-import Input from '../../components/input'
-import Button from '../../components/button'
-import Errors from '../../components/errors'
-import useAuth from '../lib/useAuth'
 import * as Yup from 'yup';
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -54,7 +49,6 @@ export default function Login() {
             [field]: value,
         }));
 
-        // Validate the field using Yup
         validateField(field, value);
     };
 
@@ -136,7 +130,7 @@ export default function Login() {
                                         onChange={(e) => handleChange('email', e.target.value)}
                                         autoComplete="email"
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.email}</div>
 
@@ -156,7 +150,7 @@ export default function Login() {
                                         onChange={(e) => handleChange('password', e.target.value)}
                                         autoComplete="current-password"
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.password}</div>
 
@@ -169,7 +163,7 @@ export default function Login() {
                                         id="remember-me"
                                         name="remember-me"
                                         type="checkbox"
-                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                        className="h-4 w-4 rounded border-gray-300 text-beige focus:ring-beige"
                                     />
                                     <label htmlFor="remember-me" className="ml-3 block text-sm leading-6 text-gray-900">
                                         Remember me
@@ -185,10 +179,12 @@ export default function Login() {
 
                             <div>
                                 <button
+                                    disabled={loading}
                                     type="submit"
-                                    className="flex w-full justify-center rounded-md bg-beige px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige"
+                                    className={`flex w-full justify-center rounded-md bg-beige px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige  ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}   
                                 >
-                                    Sign in
+
+                                    {loading ? 'Loading...' : 'Sign in'}
                                 </button>
                             </div>
                         </form>

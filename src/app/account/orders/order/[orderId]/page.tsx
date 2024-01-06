@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Tabs from "../../../../../components/Tabs/Tabs";
-import AccountInformation from '../../../../../components/Profile/AccountInformation';
+import AccountInformation from '../../../../../components/Profile/UpdateAccountInformation';
 import Addresses from '../../../../../components/Profile/Addresses';
 import Orders from '../../../../../components/Profile/Orders';
 import Wishlist from '../../../../../components/Profile/Wishlist';
@@ -112,7 +112,7 @@ function Order({ params }: { params: any }) {
                                                 <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                                     Price
                                                 </th>
-                                                
+
                                                 <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                                     total
                                                 </th>
