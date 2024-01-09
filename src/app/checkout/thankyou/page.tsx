@@ -12,6 +12,11 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { useRouter } from 'next/navigation';
+import OrderItemSummary from "../../../components/Order/OrderItemSummary";
+import OrderAddressCard from "../../../components/Order/OrderAddressCard";
+
+
+
 interface Order {
     orderId: number,
     totalPrice: number,
@@ -35,7 +40,7 @@ interface address {
     lastName: string;
 }
 interface city {
-   name: string;
+    name: string;
 }
 const ThankYou = () => {
     const [addresses, setِِAddresses] = React.useState([]);
@@ -79,18 +84,10 @@ const ThankYou = () => {
                     </div>
 
                     <div className="mt-8 p-4 relative flex flex-col  bg-white shadow rounded-md">
-                      
+
                         <div className="py-5  rounded-md bg-white">
                             <h1>Ship To</h1>
-                            <ul role="list">
-
-                                <li className="text-sm font-medium text-gray-900">{order.address.phone}</li>
-                                <li className="text-sm font-medium text-gray-900">{order.address.firstName} {order.address.lastName}</li>
-                                <li className="text-sm font-medium text-gray-900">{order.address.district}</li>
-                                <li className="text-sm font-medium text-gray-900">{order.address.city?.name}</li>
-                                <li className="text-sm font-medium text-gray-900">{order.address.address}</li>
-
-                            </ul>
+                           <OrderAddressCard order={order} />
                         </div>
                     </div>
                 </div>
@@ -98,21 +95,8 @@ const ThankYou = () => {
                     <div className="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
                         <div className="">
                             <div className="px-3">
-                                {order && order.order_items && order.order_items.map((item: any) => (
-                                    <div className="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
-                                        <div className="w-full flex items-center">
-                                            <div className="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
-                                                <img src={item.product.image} alt="" />
-                                            </div>
-                                            <div className="flex-grow pl-3">
-                                                <h6 className="font-semibold uppercase text-gray-600">{item.product.name}</h6>
-                                                <p className="text-gray-400">x {item.quantity}</p>
-                                            </div>
-                                            <div>
-                                                <span className="font-semibold text-gray-600 text-xl">{item.price}</span><span className="font-semibold text-gray-600 text-sm">.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                {order && order.order_items && order.order_items.map((orderItem: any) => (
+                                    <OrderItemSummary orderItem={orderItem} />
                                 ))}
                                 <div className="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
                                     <div className="w-full flex items-center">
