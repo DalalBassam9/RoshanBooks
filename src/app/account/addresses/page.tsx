@@ -44,16 +44,16 @@ const Addresses: React.FC = () => {
 
     return (
         <div>
-                {showAddressForm && (
-                    <AddressForm
-                        showAddressForm={showAddressForm}
-                        setShowAddressForm={setShowAddressForm}
-                        selectedAddress={selectedAddress}
-                        reloadData={() => getAddresses()}
-                        setSelectedAddress={setSelectedAddress}
-                    />
+            {showAddressForm && (
+                <AddressForm
+                    showAddressForm={showAddressForm}
+                    setShowAddressForm={setShowAddressForm}
+                    selectedAddress={selectedAddress}
+                    reloadData={() => getAddresses()}
+                    setSelectedAddress={setSelectedAddress}
+                />
 
-                )}
+            )}
 
             <SidebarProfile>
 
@@ -80,8 +80,8 @@ const Addresses: React.FC = () => {
                         setShowAddressForm={setShowAddressForm}
                         reloadData={() => getAddresses()}
                         setSelectedAddress={setSelectedAddress}
-                 
-             />
+
+                    />
 
 
                 ))}

@@ -2,7 +2,6 @@
 import React from 'react';
 import useAuth from '../lib/useAuth';
 import { UserState } from '../../redux/userSlice';
-
 import {
     fetchUser,
     logoutUser
