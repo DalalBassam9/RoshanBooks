@@ -8,14 +8,8 @@ import { getMyWishlist, removeFromWishlist, isWishlisted, addToWishlist } from '
 import { useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import Rating from '@mui/material/Rating';
+import { Product} from "../../interfaces";
 
-interface Product {
-    productId: number;
-    name: string;
-    price: number;
-    image: string;
-    sumRatings: number;
-}
 
 interface ProductCardProps {
     product: Product;

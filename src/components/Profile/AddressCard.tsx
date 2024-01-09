@@ -9,8 +9,8 @@ import Swal from "sweetalert2";
 interface AddressProps {
     reloadData: any,
     address: any,
-    setSelectedAddress : any,
-    setShowAddressForm:any
+    setSelectedAddress: any,
+    setShowAddressForm: any
 
 }
 function AddressCard(
@@ -19,7 +19,7 @@ function AddressCard(
         reloadData,
         setShowAddressForm,
         address
-    }: AddressProps 
+    }: AddressProps
 
 ) {
 
@@ -102,70 +102,70 @@ function AddressCard(
 
     return (
         <div>
-                    <div className="mt-5 mx-4">
-                        <div className="rounded-md bg-white px-6 py-5 sm:flex sm:items-start sm:justify-between">
-                            <div className="sm:flex sm:items-start">
+            <div className="mt-5 mx-4">
+                <div className="rounded-md bg-white px-6 py-5 sm:flex sm:items-start sm:justify-between">
+                    <div className="sm:flex sm:items-start">
                         <div className="mt-3 sm:ml-4 sm:mt-0">
-                            
+
                             <div className="my-2">
-                                    {address.default === 1 ? (
-                                        <span className="rounded-full bg-beige px-2.5 py-1 text-md font-semibold leading-5 text-white">
-                                            default
-                                        </span>
-                                    ) :
-                                        null
-
-                                }
-                                
-                            </div>
-
-                            <div>
-                                    <ul>
-                                        <li className="text-sm py-2 font-medium text-gray-900">{address.phone}</li>
-                                        <li className="text-sm py-1 font-medium text-gray-900">{address.firstName} {address.lastName}</li>
-                                        <li className="text-sm py-1 font-medium text-gray-900">{address.district}</li>
-                                        <li className="text-sm py-1 font-medium text-gray-900">{address.city?.name}</li>
-                                        <li className="text-sm py-1 font-medium text-gray-900">{address.address}</li>
-
-                                    </ul>
-                            </div>
-                                </div>
-                            </div>
-                            <div className="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
-                                {address.default === 0 ? (
-                                    <button
-                                        type="button"
-                                        onClick={() => setDefaultAddress(address.addressId)}
-                                        className="inline-flex mx-1 items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                                    >
-                                        set default
-                                    </button>
+                                {address.default === 1 ? (
+                                    <span className="rounded-full bg-beige px-2.5 py-1 text-md font-semibold leading-5 text-white">
+                                        default
+                                    </span>
                                 ) :
                                     null
 
                                 }
 
-                                <button
-                                    type="button"
-                                    onClick={() => handleShowAddressForm(address)}
-                                    className="inline-flex mx-1 items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    onClick={() => [
-                                        setSelectedAddress(address),
-                                        deleteAddress(address.addressId),
-                                    ]}
-                                    type="button"
-                                    className="inline-flex mx-1 items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                                >
-                                    Delete
-                                </button>
+                            </div>
+
+                            <div>
+                                <ul>
+                                    <li className="text-sm py-2 font-medium text-gray-900">{address.phone}</li>
+                                    <li className="text-sm py-1 font-medium text-gray-900">{address.firstName} {address.lastName}</li>
+                                    <li className="text-sm py-1 font-medium text-gray-900">{address.district}</li>
+                                    <li className="text-sm py-1 font-medium text-gray-900">{address.city?.name}</li>
+                                    <li className="text-sm py-1 font-medium text-gray-900">{address.address}</li>
+
+                                </ul>
                             </div>
                         </div>
-
                     </div>
+                    <div className="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
+                        {address.default === 0 ? (
+                            <button
+                                type="button"
+                                onClick={() => setDefaultAddress(address.addressId)}
+                                className="inline-flex mx-1 items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                            >
+                                set default
+                            </button>
+                        ) :
+                            null
+
+                        }
+
+                        <button
+                            type="button"
+                            onClick={() => handleShowAddressForm(address)}
+                            className="inline-flex mx-1 items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        >
+                            Edit
+                        </button>
+                        <button
+                            onClick={() => [
+                                setSelectedAddress(address),
+                                deleteAddress(address.addressId),
+                            ]}
+                            type="button"
+                            className="inline-flex mx-1 items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
 

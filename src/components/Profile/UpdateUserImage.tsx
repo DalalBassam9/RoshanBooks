@@ -22,7 +22,6 @@ function UpdateUserImage(
     }: ImageFormProps
 
 ) {
-
     const dispatch: ThunkDispatch<UserState, unknown, AnyAction> = useDispatch();
     const [image, setImage] = useState(null);
     const [loading = false, setLoading] = React.useState<boolean>(false);

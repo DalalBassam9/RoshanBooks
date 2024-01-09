@@ -15,9 +15,6 @@ interface ProductProps {
     product: Product;
 }
 
-
-
-
 interface FormData {
     review: string;
     rating: string;
