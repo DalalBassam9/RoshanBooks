@@ -1,6 +1,4 @@
 
-"use client";
-import React from 'react';
 
 export const sortOptions= [
   { sort: 'price_asc', label: 'Price: Low to High' },

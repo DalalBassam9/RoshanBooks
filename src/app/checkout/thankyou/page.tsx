@@ -15,33 +15,8 @@ import { useRouter } from 'next/navigation';
 import OrderItemSummary from "../../../components/Order/OrderItemSummary";
 import OrderAddressCard from "../../../components/Order/OrderAddressCard";
 
+import { Order , OrderItem,address,city } from "../../../interfaces";
 
-
-interface Order {
-    orderId: number,
-    totalPrice: number,
-    addressId: number,
-    orderItems: OrderItem[];
-    address: address
-}
-
-interface OrderItem {
-    id: number;
-    productName: string;
-    quantity: number;
-    price: number;
-}
-interface address {
-    phone: number;
-    city: city;
-    district: string;
-    address: string;
-    firstName: string;
-    lastName: string;
-}
-interface city {
-    name: string;
-}
 const ThankYou = () => {
     const [addresses, setِِAddresses] = React.useState([]);
     const [items, setِItems] = React.useState([]);

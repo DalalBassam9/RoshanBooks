@@ -1,9 +1,5 @@
 "use client";
 import React from 'react';
-import Tabs from "../../../../../components/Tabs/Tabs";
-import AccountInformation from '../../../../../components/Profile/UpdateAccountInformation';
-import Addresses from '../../../../../components/Profile/Addresses';
-import Orders from '../../../../../components/Profile/Orders';
 import Wishlist from '../../../../../components/Profile/Wishlist';
 import SidebarProfile from '../../../../../components/Profile/SidebarProfile';
 import { UserState } from '../../../../../redux/userSlice';
@@ -11,38 +7,12 @@ import {
     fetchUser,
     logoutUser
 } from '../../../../../redux/userSlice';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import Link from 'next/link';
 import axios from "axios";
-
-interface Order {
-    orderId: number,
-    orderItems: OrderItem[];
-    address: address,
-
-}
-
-interface OrderItem {
-    product: any;
-    id: number;
-    productName: string;
-    quantity: number;
-    price: number;
-}
-interface address {
-    phone: number;
-    city: city;
-    district: string;
-    address: string;
-    firstName: string;
-    lastName: string;
-}
-interface city {
-    name: string;
-}
+import { Order } from "../../../../../interfaces";
 
 function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
@@ -61,15 +31,14 @@ function Order({ params }: { params: any }) {
             setOrder(response.data.data);
         } catch (error: any) {
 
-
         } finally {
             setLoading(false);
         }
     };
-
     React.useEffect(() => {
         getUserOrder();
     });
+
     const dispatch: ThunkDispatch<UserState, unknown, AnyAction> = useDispatch();
     const user = useSelector((state: { user: UserState }) => state.user.user);
 
@@ -90,6 +59,7 @@ function Order({ params }: { params: any }) {
                                 {order && <li className="text-sm font-medium text-gray-900">{order.address.firstName} {order.address.lastName}</li>}
                                 {order && <li className="text-sm font-medium text-gray-900">{order.address.district}</li>}
                                 {order && <li className="text-sm font-medium text-gray-900">{order.address.address}</li>}
+
 
                             </ul>
                         </div>
@@ -140,8 +110,6 @@ function Order({ params }: { params: any }) {
                         </div>
                     </div>
                 </div>
-
-
             </SidebarProfile>
         </div>
     );

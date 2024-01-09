@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import ProductDetail from '../../../components/Product/ProductDetail';
 import ProductReview from '../../../components/Product/ProductReview';
 import axios from 'axios';
 import { addToCart, removeFromCart } from '../../../redux/cartSlice';
@@ -11,24 +10,10 @@ import useAuth from "../../lib/useAuth";
 import Rating from '@mui/material/Rating';
 import { Provider, useDispatch } from 'react-redux';
 import { getMyWishlist, removeFromWishlist, isWishlisted, addToWishlist } from '../../../redux/wishlistSlice';
-
-
+import  Product  from "../../../interfaces";
 import Swal from "sweetalert2";
 
-let user = {
-    name: 'Some User'
-};
 
-interface Product {
-    productId: number | any;
-    name: string;
-    description: string;
-    price: number | any;
-    image: string;
-    sumRatings: any;
-    countRatings: any
-
-}
 
 export default function product({ params }: { params: any }) {
     const dispatch = useDispatch();

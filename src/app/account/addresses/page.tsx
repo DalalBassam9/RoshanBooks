@@ -10,7 +10,6 @@ import AddressCard from "../../../components/Profile/AddressCard";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-
 const Addresses: React.FC = () => {
     const [loading, setLoading] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
@@ -54,9 +53,7 @@ const Addresses: React.FC = () => {
                 />
 
             )}
-
             <SidebarProfile>
-
                 <div className="bg-white mx-4 shadow sm:rounded-lg">
                     <div className="px-4 py-5 sm:p-6">
                         <div className="flex justify-between">
@@ -68,10 +65,7 @@ const Addresses: React.FC = () => {
                             >
                                 Add new address
                             </button>
-
                         </div>
-
-
                     </div>
                 </div>
 
@@ -83,24 +77,9 @@ const Addresses: React.FC = () => {
 
                     />
 
-
                 ))}
-
-
-
-
-
             </SidebarProfile >
-
-
         </div>
-
-
-
-
-
-
-
 
     )
 

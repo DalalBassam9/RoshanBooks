@@ -11,22 +11,8 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import SortMenu from '../../../components/SortMenu';
 import ProductStatus from '../../../components/ProductStatus';
 import { sortOptions, statusesOptions } from '../../options';
+import { Product,CategoryData } from "../../../interfaces";
 
-interface Category {
-    categoryId: number | any;
-    name: string;
-}
-interface Product {
-    id?: number;
-    name?: string;
-    image?: string;
-    price?: number;
-}
-
-interface CategoryData {
-    categoryId: number | any;
-    name: string;
-}
 
 export default function category({ params }: { params: any }) {
     const dispatch = useDispatch();

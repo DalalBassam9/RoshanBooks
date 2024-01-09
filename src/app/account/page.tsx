@@ -16,14 +16,7 @@ import UpdateUserImage from '../../components/Profile/UpdateUserImage';
 import SidebarProfile from '../../components/Profile/SidebarProfile';
 import Modal from 'react-modal';
 import * as Yup from 'yup';
-
-interface InfoUserData {
-    firstName: any;
-    lastName: any;
-    email: string;
-    phone: string
-
-}
+import { InfoUserData } from "../../interfaces";
 
 const AccountInformation: React.FC = () => {
 
@@ -36,10 +29,10 @@ const AccountInformation: React.FC = () => {
         phone: "",
 
     });
+
     const dispatch: ThunkDispatch<UserState, unknown, AnyAction> = useDispatch();
     const user = useSelector((state: { user: UserState }) => state.user.user);
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
- 
 
     const openModal = () => {
         setModalIsOpen(true);
@@ -65,13 +58,8 @@ const AccountInformation: React.FC = () => {
                 <div className="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
                     <div className="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                         <div className="ml-4 mt-4">
-                            <div className="overflow-hidden  mt-8
-          max-w-6xl
-          mx-auto
-          grid grid-cols-1
-          gap-6
-          sm:px-6
-          lg:max-w-7xl ">
+                            <div className="overflow-hidden gap-6 mt-8 max-w-6xl mx-auto grid grid-cols-1 
+                                             lg:max-w-7xl ">
                                 <div className="flex items-center">
                                     <div className="sm:flex sm:items-center sm:justify-between">
                                         <div className="sm:flex sm:space-x-5">
@@ -98,7 +86,7 @@ const AccountInformation: React.FC = () => {
                                             </div>
                                         </div>
                                     </div>
-                                
+
                                 </div>
 
                                 <div>

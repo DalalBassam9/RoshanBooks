@@ -20,17 +20,9 @@ import ProductStatus from '../components/ProductStatus';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import FilterCategoryMenu  from '../components/FilterCategoryMenu';
 import { sortOptions, statusesOptions } from './options';
-interface Product {
-  id?: number;
-  name?: string;
-  image?: string;
-  price?: number;
-}
+import { Product,Category } from "../interfaces";
 
-interface Category {
-  categoryId: number;
-  name: string;
-}
+
 
 export default function Home() {
  
