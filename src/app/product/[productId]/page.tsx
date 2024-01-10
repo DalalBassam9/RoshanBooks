@@ -10,7 +10,7 @@ import useAuth from "../../lib/useAuth";
 import Rating from '@mui/material/Rating';
 import { Provider, useDispatch } from 'react-redux';
 import { getMyWishlist, removeFromWishlist, isWishlisted, addToWishlist } from '../../../redux/wishlistSlice';
-import  Product  from "../../../interfaces";
+import Product from "../../../interfaces";
 import Swal from "sweetalert2";
 
 
@@ -102,31 +102,31 @@ export default function product({ params }: { params: any }) {
 
                                             </div>
                                             <div className="
- flex-shrink-0">   
-                                                   {isWishlisted(product.productId) ? (
-                                                        <svg onClick={() => {
-                                                            dispatch(
-                                                                removeFromWishlist({
-                                                                    productId: product.productId
-                                                                }) as unknown as AnyAction
-                                                            );
-                                                        }} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ flex-shrink-0">
+                                                {isWishlisted(product.productId) ? (
+                                                    <svg onClick={() => {
+                                                        dispatch(
+                                                            removeFromWishlist({
+                                                                productId: product.productId
+                                                            }) as unknown as AnyAction
+                                                        );
+                                                    }} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                                    </svg>
+                                                ) : (
+                                                    <button onClick={() => {
+                                                        dispatch(
+                                                            addToWishlist(
+                                                                product.productId
+                                                            ) as unknown as AnyAction
+                                                        );
+                                                    }}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                                         </svg>
-                                                    ) : (
-                                                        <button onClick={() => {
-                                                            dispatch(
-                                                                addToWishlist(
-                                                                    product.productId
-                                                                ) as unknown as AnyAction
-                                                            );
-                                                        }}>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                                            </svg>
-                                                        </button>
-                                                    )}
-                                              
+                                                    </button>
+                                                )}
+
 
 
 

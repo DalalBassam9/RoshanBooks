@@ -2,12 +2,11 @@ import { createSlice, createAsyncThunk, PayloadAction, AsyncThunkAction } from '
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-interface CartItem {
-  cartId: number;
-  productId: number;
-  quantity: number;
-  name: string,
-  price: number,
+export interface CartItem {
+
+  productId: any;
+  quantity: any;
+
 }
 
 interface CartState {

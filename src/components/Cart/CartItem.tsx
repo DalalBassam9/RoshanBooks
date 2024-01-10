@@ -1,11 +1,8 @@
 "use client";
 import React from "react";
-import axios from "axios";
-import * as Yup from 'yup';
 import { useState } from 'react';
-import { updateQuantity, removeFromCart } from '../../redux/cartSlice';
-import {  useDispatch } from 'react-redux';
-import { AnyAction } from 'redux';
+import { updateQuantity, removeFromCart, CartItem } from '../../redux/cartSlice';
+import { useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 
 interface Cart {
@@ -22,30 +19,32 @@ interface CartItemProps {
     cartItem: Cart;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ cartItem }) => {
+function CartItem({ cartItem }: CartItemProps) {
+
     const [quantity, setQuantity] = useState(cartItem.quantity);
     const dispatch = useDispatch();
 
     const handleIncrement = () => {
         const newQuantity: number = quantity + 1;
         setQuantity(newQuantity);
-        dispatch(updateQuantity({ productId: cartItem.productId, quantity: newQuantity }) as unknown as AnyAction);
-    };
-
+        const payload: CartItem = { productId: cartItem.productId, quantity: newQuantity };
+        dispatch(updateQuantity(payload));
+      };
 
     const handleDecrement = async () => {
         let newQuantity = quantity - 1;
         if (newQuantity <= 0) {
             newQuantity = 0;
-            await dispatch(removeFromCart(cartItem.cartId) as unknown as AnyAction);
+            await dispatch(removeFromCart(cartItem.cartId));
             Swal.fire('Removed', 'Item removed from cart', 'success');
         } else {
             setQuantity(newQuantity);
-            await dispatch(updateQuantity({ productId: cartItem.productId, quantity: newQuantity }) as unknown as AnyAction);
+            const payload: CartItem = { productId: cartItem.productId, quantity: newQuantity };
+            await dispatch(updateQuantity(payload));
             Swal.fire('Updated', 'Quantity updated successfully', 'success');
         }
     };
- 
+
 
     const handleRemove = async () => {
         const result = await Swal.fire({
@@ -83,7 +82,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem }) => {
                             </div>
                         </div>
                         <div className="flex items-center space-x-4">
-                            <button onClick={handleRemove}   type="button" className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
+                            <button onClick={handleRemove} type="button" className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
                                 <span> Remove</span>
                                 <svg className="h-6 pt-1 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" className=""></path>
