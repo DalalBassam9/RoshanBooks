@@ -45,7 +45,7 @@ export default function Navigation() {
     const cartItems = useSelector((state: any) => state.cart.items);
     const [categories, setCategories] = useState<Category[]>([]);
     const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
-    const dispatch: ThunkDispatch<UserState, unknown, AnyAction> = useDispatch();
+    const dispatch= useDispatch();
 
     useEffect(() => {
         fetchUser();

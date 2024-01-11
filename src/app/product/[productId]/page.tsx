@@ -9,29 +9,44 @@ import { useSelector } from 'react-redux';
 import useAuth from "../../lib/useAuth";
 import Rating from '@mui/material/Rating';
 import { Provider, useDispatch } from 'react-redux';
-import { getMyWishlist, removeFromWishlist, isWishlisted, addToWishlist } from '../../../redux/wishlistSlice';
+import { getMyWishlist, removeFromWishlist, addToWishlist,isWishlisted } from '../../../redux/wishlistSlice';
 import Product from "../../../interfaces";
 import Swal from "sweetalert2";
-
-
+import { RootState } from '../../../redux/store';
+import { fetchWishlist } from './wishlistSlice'; // adjust the import path to your file structure
 
 export default function product({ params }: { params: any }) {
     const dispatch = useDispatch();
     const { user, isLoading } = useAuth({ middleware: 'auth' })
     const [quantity, setQuantity] = useState(1);
-    useSelector(isWishlisted);
-    const token = localStorage.getItem('token');
+
+    const token = localStorage.getItem('token'); // Import RootState type
+
+    const wishlistItems = useSelector(state => state.wishlist.items);
+  
+
     const handleQuantityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setQuantity(Number(event.target.value));
     };
-    const handleAddToWishlist = (params: any) => {
-        dispatch(
-            addToWishlist(
-                { product: params.productId, token: token }
-            ) as unknown as AnyAction
-        );
+    const handleAddToWishlist = (productId: any) => {
+        try {
+            dispatch(addToWishlist(
+                { productId: productId }
+            ));
+        } catch (error: any) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message || error.message,
+            })
+        }
     };
-
+    const handleWishlist = (productId) => {
+            dispatch(isWishlisted(
+                productId
+            ));
+        
+    };
     const [product, setProduct] = React.useState<Product>({
         productId: '',
         name: '',
@@ -63,6 +78,14 @@ export default function product({ params }: { params: any }) {
     useEffect(() => {
         getProduct();
     }, []); // Add an empty dependency array to run the effect only once
+  
+    const Wishlisted = () => {
+        if (Array.isArray(wishlistItems) || !params) {
+            console.error(wishlistItems);
+        }
+
+        return wishlistItems.some(item => item && item.productId === product.productId);
+    };
 
     return (
         <div className="overflow-hidden rounded-lg bg-white mt-8
@@ -72,6 +95,25 @@ export default function product({ params }: { params: any }) {
           gap-6
           sm:px-6
           lg:max-w-7xl  shadow">
+
+            <div>
+                {wishlistItems.map(item => {
+                    if (!item) {
+                        return null; // or return a placeholder component
+                    }
+
+                    return (
+                        <div key={item.productId}>
+                            {item.productId}
+                            {item.name}
+                            {params.productId}
+                        </div>
+                    );
+                })}
+            </div>
+
+
+
             {product ? (
                 <div>
                     <div>
@@ -101,9 +143,8 @@ export default function product({ params }: { params: any }) {
                                                 </span>
 
                                             </div>
-                                            <div className="
- flex-shrink-0">
-                                                {isWishlisted(product.productId) ? (
+                                            <div className="flex-shrink-0">
+                                                {handleWishlist (product.productId) ? (
                                                     <svg onClick={() => {
                                                         dispatch(
                                                             removeFromWishlist({
@@ -115,11 +156,8 @@ export default function product({ params }: { params: any }) {
                                                     </svg>
                                                 ) : (
                                                     <button onClick={() => {
-                                                        dispatch(
-                                                            addToWishlist(
-                                                                product.productId
-                                                            ) as unknown as AnyAction
-                                                        );
+                                                        handleAddToWishlist(product.productId);
+                                                        
                                                     }}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -128,14 +166,8 @@ export default function product({ params }: { params: any }) {
                                                 )}
 
 
-
-
-
-
-
-
-
                                             </div>
+
                                         </div>
                                         <p className="mt-3 text-lg text-3xl leading-relaxed">{product.description}</p>
                                         <div className=" mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">

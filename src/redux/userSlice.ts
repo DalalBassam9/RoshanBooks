@@ -21,12 +21,11 @@ const initialState: UserState = {
     error: null,
 };
 
-// Async thunk for fetching user data
 export const fetchUser = createAsyncThunk(
     'user/fetchUser',
     async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/user`, {
+            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL +`/api/user`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -42,12 +41,12 @@ export const logoutUser = createAsyncThunk(
     'user/logoutUser',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/api/logout`, {}, {
+            const response = await axios.post(process.env.NEXT_PUBLIC_API_URL +`/api/logout`, {}, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             });
-            localStorage.removeItem('token'); // remove the token from local storage
+            localStorage.removeItem('token'); 
             return response.data;
         } catch (err: any) {
             return rejectWithValue(err.response.data);
@@ -63,7 +62,6 @@ const userSlice = createSlice({
             state.loading = true;
         })
         builder.addCase(logoutUser.fulfilled, (state) => {
-            // Reset the state to its initial state.
             return initialState;
         })
             .addCase(fetchUser.fulfilled, (state, action) => {

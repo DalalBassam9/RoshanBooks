@@ -24,7 +24,7 @@ function ProductCard({
     handleRemoveFromWishlist
 }: ProductCardProps) {
     const dispatch = useDispatch();
-    useSelector(isWishlisted);
+
     const token:any = localStorage.getItem('token');
 
     return (

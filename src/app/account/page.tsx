@@ -15,7 +15,6 @@ import UpdatePassword from '../../components/Profile/UpdatePassword';
 import UpdateUserImage from '../../components/Profile/UpdateUserImage';
 import SidebarProfile from '../../components/Profile/SidebarProfile';
 import Modal from 'react-modal';
-import * as Yup from 'yup';
 import { InfoUserData } from "../../interfaces";
 
 const AccountInformation: React.FC = () => {

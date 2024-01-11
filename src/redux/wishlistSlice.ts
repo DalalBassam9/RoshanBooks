@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { rejectWithValue } from '@reduxjs/toolkit';
-import Swal from 'sweetalert2';
-interface Item {
+// Add the import statement for the Item interface
+export interface Item {
     productId: any;
-    // other properties
+    name: string;
+    description: string;
+    price: number;
+    image: string;
 }
 
 interface WishlistState {
@@ -14,14 +16,15 @@ interface WishlistState {
 
 const initialState: WishlistState = { items: [], loading: 'idle' };
 
+const token = localStorage.getItem('token');
 
-export const isWishlisted = (state: WishlistState) => (productId: any) => {
+  export const isWishlisted = (state: WishlistState, productId: string) => {
     return state.items.some(item => item.productId === productId);
-};
+  };
 // Async thunk for getting the wishlist
 
 export const getMyWishlist = createAsyncThunk('wishlist/getMyWishlist', async () => {
-    const response = await axios.get('http://127.0.0.1:8000/api/my/wishlist', {
+    const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + '/api/my/wishlist', {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -33,24 +36,24 @@ export const getMyWishlist = createAsyncThunk('wishlist/getMyWishlist', async ()
 // Async thunk for adding to wishlist
 
 export const addToWishlist = createAsyncThunk('wishlist/add',
-    async ({ productId }: { productId: string,token:string }) => {
+    async ({ productId }: { productId: string }) => {
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/api/my/wishlist/${productId}`,
+            const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/my/wishlist/`, { productId },
                 {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${token}`
                     }
                 });
             return response.data.data;
         } catch (err: any) {
-      
+
         }
     });
 
 export const removeFromWishlist = createAsyncThunk('wishlist/remove',
     async ({ productId }: { productId: string }) => {
         try {
-            const response = await axios.delete(`http://127.0.0.1:8000/api/my/wishlist/${productId}`, {
+            const response = await axios.delete(process.env.NEXT_PUBLIC_API_URL + `/api/my/wishlist/${productId}`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }

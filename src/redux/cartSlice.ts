@@ -20,7 +20,7 @@ const initialState: CartState = { items: [], loading: 'idle' }
 export const addToCart = createAsyncThunk('cart/addToCart',
   async (items: CartItem, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/cart', items, {
+      const response = await axios.post(process.env.NEXT_PUBLIC_API_URL +'/api/cart', items, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -33,7 +33,7 @@ export const addToCart = createAsyncThunk('cart/addToCart',
     }
   })
 export const getCartItems = createAsyncThunk('cart/getCartItems', async () => {
-  const response = await axios.get('http://127.0.0.1:8000/api/cart', {
+  const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + '/api/cart', {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     }
@@ -46,7 +46,7 @@ export const getCartItems = createAsyncThunk('cart/getCartItems', async () => {
 export const updateQuantity = createAsyncThunk(
   'cart/updateQuantity',
   async ({ productId, quantity }: { productId: string; quantity: number }) => {
-    const response = await axios.put(`http://localhost:8000/api/cart`, { productId, quantity }, {
+    const response = await axios.put(process.env.NEXT_PUBLIC_API_URL + `/api/cart`, { productId, quantity }, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
@@ -59,7 +59,7 @@ export const updateQuantity = createAsyncThunk(
 export const removeFromCart = createAsyncThunk('cart/removeFromCart',
   async (cartId: number, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`http://localhost:8000/api/cart/${cartId}`,
+      const response = await axios.delete(process.env.NEXT_PUBLIC_API_URL +`/api/cart/${cartId}`,
         {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`

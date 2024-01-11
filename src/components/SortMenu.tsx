@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import axios from "axios";
-import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
+import { Menu } from '@headlessui/react'
 
 interface SortMenuProps {
     option: any,

@@ -2,8 +2,6 @@
 import React from 'react';
 import { UserState } from '../../../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import SidebarProfile from '../../../components/Profile/SidebarProfile';
 import AddressForm from "../../../components/Profile/AddressForm";
 import AddressCard from "../../../components/Profile/AddressCard";

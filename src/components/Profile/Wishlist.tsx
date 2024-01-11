@@ -4,13 +4,11 @@ import { WishlistState } from "../../redux/wishlistSlice";
 import { getMyWishlist, removeFromWishlist, isWishlisted } from '../../redux/wishlistSlice';
 import { useSelector } from 'react-redux'; 
 import { useDispatch} from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import ProductCard from '../../components/Product/ProductCard';
 
     const Wishlist: React.FC = () => {
         const products = useSelector((state: { wishlist: WishlistState }) => state.wishlist.items);
-        const dispatch = useDispatch<ThunkDispatch<typeof WishlistState, unknown, AnyAction>>();
+        const dispatch = useDispatch();
 
         const loading = useSelector((state:any) => state.wishlist.loading);
 

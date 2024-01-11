@@ -77,7 +77,7 @@ const UpdatePassword: React.FC = () => {
         }
         catch (error: any) {
             if (error instanceof Yup.ValidationError) {
-                const errors: { [key: string]: string } = {}; // Specify the type of 'errors' as an object with string keys and string values
+                const errors: { [key: string]: string } = {}; 
                 error.inner.forEach((error: any) => {
                     errors[error.path] = error.message;
                 });
@@ -86,7 +86,7 @@ const UpdatePassword: React.FC = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: error.response?.data?.message || error.message, // Use optional chaining to access the 'message' property
+                    text: error.response?.data?.message || error.message, 
                 });
             }
         } finally {

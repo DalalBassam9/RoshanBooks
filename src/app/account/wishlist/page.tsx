@@ -12,7 +12,7 @@ import ProductCard from '../../../components/Product/ProductCard';
 import SidebarProfile from '../../../components/Profile/SidebarProfile';
 const Wishlist: React.FC = () => {
     const products = useSelector((state: { wishlist: WishlistState }) => state.wishlist.items);
-    const dispatch = useDispatch<ThunkDispatch<typeof WishlistState, unknown, AnyAction>>();
+    const dispatch = useDispatch();
 
     const loading = useSelector((state: any) => state.wishlist.loading);
 
