@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction, AsyncThunkAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-
+import { toast } from 'react-toastify';
 export interface CartItem {
 
   productId: any;
@@ -14,24 +14,23 @@ interface CartState {
   loading: 'idle' | 'loading' | 'succeeded' | 'failed';
   error?: string;
 }
-
 const initialState: CartState = { items: [], loading: 'idle' }
-
 export const addToCart = createAsyncThunk('cart/addToCart',
   async (items: CartItem, { rejectWithValue }) => {
     try {
-      const response = await axios.post(process.env.NEXT_PUBLIC_API_URL +'/api/cart', items, {
+      const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/api/cart', items, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       })
-      Swal.fire('Success', 'Item added to cart', 'success')
+      toast.success('Product added to cart!');
       return response.data.data
-    } catch (err: any) {
-
-      Swal.fire('Error', 'Failed to add item to cart', 'error')
+ 
+    } catch (error: any) {
+      toast.error(`Oops Failed to add product to cart`);
     }
   })
+
 export const getCartItems = createAsyncThunk('cart/getCartItems', async () => {
   const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + '/api/cart', {
     headers: {
@@ -59,7 +58,7 @@ export const updateQuantity = createAsyncThunk(
 export const removeFromCart = createAsyncThunk('cart/removeFromCart',
   async (cartId: number, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(process.env.NEXT_PUBLIC_API_URL +`/api/cart/${cartId}`,
+      const response = await axios.delete(process.env.NEXT_PUBLIC_API_URL + `/api/cart/${cartId}`,
         {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -77,7 +76,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     clearCart: (state) => {
-      state.items=[]
+      state.items = []
     }
   },
   extraReducers: builder => {

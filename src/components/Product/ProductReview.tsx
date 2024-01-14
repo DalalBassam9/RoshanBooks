@@ -8,10 +8,8 @@ import * as Yup from 'yup';
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReviewForm from "./ReviewForm";
+import {Product} from "../../interfaces";
 
-interface Product {
-    productId: number;
-}
 interface ProductProps {
     product: Product;
 }
@@ -53,11 +51,12 @@ function ProductReviews({ product }: ProductProps) {
 
     useEffect(() => {
         getReviews();
+        console.log(product);
     }, []);
-
+    const url = process.env.NEXT_PUBLIC_API_URL + `/api/get-ratings/${product.productId}`
     const getReviews = async () => {
         try {
-            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/api/get-ratings/" + 1);
+            const response = await axios.get(url);
             setReviews(response.data.data);
         } catch (error: any) {
             Swal.fire({
@@ -85,7 +84,6 @@ function ProductReviews({ product }: ProductProps) {
                     <span>No reviews yet. Be the first to review this product.</span>
                 </div>
             )}
-            {product.productId}
             <div className="flex flex-col gap-5 mt-5">
                 {reviews.map((review: any) => (
                     <div

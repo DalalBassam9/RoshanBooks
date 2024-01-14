@@ -9,22 +9,23 @@ import { useSelector } from 'react-redux';
 import useAuth from "../../lib/useAuth";
 import Rating from '@mui/material/Rating';
 import { Provider, useDispatch } from 'react-redux';
-import { getMyWishlist, removeFromWishlist, addToWishlist,isWishlisted } from '../../../redux/wishlistSlice';
-import Product from "../../../interfaces";
+import { getMyWishlist, removeFromWishlist, addToWishlist, isProductInWishlist } from '../../../redux/wishlistSlice';
+import { Product } from "../../../interfaces";
 import Swal from "sweetalert2";
 import { RootState } from '../../../redux/store';
 import { fetchWishlist } from './wishlistSlice'; // adjust the import path to your file structure
+import { AnyCnameRecord } from 'dns';
+import { useRouter } from "next/navigation";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export default function product({ params }: { params: any }) {
+    const router = useRouter();
     const dispatch = useDispatch();
-    const { user, isLoading } = useAuth({ middleware: 'auth' })
     const [quantity, setQuantity] = useState(1);
-
     const token = localStorage.getItem('token'); // Import RootState type
-
     const wishlistItems = useSelector(state => state.wishlist.items);
-  
-
     const handleQuantityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setQuantity(Number(event.target.value));
     };
@@ -33,6 +34,8 @@ export default function product({ params }: { params: any }) {
             dispatch(addToWishlist(
                 { productId: productId }
             ));
+
+            getProduct();
         } catch (error: any) {
             Swal.fire({
                 icon: 'error',
@@ -41,28 +44,39 @@ export default function product({ params }: { params: any }) {
             })
         }
     };
-    const handleWishlist = (productId) => {
-            dispatch(isWishlisted(
-                productId
-            ));
-        
+
+    const handleAddToCart = (productId: any, quantity: number) => {
+        dispatch(
+            addToCart({
+                productId: productId,
+                quantity: quantity,
+            })
+        );
     };
+
     const [product, setProduct] = React.useState<Product>({
         productId: '',
         name: '',
         description: '',
         price: '',
         image: '',
+        Wishlisted: ''
     });
     const [loading, setLoading] = React.useState(false);
 
     const getProduct = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/products/${params.productId}`
+            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/products/${params.productId}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                }
 
             );
             setProduct(response.data.data);
+            dispatch(getMyWishlist());
         } catch (error: any) {
             Swal.fire({
                 icon: 'error',
@@ -74,18 +88,25 @@ export default function product({ params }: { params: any }) {
             setLoading(false);
         }
     };
+    const handleRemoveFromWishlist = (productId: any) => {
+        dispatch(removeFromWishlist(productId));
+    };
 
-    useEffect(() => {
-        getProduct();
-    }, []); // Add an empty dependency array to run the effect only once
-  
-    const Wishlisted = () => {
+
+    const checkIsWishlisted = (productId: any) => {
         if (Array.isArray(wishlistItems) || !params) {
             console.error(wishlistItems);
         }
-
-        return wishlistItems.some(item => item && item.productId === product.productId);
+        return wishlistItems.some(item => item && item.productId === productId);
     };
+
+
+
+    useEffect(() => {
+        getProduct()
+    }, []); // Add an empty dependency array to run the effect only once
+
+
 
     return (
         <div className="overflow-hidden rounded-lg bg-white mt-8
@@ -95,28 +116,10 @@ export default function product({ params }: { params: any }) {
           gap-6
           sm:px-6
           lg:max-w-7xl  shadow">
-
-            <div>
-                {wishlistItems.map(item => {
-                    if (!item) {
-                        return null; // or return a placeholder component
-                    }
-
-                    return (
-                        <div key={item.productId}>
-                            {item.productId}
-                            {item.name}
-                            {params.productId}
-                        </div>
-                    );
-                })}
-            </div>
-
-
-
             {product ? (
                 <div>
                     <div>
+                        <ToastContainer />
                         <section className="">
                             <div className="container px-5 py-24 mx-auto">
                                 <div className="lg:w-4/5 mx-auto flex flex-wrap">
@@ -144,20 +147,25 @@ export default function product({ params }: { params: any }) {
 
                                             </div>
                                             <div className="flex-shrink-0">
-                                                {handleWishlist (product.productId) ? (
-                                                    <svg onClick={() => {
+
+                                                {checkIsWishlisted(product.productId) ? (
+
+                                                    <button onClick={() =>
                                                         dispatch(
                                                             removeFromWishlist({
                                                                 productId: product.productId
                                                             }) as unknown as AnyAction
-                                                        );
-                                                    }} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                                    </svg>
+                                                        )
+
+                                                    }  >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                                        </svg>
+                                                    </button>
                                                 ) : (
                                                     <button onClick={() => {
                                                         handleAddToWishlist(product.productId);
-                                                        
+
                                                     }}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -169,7 +177,7 @@ export default function product({ params }: { params: any }) {
                                             </div>
 
                                         </div>
-                                        <p className="mt-3 text-lg text-3xl leading-relaxed">{product.description}</p>
+                                        <p className="mt-3 text-lg text-3xl leading-relaxed">{product.isWishlisted}</p>
                                         <div className=" mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                                             <div className="my-4">
                                                 <span className="title-font font-medium text-2xl text-gray-900">${product.price}</span>
@@ -196,18 +204,16 @@ export default function product({ params }: { params: any }) {
                                                 <div className="mx-4">
                                                     <button
                                                         onClick={() => {
-                                                            dispatch(
-                                                                addToCart({
-                                                                    productId: product.productId,
-                                                                    quantity: quantity,
-                                                                }) as unknown as AnyAction
-                                                            );
-                                                        }}
+                                                            handleAddToCart(product.productId, quantity);
+                                                        }
+                                                        }
                                                         className="flex-none rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige"
                                                     >
                                                         Add to cart
                                                     </button>
-
+                                                    <button className="flex-none rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige" onClick={() => router.push("/cart")}>
+                                                        View Cart
+                                                    </button>
                                                 </div>
 
                                             </div>
@@ -229,7 +235,7 @@ export default function product({ params }: { params: any }) {
 
                                 </div>
 
-                                <ProductReview product={product} />
+                                <ProductReview product={params} />
                             </div>
                         </section>
 

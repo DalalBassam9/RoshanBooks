@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { ToastContainer } from 'react-toastify';
 
 interface FormData {
     email: string;
@@ -99,6 +100,7 @@ export default function Login() {
             <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
          
 
+            <ToastContainer />
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
                 
                     <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">

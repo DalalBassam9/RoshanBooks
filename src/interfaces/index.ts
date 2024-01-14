@@ -1,5 +1,6 @@
 
 export interface Product {
+  Wishlisted: any;
   productId: number | any;
   name: string;
   description: string;

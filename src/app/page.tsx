@@ -18,23 +18,24 @@ import { useDispatch } from 'react-redux';
 import SortMenu from '../components/SortMenu';
 import ProductStatus from '../components/ProductStatus';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import FilterCategoryMenu  from '../components/FilterCategoryMenu';
+import FilterCategoryMenu from '../components/FilterCategoryMenu';
 import { sortOptions, statusesOptions } from './options';
-import { Product,Category } from "../interfaces";
+import { Product, Category } from "../interfaces";
 
 
 
 export default function Home() {
- 
+
   const [sort, setSort] = useState<string>(sortOptions[0].sort);
   const [loading, setLoading] = React.useState(false);
   const [products, setProducts] = useState<Product[]>([]);
-   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [category, setCategory] = useState<string>('1');
   const [categories, setCategories] = useState<Category[]>([]);
   const [productStatus, setProductStatus] = useState<string>('0');
+
 
   const dispatch = useDispatch();
   function classNames(...classes: string[]) {
@@ -65,8 +66,15 @@ export default function Home() {
   const getProducts = async (sortOption: string, category: string, productStatus: string) => {
     try {
       setLoading(true);
-      const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/products?page=${currentPage}&per_page=${rowsPerPage}&sort=${sortOption}&category=${category}&productStatus=${productStatus}`);
+      const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/products?page=${currentPage}&per_page=${rowsPerPage}&sort=${sortOption}&category=${category}&productStatus=${productStatus}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      );
       setProducts(response.data.data);
+      dispatch(getMyWishlist());
       setTotalPages(response.data.meta.last_page);
     } catch (error: any) {
       Swal.fire({
@@ -78,7 +86,6 @@ export default function Home() {
       setLoading(false);
     }
   };
-
 
 
   React.useEffect(() => {
@@ -123,7 +130,7 @@ export default function Home() {
                     <Menu.Items className="absolute right-2 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
 
                       <div className="py-1">
-                        {sortOptions.map((option:any) => (
+                        {sortOptions.map((option: any) => (
                           <SortMenu option={option} setCurrentPage={setCurrentPage} setSort={setSort} sort={sort} classNames={classNames} />
 
                         ))}
@@ -165,7 +172,7 @@ export default function Home() {
 
                   <div className="pt-6" id="filter-section-mobile-1">
                     <div className="space-y-6">
-                      {statusesOptions.map((status:any, index:any) => (
+                      {statusesOptions.map((status: any, index: any) => (
                         <ProductStatus status={status} index={index} setProductStatus={setProductStatus} productStatus={productStatus} />
 
                       ))}
@@ -179,7 +186,6 @@ export default function Home() {
 
                   {products.map((product: any) => (
                     <ProductCard
-                      handleAddToWishlist={handleAddToWishlist}
                       key={product.productId}
                       product={product}
 

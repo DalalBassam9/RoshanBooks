@@ -4,28 +4,48 @@ import { addToCart, removeFromCart } from '../../redux/cartSlice';
 import { AnyAction } from 'redux';
 import { Provider, useDispatch } from 'react-redux';
 import { WishlistState } from "../../redux/wishlistSlice";
-import { getMyWishlist, removeFromWishlist, isWishlisted, addToWishlist } from '../../redux/wishlistSlice';
+import { getMyWishlist, removeFromWishlist, addToWishlist } from '../../redux/wishlistSlice';
 import { useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import Rating from '@mui/material/Rating';
-import { Product} from "../../interfaces";
-
+import { Product } from "../../interfaces";
+import React, { useEffect } from 'react';
 
 interface ProductCardProps {
     product: Product;
-    handleAddToWishlist: (productId: number) => void;
-    checkIfWishlisted: (productId: number) => boolean;
-    handleRemoveFromWishlist: (productId: number) => void;
 }
 
 function ProductCard({
     product,
-    handleAddToWishlist,
-    handleRemoveFromWishlist
 }: ProductCardProps) {
     const dispatch = useDispatch();
 
-    const token:any = localStorage.getItem('token');
+    const products = useSelector((state: { wishlist: WishlistState }) => state.wishlist.items);
+    const token: any = localStorage.getItem('token');
+
+
+    const isWishlisted = (productId: any) => {
+        if (Array.isArray(products) || !params) {
+            console.error(products);
+        }
+        return products.some(item => item && item.productId === productId);
+    };
+
+    useEffect(() => {
+        console.log(products);
+        localStorage.setItem('products', JSON.stringify(products));
+    }, [products]);
+
+    const handleRemoveFromWishlist = (productId: any) => {
+        dispatch(removeFromWishlist(productId));
+    };
+    const handleAddToWishlist = (productId: any) => {
+        dispatch(addToWishlist(
+            { productId: productId }
+        ));
+
+
+    };
 
     return (
         <div className="relative  bg-white shadow-md rounded-3xl p-2 my-3 cursor-pointer">
@@ -34,11 +54,26 @@ function ProductCard({
                 <img className="h-full rounded-2xl w-full object-cover" src={product.image} />
                 <p className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
 
-                    <button >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    {isWishlisted(product.productId) ? (
+                        <svg onClick={() => {
+                            dispatch(
+                                removeFromWishlist({
+                                    productId: product.productId
+                                }) as unknown as AnyAction
+                            );
+                        }} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                         </svg>
-   1                 </button>
+                    ) : (
+                        <button onClick={() => {
+                            handleAddToWishlist(product.productId);
+
+                        }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                    )}
 
                 </p>
 

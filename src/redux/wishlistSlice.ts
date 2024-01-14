@@ -1,12 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-// Add the import statement for the Item interface
+
 export interface Item {
     productId: any;
     name: string;
     description: string;
     price: number;
     image: string;
+    Wishlisted: any
+
 }
 
 interface WishlistState {
@@ -18,11 +20,9 @@ const initialState: WishlistState = { items: [], loading: 'idle' };
 
 const token = localStorage.getItem('token');
 
-  export const isWishlisted = (state: WishlistState, productId: string) => {
-    return state.items.some(item => item.productId === productId);
-  };
-// Async thunk for getting the wishlist
-
+export const isProductInWishlist = (productId: number) => {
+    return initialState.items.some(item => item.productId == productId);
+}
 export const getMyWishlist = createAsyncThunk('wishlist/getMyWishlist', async () => {
     const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + '/api/my/wishlist', {
         headers: {
@@ -41,6 +41,7 @@ export const addToWishlist = createAsyncThunk('wishlist/add',
             const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/my/wishlist/`, { productId },
                 {
                     headers: {
+
                         'Authorization': `Bearer ${token}`
                     }
                 });
@@ -83,6 +84,8 @@ export const wishlistSlice = createSlice({
                 state.loading = 'pending';
             })
             .addCase(addToWishlist.fulfilled, (state, action: PayloadAction<Item>) => {
+                console.log(state.items);
+                console.log(action.payload);
                 state.items.push(action.payload);
                 state.loading = 'succeeded';
             })
@@ -90,9 +93,11 @@ export const wishlistSlice = createSlice({
                 state.loading = 'pending';
             })
             .addCase(removeFromWishlist.fulfilled, (state, action: PayloadAction<Item>) => {
+
                 const index = state.items.findIndex(item => item.productId === action.payload.productId);
                 state.items.splice(index, 1);
                 state.loading = 'succeeded';
+  
             });
     }
 });

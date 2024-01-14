@@ -29,19 +29,23 @@ function CartItem({ cartItem }: CartItemProps) {
         setQuantity(newQuantity);
         const payload: CartItem = { productId: cartItem.productId, quantity: newQuantity };
         dispatch(updateQuantity(payload));
-      };
+    };
 
     const handleDecrement = async () => {
         let newQuantity = quantity - 1;
         if (newQuantity <= 0) {
             newQuantity = 0;
             await dispatch(removeFromCart(cartItem.cartId));
-            Swal.fire('Removed', 'Item removed from cart', 'success');
+            Swal.fire({
+                title: 'Removed',
+                text: 'Product removed from cart',
+                icon: 'success',
+                confirmButtonColor: '#D5A983' // Change this to your desired color
+              });
         } else {
             setQuantity(newQuantity);
             const payload: CartItem = { productId: cartItem.productId, quantity: newQuantity };
             await dispatch(updateQuantity(payload));
-            Swal.fire('Updated', 'Quantity updated successfully', 'success');
         }
     };
 
@@ -52,15 +56,23 @@ function CartItem({ cartItem }: CartItemProps) {
             text: 'You will not be able to recover this item!',
             icon: 'warning',
             showCancelButton: true,
+            confirmButtonColor: '#D5A983', // Change this to your desired color
+            cancelButtonColor: '#D5A983',
             confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, keep it'
+            cancelButtonText: 'No, keep it',
+
         });
 
         if (result.isConfirmed) {
             await (dispatch as any)(removeFromCart(cartItem.cartId));
-            Swal.fire('Deleted!', 'Your item has been deleted.', 'success');
+            Swal.fire({
+                title: 'Deleted!',
+                text: 'Your Product has been deleted.',
+                icon: 'success',
+                confirmButtonColor: '#D5A983' // Change this to your desired color
+            });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire('Cancelled', 'Your item is safe :)', 'error');
+            Swal.fire('Cancelled', 'Your Product is safe :)', 'error');
         }
     };
 
