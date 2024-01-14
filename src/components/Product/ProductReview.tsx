@@ -114,7 +114,7 @@ function ProductReviews({ product }: ProductProps) {
                                 style={{
                                     color: "#E5BEA0"
                                 }}
-                                size="small"
+                                size="medium"
 
                             />
 

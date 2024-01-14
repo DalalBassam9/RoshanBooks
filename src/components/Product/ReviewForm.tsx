@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import Rating from '@mui/material/Rating';
 import * as Yup from 'yup';
 import { useRouter } from "next/navigation";
+import { toast } from 'react-toastify';
 
 interface Product {
     productId: number;
@@ -30,7 +31,7 @@ const schema = Yup.object({
 });
 
 
-function ReviewForm({ getReviews, setShowReviewForm, handleClose,product }: ReviewProps) {
+function ReviewForm({ getReviews, setShowReviewForm, handleClose, product }: ReviewProps) {
     const router = useRouter();
     const token = localStorage.getItem('token');
     const [loading = false, setLoading] = React.useState<boolean>(false);
@@ -78,11 +79,8 @@ function ReviewForm({ getReviews, setShowReviewForm, handleClose,product }: Revi
                     }
                 }
                 );
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: ' "Rating successful , please login to continue"',
-                })
+
+                toast.success('Rating successfully added');
                 setFormData({ rating: '', review: '' });
                 setShowReviewForm(false);
                 getReviews();
@@ -94,12 +92,7 @@ function ReviewForm({ getReviews, setShowReviewForm, handleClose,product }: Revi
                     });
                     setErrors(errors);
                 } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: error.response?.data?.message || error.message, // Use optional chaining to access nested properties
-                    });
-
+                    toast.error( error.response?.data?.message || error.message);
                 }
             } finally {
                 setLoading(false);
@@ -112,29 +105,14 @@ function ReviewForm({ getReviews, setShowReviewForm, handleClose,product }: Revi
     return (
         <div>
             <form className="space-y-6" noValidate autoComplete="off" onSubmit={handleSubmit} >
-                <div className=" py-6 flex flex-col justify-center sm:py-12">
-
-                    <div className="py-3 relative  sm:mx-auto">
-
-                        <div className="">
-                            <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
-                                <button type="button" onClick={handleClose} className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
-
-                                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-
-
-                            </div>
-
-
-                            <div className="px-12 py-5">
-                                <h2 className="text-gray-800 text-xl font-semibold">Your opinion matters to us!</h2>
+                <div className="py-3 relative xs:w-full  sm:mx-auto flex flex-col justify-center sm:py-12">
+                    <div>
+                        <div>
+                            <div className="px-12 py-2">
+                                <h2 className="text-gray-800 text-center text-xl font-semibold"> Add new Reiview</h2>
                             </div>
                             <div className="w-full flex flex-col items-center">
                                 <div className="flex flex-col items-center py-6 space-y-3">
-                                    <span className="text-lg text-gray-800">How was quality of the call?</span>
                                     <div className="flex space-x-3">
                                         <Rating
                                             name="size-small"
@@ -142,7 +120,10 @@ function ReviewForm({ getReviews, setShowReviewForm, handleClose,product }: Revi
                                             onChange={(event, newValue: any) => {
                                                 handleChange('rating', newValue);
                                             }}
-                                            size="small"
+                                            style={{
+                                                color: "#E5BEA0"
+                                            }}
+                                            size="medium"
                                         />
 
                                     </div>
@@ -152,7 +133,7 @@ function ReviewForm({ getReviews, setShowReviewForm, handleClose,product }: Revi
                                 <div className="w-3/4 flex flex-col">
                                     <textarea
                                         value={formData.review}
-                                        onChange={(e) => handleChange('review', e.target.value)} rows="3" class="p-4 text-gray-500 rounded-xl resize-none">Leave a message, if you want</textarea>
+                                        onChange={(e) => handleChange('review', e.target.value)} rows={4} className="p-4  block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige    ">Leave a message, if you want</textarea>
 
                                     <div className="text-red-500 text-sm mt-2">{errors.review}</div>
                                     <button

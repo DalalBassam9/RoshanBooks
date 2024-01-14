@@ -138,7 +138,7 @@ export default function product({ params }: { params: any }) {
                                                         value={product?.sumRatings || 0}
                                                         style={{
                                                             color: "#E5BEA0"
-                                                        }} size="small"
+                                                        }} size="medium"
 
                                                     />
 
@@ -154,7 +154,7 @@ export default function product({ params }: { params: any }) {
                                                         dispatch(
                                                             removeFromWishlist({
                                                                 productId: product.productId
-                                                            }) as unknown as AnyAction
+                                                            })
                                                         )
 
                                                     }  >
@@ -177,14 +177,14 @@ export default function product({ params }: { params: any }) {
                                             </div>
 
                                         </div>
-                                        <p className="mt-3 text-lg text-3xl leading-relaxed">{product.isWishlisted}</p>
+                                        <p className="mt-3 text-lg text-3xl leading-relaxed">{product.description}</p>
                                         <div className=" mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                                             <div className="my-4">
                                                 <span className="title-font font-medium text-2xl text-gray-900">${product.price}</span>
                                             </div>
 
 
-                                            <div className="flex items-center">
+                                            <div className="">
                                                 <div>
                                                     <label htmlFor="quantity" className="mr-2">Quantity</label>
                                                     <select
@@ -201,18 +201,28 @@ export default function product({ params }: { params: any }) {
                                                     </select>
                                                 </div>
 
-                                                <div className="mx-4">
+                                                <div className="flex my-6">
                                                     <button
                                                         onClick={() => {
                                                             handleAddToCart(product.productId, quantity);
                                                         }
                                                         }
-                                                        className="flex-none rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige"
+                                                        className="flex mx-2 rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige"
                                                     >
-                                                        Add to cart
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="h-6 mx-2 w-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                                        </svg>
+
+
+                                                        <span className="pr-2"> Add to cart</span>
                                                     </button>
-                                                    <button className="flex-none rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige" onClick={() => router.push("/cart")}>
-                                                        View Cart
+                                                    <button className="flex mx-2 rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige" onClick={() => router.push("/cart")}>
+                                                    <svg className="w-5  pt-1 mx-2 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+</svg>
+
+                                                        <span className="pr-2"> View Cart </span>
+
                                                     </button>
                                                 </div>
 

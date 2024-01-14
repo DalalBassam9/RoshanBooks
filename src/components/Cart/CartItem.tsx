@@ -41,7 +41,7 @@ function CartItem({ cartItem }: CartItemProps) {
                 text: 'Product removed from cart',
                 icon: 'success',
                 confirmButtonColor: '#D5A983' // Change this to your desired color
-              });
+            });
         } else {
             setQuantity(newQuantity);
             const payload: CartItem = { productId: cartItem.productId, quantity: newQuantity };
@@ -77,7 +77,8 @@ function CartItem({ cartItem }: CartItemProps) {
     };
 
     return (
-        <div className="rounded-lg md:w-2/3">
+
+        <div >
             <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                 <img src={cartItem.image} alt="product-image" className="rounded-lg w-full sm:h-40 sm:w-40" />
                 <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
@@ -94,10 +95,10 @@ function CartItem({ cartItem }: CartItemProps) {
                             </div>
                         </div>
                         <div className="flex items-center space-x-4">
-                            <button onClick={handleRemove} type="button" className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
-                                <span> Remove</span>
-                                <svg className="h-6 pt-1 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" className=""></path>
+                            <button onClick={handleRemove} type="button" className="flex bg-gray-200 rounded p-2 text-center text-gray-500 focus:shadow ">
+                                <span className="pt-1"> Remove</span>
+                                <svg className="h-8  pt-1 w-8 rounded-full p-1 hover:bg-gray-100 hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
                             </button>
                         </div>
@@ -105,6 +106,7 @@ function CartItem({ cartItem }: CartItemProps) {
                 </div>
             </div>
         </div>
+     
     );
 }
 
