@@ -10,10 +10,7 @@ import { Fragment } from 'react'
 import ProductCard from '../components/Product/ProductCard';
 import { Menu, Transition } from '@headlessui/react'
 import { WishlistState } from "../redux/wishlistSlice";
-import { getMyWishlist, removeFromWishlist, isWishlisted, addToWishlist } from '../redux/wishlistSlice';
-import { useSelector } from 'react-redux';
-import { AnyAction } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
+import { getMyWishlist} from '../redux/wishlistSlice';
 import { useDispatch } from 'react-redux';
 import SortMenu from '../components/SortMenu';
 import ProductStatus from '../components/ProductStatus';
@@ -21,11 +18,13 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import FilterCategoryMenu from '../components/FilterCategoryMenu';
 import { sortOptions, statusesOptions } from './options';
 import { Product, Category } from "../interfaces";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 export default function Home() {
-
+  const token = localStorage.getItem('token'); 
   const [sort, setSort] = useState<string>(sortOptions[0].sort);
   const [loading, setLoading] = React.useState(false);
   const [products, setProducts] = useState<Product[]>([]);
@@ -55,13 +54,8 @@ export default function Home() {
   };
 
 
-  const handleAddToWishlist = (productId: any) => {
-    dispatch(
-      addToWishlist(
-        productId
-      ) as unknown as AnyAction
-    );
-  };
+ 
+
 
   const getProducts = async (sortOption: string, category: string, productStatus: string) => {
     try {
@@ -100,6 +94,7 @@ export default function Home() {
       <HeaderSection />
       <div className="bg-white">
 
+      <ToastContainer />
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>

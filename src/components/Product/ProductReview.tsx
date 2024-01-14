@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReviewForm from "./ReviewForm";
-import {Product} from "../../interfaces";
+import { Product } from "../../interfaces";
 
 interface ProductProps {
     product: Product;
@@ -70,10 +70,10 @@ function ProductReviews({ product }: ProductProps) {
 
 
     return (
-        <div className="mt-5 p-4  bg-white">
+        <div className="mt-6 max-w-7xl mx-6 p-4 mb-6 bg-white">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-semibold">Reviews</h1>
-                <button onClick={() => {
+                <button className="mx-2 rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige" onClick={() => {
                     setShowReviewForm(true);
                 }}>
                     Write a review

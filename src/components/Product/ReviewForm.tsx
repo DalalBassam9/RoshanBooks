@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
 import Rating from '@mui/material/Rating';
 import * as Yup from 'yup';
 import { useRouter } from "next/navigation";
@@ -92,7 +91,7 @@ function ReviewForm({ getReviews, setShowReviewForm, handleClose, product }: Rev
                     });
                     setErrors(errors);
                 } else {
-                    toast.error( error.response?.data?.message || error.message);
+                    toast.error(error.response?.data?.message || error.message);
                 }
             } finally {
                 setLoading(false);
@@ -136,8 +135,15 @@ function ReviewForm({ getReviews, setShowReviewForm, handleClose, product }: Rev
                                         onChange={(e) => handleChange('review', e.target.value)} rows={4} className="p-4  block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige    ">Leave a message, if you want</textarea>
 
                                     <div className="text-red-500 text-sm mt-2">{errors.review}</div>
+
                                     <button
-                                        type="submit" className="py-3 my-8 text-lg  bg-beige rounded-xl text-white">Rate now</button>
+                                        type="submit"
+                                        className={`py-3 my-8 text-lg bg-beige rounded-xl text-white  ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        disabled={loading}
+                                    >
+                                        {loading ? 'Loading...' : 'Rate now'}
+                                    </button>
+
                                 </div>
                             </div>
                             <div className="h-20 flex items-center justify-center">

@@ -1,8 +1,6 @@
 "use client";
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import axios from "axios";
 
 interface OrderAddressCardProps {

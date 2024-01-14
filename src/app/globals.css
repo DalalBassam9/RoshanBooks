@@ -22,3 +22,6 @@ background-color : #F3F4F6;
 .select-beige option{
   background: beige;
 }
+.custom-toast {
+  color: red !important; /* Change this to your desired color */
+}

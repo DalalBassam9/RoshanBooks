@@ -12,7 +12,8 @@ import SortMenu from '../../../components/SortMenu';
 import ProductStatus from '../../../components/ProductStatus';
 import { sortOptions, statusesOptions } from '../../options';
 import { Product,CategoryData } from "../../../interfaces";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export default function category({ params }: { params: any }) {
     const dispatch = useDispatch();
@@ -82,6 +83,7 @@ export default function category({ params }: { params: any }) {
         <div>
             <div>
                 <div className="bg-white">
+                <ToastContainer/>
                     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>

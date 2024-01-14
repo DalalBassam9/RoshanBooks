@@ -38,7 +38,7 @@ export default function Cart() {
                     <div className="mx-auto max-w-7xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
 
 
-                        <div  className="rounded-lg md:w-2/3" >
+                        <div className="rounded-lg md:w-2/3" >
                             {items && items.map((item: any) => (
                                 item && <CartItem key={item.cartId} cartItem={item} />
                             ))}
@@ -70,9 +70,8 @@ export default function Cart() {
                                         Continue shopping
                                     </button>
                                     <button className="w-full  rounded-full mx-2 bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige" onClick={() => router.push('/checkout')} >
-
-
-                                        Checkout</button>
+                                        Checkout
+                                    </button>
 
                                 </div>
                             </div>

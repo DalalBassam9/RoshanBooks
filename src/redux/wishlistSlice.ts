@@ -7,8 +7,7 @@ export interface Item {
     description: string;
     price: number;
     image: string;
-    Wishlisted: any
-
+    quantity :string
 }
 
 interface WishlistState {

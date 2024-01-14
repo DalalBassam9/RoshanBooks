@@ -1,13 +1,13 @@
 
 export interface Product {
-  Wishlisted: any;
   productId: number | any;
   name: string;
   description: string;
   price: number | any;
   image: string;
   sumRatings: any;
-  countRatings: any
+  countRatings: any;
+  quantity :any
 
 }
 export interface Category {

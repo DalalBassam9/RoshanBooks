@@ -8,11 +8,13 @@ import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import ProductCard from '../../../components/Product/ProductCard';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import SidebarProfile from '../../../components/Profile/SidebarProfile';
 const Wishlist: React.FC = () => {
     const products = useSelector((state: { wishlist: WishlistState }) => state.wishlist.items);
-    
+
     const dispatch = useDispatch();
 
     const loading = useSelector((state: any) => state.wishlist.loading);
@@ -23,15 +25,17 @@ const Wishlist: React.FC = () => {
 
 
     return (
-        <div> 
+        <div>
             <SidebarProfile>
-   
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
-            {products.map((product: any) => (
-                <ProductCard key={product.productId} product={product} />
-            ))}
-        </div>
-        </SidebarProfile >
+
+                <ToastContainer />
+
+                <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
+                    {products.map((product: any) => (
+                        <ProductCard key={product.productId} product={product} />
+                    ))}
+                </div>
+            </SidebarProfile >
 
         </div>
     )
