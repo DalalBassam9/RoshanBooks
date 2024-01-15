@@ -1,18 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import axios from 'axios';
-import { RadioGroup } from '@headlessui/react'
-import { CheckCircleIcon } from '@heroicons/react/20/solid'
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { getCartItems, CartState, clearCart } from '../../redux/cartSlice';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart } from '../../redux/cartSlice';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import { useRouter } from 'next/navigation';
 import AddressForm from "../../components/Profile/AddressForm";
 import DeliveryAddressCard from "../../components/Checkout/DeliveryAddressCard";
@@ -23,7 +14,7 @@ export default function Checkout() {
     const router = useRouter();
     const [addresses, setِِAddresses] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
-    const dispatch: ThunkDispatch<CartState, unknown, AnyAction> = useDispatch();
+    const dispatch = useDispatch();
 
     const state = useSelector((state: { cart: CartState }) => state);
     const items = useSelector((state: { cart: CartState }) => state.cart.items);
@@ -35,10 +26,6 @@ export default function Checkout() {
     const [showAddressForm, setShowAddressForm] = React.useState(false);
     const [selectedAddress, setSelectedAddress] = React.useState<any>(null);
 
-
-    React.useEffect(() => {
-        getAddresses();
-    });
 
     const handleShowAddressForm = (address: any) => {
         setSelectedAddress(address);
@@ -70,7 +57,7 @@ export default function Checkout() {
 
     React.useEffect(() => {
         getAddresses();
-    });
+    },[]);
 
     const handlePlaceOrder = async () => {
         try {

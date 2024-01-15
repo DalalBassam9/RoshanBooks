@@ -5,12 +5,10 @@ import Swal from "sweetalert2";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from "next/navigation";
 import * as Yup from 'yup';
-import { Typography, Card, CardContent } from '@mui/material';
+import {  Card, CardContent } from '@mui/material';
 import { Container } from '@mui/material';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import HomeIcon from "@mui/icons-material/Home";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import LocalMallIcon from '@mui/icons-material/LocalMall';
 import AddIcon from '@mui/icons-material/Add';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 

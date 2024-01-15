@@ -19,8 +19,6 @@ import { InfoUserData } from "../../interfaces";
 
 const AccountInformation: React.FC = () => {
 
-    useAuth({ middleware: 'auth' })
-
     const [userData, setUserData] = useState<InfoUserData>({
         firstName: "",
         lastName: "",
@@ -29,7 +27,7 @@ const AccountInformation: React.FC = () => {
 
     });
 
-    const dispatch: ThunkDispatch<UserState, unknown, AnyAction> = useDispatch();
+    const dispatch = useDispatch();
     const user = useSelector((state: { user: UserState }) => state.user.user);
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
 
@@ -43,7 +41,7 @@ const AccountInformation: React.FC = () => {
 
     useEffect(() => {
         dispatch(fetchUser())
-            .then((action) => {
+            .then((action: any) => {
                 if (action.payload) {
                     setUserData(action.payload);
                 }

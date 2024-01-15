@@ -1,7 +1,7 @@
 "use client"
 import Head from 'next/head'
 import Link from 'next/link'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";
 import Pagination from '../components/Pagination';
@@ -10,7 +10,7 @@ import { Fragment } from 'react'
 import ProductCard from '../components/Product/ProductCard';
 import { Menu, Transition } from '@headlessui/react'
 import { WishlistState } from "../redux/wishlistSlice";
-import { getMyWishlist} from '../redux/wishlistSlice';
+import { getMyWishlist } from '../redux/wishlistSlice';
 import { useDispatch } from 'react-redux';
 import SortMenu from '../components/SortMenu';
 import ProductStatus from '../components/ProductStatus';
@@ -22,9 +22,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
 export default function Home() {
-  const token = localStorage.getItem('token'); 
+  const token = localStorage.getItem('token');
   const [sort, setSort] = useState<string>(sortOptions[0].sort);
   const [loading, setLoading] = React.useState(false);
   const [products, setProducts] = useState<Product[]>([]);
@@ -52,10 +51,6 @@ export default function Home() {
       console.error('Failed to fetch categories', error);
     }
   };
-
-
- 
-
 
   const getProducts = async (sortOption: string, category: string, productStatus: string) => {
     try {
@@ -88,13 +83,12 @@ export default function Home() {
   }, [currentPage, rowsPerPage, category, sort, productStatus]);
 
 
-
   return (
     <div>
       <HeaderSection />
       <div className="bg-white">
 
-      <ToastContainer />
+        <ToastContainer />
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
@@ -139,12 +133,9 @@ export default function Home() {
 
           <section aria-labelledby="products-heading" className="pb-24 pt-6">
             <h2 id="products-heading" className="sr-only">Products</h2>
-
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-
               <form className="hidden lg:block">
                 <h3 className="sr-only">Categories</h3>
-
                 <div className="px-4 py-6">
                   <span className=" py-3  font-medium text-gray-900">Category</span>
 

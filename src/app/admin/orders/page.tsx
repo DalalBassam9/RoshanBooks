@@ -3,10 +3,7 @@ import React from "react";
 import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Select, MenuItem,Stack, IconButton, Divider, TableRow, Paper, Box, Button, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Swal from "sweetalert2";
-import EditIcon from "@mui/icons-material/Edit";
 import CircularProgress from '@mui/material/CircularProgress';
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import moment from 'moment';
 import axios from "axios";
@@ -15,7 +12,6 @@ import Layout from '../components/Layout';
 interface Order {
     id: number;
     status: string;
-    // Add other properties as needed
 }
 
 interface OrdersTableProps {
@@ -26,8 +22,6 @@ export default function orders() {
 
     const [loading, setLoading] = React.useState(false);
     const [orders, setOrders] = React.useState([]);
-    const [errorMessage, setErrorMessage] = React.useState('');
-    const [successMessage, setSuccessMessage] = React.useState('');
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [localOrders, setLocalOrders] = React.useState<Order[]>(orders);

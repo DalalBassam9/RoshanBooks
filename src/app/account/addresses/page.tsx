@@ -1,23 +1,23 @@
 "use client";
 import React from 'react';
 import { UserState } from '../../../redux/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import SidebarProfile from '../../../components/Profile/SidebarProfile';
 import AddressForm from "../../../components/Profile/AddressForm";
 import AddressCard from "../../../components/Profile/AddressCard";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAuth from '../../lib/useAuth';
 
 const Addresses: React.FC = () => {
     const [loading, setLoading] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
     const [showAddressForm, setShowAddressForm] = React.useState(false);
     const [selectedAddress, setSelectedAddress] = React.useState<any>(null);
-    const [addresses, setِِAddresses] = React.useState([]);
+    const [addresses, setAddresses] = React.useState([]);
 
     const getAddresses = async () => {
+        setLoading(true);
         try {
-            setLoading(true);
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/addresses`,
                 {
                     headers: {
@@ -25,9 +25,13 @@ const Addresses: React.FC = () => {
                     }
                 }
             );
-            setِِAddresses(response.data.data);
+            setAddresses(response.data.data);
         } catch (error: any) {
-
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response?.data?.message || error.message,
+            });
 
         } finally {
             setLoading(false);
@@ -36,22 +40,21 @@ const Addresses: React.FC = () => {
 
     React.useEffect(() => {
         getAddresses();
-    });
-
+    }, []);
 
     return (
         <div>
-            {showAddressForm && (
-                <AddressForm
-                    showAddressForm={showAddressForm}
-                    setShowAddressForm={setShowAddressForm}
-                    selectedAddress={selectedAddress}
-                    reloadData={() => getAddresses()}
-                    setSelectedAddress={setSelectedAddress}
-                />
-
-            )}
             <SidebarProfile>
+                {showAddressForm && (
+                    <AddressForm
+                        showAddressForm={showAddressForm}
+                        setShowAddressForm={setShowAddressForm}
+                        selectedAddress={selectedAddress}
+                        reloadData={() => getAddresses()}
+                        setSelectedAddress={setSelectedAddress}
+                    />
+
+                )}
                 <div className="bg-white mx-4 shadow sm:rounded-lg">
                     <div className="px-4 py-5 sm:p-6">
                         <div className="flex justify-between">
@@ -67,16 +70,26 @@ const Addresses: React.FC = () => {
                     </div>
                 </div>
 
-                {addresses.map((address: any) => (
-                    <AddressCard address={address}
-                        setShowAddressForm={setShowAddressForm}
-                        reloadData={() => getAddresses()}
-                        setSelectedAddress={setSelectedAddress}
+                {addresses.length > 0 && (
+                   addresses && addresses.map((address: any) => (
+                        <AddressCard address={address}
+                            setShowAddressForm={setShowAddressForm}
+                            reloadData={() => getAddresses()}
+                            setSelectedAddress={setSelectedAddress}
 
-                    />
+                        />
 
-                ))}
-            </SidebarProfile >
+                    ))
+
+                )}
+                {addresses.length === 0 && (
+                    <div className="flex flex-col items-center justify-center gap-5 mt-10">
+                        <i className="text-5xl"></i>
+                        <h1 className="text-xl">No there Addressess</h1>
+                    </div>
+                )}
+
+            </SidebarProfile>
         </div>
 
     )

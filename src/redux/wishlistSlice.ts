@@ -17,7 +17,6 @@ interface WishlistState {
 
 const initialState: WishlistState = { items: [], loading: 'idle' };
 
-const token = localStorage.getItem('token');
 
 export const isProductInWishlist = (productId: number) => {
     return initialState.items.some(item => item.productId == productId);
@@ -40,8 +39,8 @@ export const addToWishlist = createAsyncThunk('wishlist/add',
             const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/my/wishlist/`, { productId },
                 {
                     headers: {
-
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                       
                     }
                 });
             return response.data.data;
@@ -92,7 +91,6 @@ export const wishlistSlice = createSlice({
                 state.loading = 'pending';
             })
             .addCase(removeFromWishlist.fulfilled, (state, action: PayloadAction<Item>) => {
-
                 const index = state.items.findIndex(item => item.productId === action.payload.productId);
                 state.items.splice(index, 1);
                 state.loading = 'succeeded';

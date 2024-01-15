@@ -1,25 +1,11 @@
 "use client"
 import React, { useState } from 'react';
 import axios from 'axios';
-import { RadioGroup } from '@headlessui/react'
-import { CheckCircleIcon } from '@heroicons/react/20/solid'
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
-import { useRouter } from 'next/navigation';
 import OrderItemSummary from "../../../components/Order/OrderItemSummary";
 import OrderAddressCard from "../../../components/Order/OrderAddressCard";
-
-import { Order , OrderItem,address,city } from "../../../interfaces";
+import { Order } from "../../../interfaces";
 
 const ThankYou = () => {
-    const [addresses, setِِAddresses] = React.useState([]);
-    const [items, setِItems] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [order, setِِOrder] = React.useState<Order>({
         orderId: '',
@@ -45,7 +31,7 @@ const ThankYou = () => {
     };
     React.useEffect(() => {
         getPlacedOrder();
-    });
+    },[]);
     return (
         <div>
             <div className="mt-4 grid grid-cols-2 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
@@ -70,7 +56,7 @@ const ThankYou = () => {
                     <div className="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
                         <div className="">
                             <div className="px-3">
-                                {order && order.order_items && order.order_items.map((orderItem: any) => (
+                                {order && order.orderItems && order.orderItems.map((orderItem: any) => (
                                     <OrderItemSummary orderItem={orderItem} />
                                 ))}
                                 <div className="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">

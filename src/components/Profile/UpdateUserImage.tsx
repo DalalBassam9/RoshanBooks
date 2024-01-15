@@ -1,8 +1,5 @@
 import React from 'react';
-import UserState from '../../redux/userSlice';
-import {
-    fetchUser,
-} from '../../redux/userSlice';
+import { fetchUser } from '../../redux/userSlice';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from "axios";

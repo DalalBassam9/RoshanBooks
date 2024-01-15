@@ -10,7 +10,8 @@ import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { Fragment } from 'react'
+import { Fragment } from 'react';
+import { useRouter } from 'next/navigation';
 import { Dialog, Transition } from '@headlessui/react'
 import {
     Bars3Icon,
@@ -23,14 +24,14 @@ import {
 
 
 const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
-
+    const router = useRouter();
     const navigation = [
         { name: 'Account', href: '/account', icon: UserIcon, current: true },
         { name: 'Addresses', href: '/account/addresses', icon: GlobeAltIcon, current: false },
         { name: 'Orders', href: '/account/orders', icon: ShoppingCartIcon, current: false },
         { name: 'Wishlist', href: '/account/wishlist', icon: HeartIcon, current: false },
     ]
- 
+
     function classNames(...classes: string[]) {
         return classes.filter(Boolean).join(' ')
     }
@@ -43,9 +44,6 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         dispatch(fetchUser());
     }, [dispatch]);
-
-
-
 
     return (
         <div className="flex">
@@ -103,18 +101,19 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
                                     <nav className="flex flex-1 flex-col">
                                         <ul role="list" className="flex flex-1 flex-col gap-y-7">
                                             <li>
+
                                                 <ul role="list" className="-mx-2 space-y-1">
                                                     {navigation.map((item) => (
                                                         <li key={item.name}>
-                                                            <Link href={item.href}
-                                                              
+                                                            <div
+                                                                onClick={() => router.push(item.href)}
                                                                 className={classNames(
                                                                     item.current
                                                                         ? 'bg-gray-50 text-beige'
                                                                         : 'text-gray-700 hover:text-beige hover:bg-gray-50',
-                                                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold cursor-pointer'
                                                                 )}
-                                                                    passHref>
+                                                            >
                                                                 <item.icon
                                                                     className={classNames(
                                                                         item.current ? 'text-beige' : 'text-gray-400 group-hover:text-beige',
@@ -123,12 +122,12 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
                                                                     aria-hidden="true"
                                                                 />
                                                                 {item.name}
-                                                            </Link>
+                                                            </div>
                                                         </li>
                                                     ))}
                                                 </ul>
                                             </li>
-                                     
+
                                         </ul>
                                     </nav>
                                 </div>
@@ -141,7 +140,7 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
             <div className="hidden   lg:inset-y-0  lg:flex my-2 mx-2 lg:w-72 lg:flex-col">
                 {/* Sidebar component, swap this element with another sidebar if you like */}
                 <div className="flex  grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
-                   
+
                     <nav className="flex mt-4 flex-1 flex-col">
                         <ul role="list" className="flex flex-1 flex-col gap-y-7">
                             <li>
@@ -149,7 +148,7 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
                                     {navigation.map((item) => (
                                         <li key={item.name}>
                                             <Link href={item.href}
-                                       
+
                                                 className={classNames(
                                                     item.current
                                                         ? 'bg-gray-50 text-beige'
@@ -157,7 +156,7 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
                                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                                                 )}
                                                 passHref >
-                                                
+
 
                                                 <item.icon
                                                     className={classNames(
@@ -172,15 +171,15 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
                                     ))}
                                 </ul>
                             </li>
-                      
+
                             <li className="-mx-6 mt-auto">
                                 <a
                                     href="#"
                                     className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
                                 >
-                                  
+
                                     <span className="sr-only">Your profile</span>
-                            
+
                                 </a>
                             </li>
                         </ul>
@@ -193,7 +192,7 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
                     <span className="sr-only">Open sidebar</span>
                     <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                 </button>
-               
+
             </div>
 
             <main className="py-10  flex-grow">

@@ -85,7 +85,7 @@ export default function Cart() {
 
                 {items.length === 0 && (
                     <div className="flex flex-col items-center justify-center gap-5 mt-10">
-                        <i className="ri-shopping-cart-line text-5xl"></i>
+                        <i className="text-5xl"></i>
                         <h1 className="text-xl">Your cart is empty</h1>
                     </div>
                 )}

@@ -37,11 +37,12 @@ export default function category({ params }: { params: any }) {
         categoryId: '',
         name: '',
     });
-    const [loading, setLoading] = React.useState(false);
+    const [loadingCategory , setLoadingCategory ] = React.useState(false);
+    const [loading , setLoading ] = React.useState(false);
 
     const getCategory = async () => {
         try {
-            setLoading(true);
+            setLoadingCategory(true);
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/categories/${params.categoryId}`
             );
             setCategoryData(response.data.data);
@@ -53,7 +54,7 @@ export default function category({ params }: { params: any }) {
             })
 
         } finally {
-            setLoading(false);
+            setLoadingCategory(false);
         }
     };
 
@@ -148,7 +149,7 @@ export default function category({ params }: { params: any }) {
 
                                 <div className="lg:col-span-3">
                                     <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
-                                        {products.map((product: any) => (
+                                        {products && products.map((product: any) => (
                                             <ProductCard
                                                 key={product.productId}
                                                 product={product}

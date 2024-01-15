@@ -7,7 +7,7 @@ import WishlistState from '../../../redux/wishlistSlice';
 import { useSelector } from 'react-redux';
 import useAuth from "../../lib/useAuth";
 import Rating from '@mui/material/Rating';
-import { Provider, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { getMyWishlist, removeFromWishlist, addToWishlist } from '../../../redux/wishlistSlice';
 import { Product } from "../../../interfaces";
 import Swal from "sweetalert2";

@@ -60,7 +60,6 @@ function CategoryForm({
             [field]: value,
         }));
 
-        // Validate the field using Yup
         validateField(field, value);
     };
 

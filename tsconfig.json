@@ -47,7 +47,7 @@
     "src/app/components/Sidebar.jsx",
     "src/app/admin/components/Navbar.js",
     "src/app/helpers/. validateTextField tsx"
-, "src/app/admin/page.tsx", "src/components/Profile", "src/components/Profile", "src/components/SortMenutsx"  ],
+, "src/app/admin/page.tsx", "src/components/Profile", "src/components/Profile", "src/components/SortMenutsx", "src/app/lib/useAuth.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,11 +1,13 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
-import Link from 'next/link';
 import SidebarProfile from '../../../components/Profile/SidebarProfile';
 import { Order } from "../../../interfaces";
+import { useRouter } from "next/navigation";
+import useAuth from '../../lib/useAuth';
 
 const Orders: React.FC = () => {
+    const router = useRouter();
     const [loading, setLoading] = React.useState(false);
     const [orders, setOrders] = React.useState<Order[]>([]);
 
@@ -30,7 +32,7 @@ const Orders: React.FC = () => {
 
     React.useEffect(() => {
         getUserOrders();
-    });
+    }, []);
 
 
     return (
@@ -38,62 +40,78 @@ const Orders: React.FC = () => {
             <SidebarProfile>
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center">
-                        <div className="sm:flex-auto">
-                            <h1 className="text-base font-semibold leading-6 text-gray-900">Orders</h1>
-                            <p className="mt-2 text-sm text-gray-700">
-                                A list of all the users in your account including their name, title, email and role.
-                            </p>
-                        </div>
+
+                        {orders.length > 0 && (
+                            <div className="sm:flex-auto">
+                                <h1 className="text-base font-semibold leading-6 text-gray-900">Orders</h1>
+                                <p className="mt-2 text-sm text-gray-700">
+                                    A list of all my orders.
+                                </p>
+
+
+                            </div>
+                        )}
 
                     </div>
-                    <div className="mt-8 flow-root">
-                        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                    {orders.length > 0 && (
 
-                                    <table className="min-w-full divide-y divide-gray-300">
+                        <div className="mt-8 flow-root">
+                            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                    <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
 
-                                        <thead className="bg-gray-50">
-                                            <tr>
-                                                <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                    Order Id
-                                                </th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                    Status
-                                                </th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                    Total Price
-                                                </th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                    Created At
-                                                </th>
-                                                <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                                    <span className="sr-only">Edit</span>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="divide-y divide-gray-200 bg-white">
-                                            {orders && orders.map((order) => (
+                                        <table className="min-w-full divide-y divide-gray-300">
+
+                                            <thead className="bg-gray-50">
                                                 <tr>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">#{order.orderId}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.status}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.totalPrice}</td>
-
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.created_at}</td>
-                                                    <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-
-                                                        <Link className="text-beige hover:text-beige" href={`/account/orders/order/${order.orderId}`} passHref>
-                                                            view order
-                                                        </Link>
-                                                    </td>
+                                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                        Order Id
+                                                    </th>
+                                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                        Status
+                                                    </th>
+                                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                        Total Price
+                                                    </th>
+                                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                        Created At
+                                                    </th>
+                                                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                                        <span className="sr-only">Edit</span>
+                                                    </th>
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody className="divide-y divide-gray-200 bg-white">
+                                                {orders && orders.map((order) => (
+                                                    <tr>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">#{order.orderId}</td>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.status}</td>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.totalPrice}</td>
+
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.created_at}</td>
+                                                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+
+                                                            <button className="text-beige hover:text-beige" onClick={() => router.push(`./orders/order/${order.orderId}`)}>
+                                                                view order
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    )}
+
+                    {orders.length === 0 && (
+                        <div className="flex flex-col items-center justify-center gap-5 mt-10">
+                            <i className="text-5xl"></i>
+                            <h1 className="text-xl">My orders is empty</h1>
+                        </div>
+                    )}
+
                 </div>
 
             </SidebarProfile>

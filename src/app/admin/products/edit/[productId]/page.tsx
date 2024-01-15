@@ -1,10 +1,9 @@
 "use client";
 import ProductForm from '../../../components/Products/ProductForm';
-import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import CircularProgress from '@mui/material/CircularProgress';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { Typography, Card, CardContent } from '@mui/material';

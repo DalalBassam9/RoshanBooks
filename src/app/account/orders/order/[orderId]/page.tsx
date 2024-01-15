@@ -1,22 +1,19 @@
 "use client";
 import React from 'react';
-import Wishlist from '../../../../../components/Profile/Wishlist';
 import SidebarProfile from '../../../../../components/Profile/SidebarProfile';
 import { UserState } from '../../../../../redux/userSlice';
 import {
     fetchUser,
     logoutUser
 } from '../../../../../redux/userSlice';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import axios from "axios";
 import { Order } from "../../../../../interfaces";
+import useAuth from '../../../../lib/useAuth';
 
 function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
     const [order, setOrder] = React.useState<Order | null>();
+
 
     const getUserOrder = async () => {
         try {
@@ -35,23 +32,19 @@ function Order({ params }: { params: any }) {
             setLoading(false);
         }
     };
+
+
     React.useEffect(() => {
         getUserOrder();
-    });
-
-    const dispatch: ThunkDispatch<UserState, unknown, AnyAction> = useDispatch();
-    const user = useSelector((state: { user: UserState }) => state.user.user);
-
-    useEffect(() => {
-        dispatch(fetchUser());
-    }, [dispatch]);
+    }, []);
 
     return (
         <div>
             <SidebarProfile>
+
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center">
-                        <div className="py-5 px-8 w-1/2 rounded-md bg-white">
+                        <div className="py-5 px-8 w-full rounded-md bg-white">
                             <h1>Ship To</h1>
                             <ul role="list">
 
@@ -92,7 +85,7 @@ function Order({ params }: { params: any }) {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
-                                            {order && order.order_items && order.order_items.map((order: any) => (
+                                            {order && order.orderItems && order.orderItems.map((order: any) => (
 
                                                 <tr>
                                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order?.product?.name}</td>
@@ -110,6 +103,7 @@ function Order({ params }: { params: any }) {
                         </div>
                     </div>
                 </div>
+
             </SidebarProfile>
         </div>
     );
