@@ -24,7 +24,7 @@ export interface Category {
 
 export interface Order {
   orderId: number,
-  totalPrice: number,
+  totalPrice: string,
   status: string,
   addressId: number,
   created_at: string,

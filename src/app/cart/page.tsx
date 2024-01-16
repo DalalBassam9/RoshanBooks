@@ -52,7 +52,7 @@ export default function Cart() {
                             </div>
                             <div className="flex justify-between">
                                 <p className="text-gray-700">Shipping</p>
-                                <p className="text-gray-700">$3</p>
+                                <p className="text-gray-700">3 JOD</p>
                             </div>
                             <hr className="my-4" />
                             <div className="flex justify-between">

@@ -62,6 +62,22 @@ function ProductCard({
             toast.success('Product removed to  wihlist!');
         }
     };
+    const handleAddToCart = (productId: any) => {
+        if (!token) {
+            router.push("/login");
+        } else {
+            dispatch(
+                addToCart({
+                    productId: productId,
+                    quantity: 1,
+                })
+            ); 
+            router.push('/cart');
+        }
+    };
+
+           
+    
 
     return (
         <div>
@@ -118,12 +134,8 @@ function ProductCard({
                     <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
                         <button
                             onClick={() => {
-                                dispatch(
-                                    addToCart({
-                                        productId: product.productId,
-                                        quantity: 1,
-                                    })
-                                );
+                                handleAddToCart(product.productId);
+
                             }}
                             disabled={product.quantity === 0}
                             className={`p-2 rounded-full bg-beige   focus:outline-none ${product.quantity === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}>
@@ -137,7 +149,7 @@ function ProductCard({
                 </div>
             </div>
 
-        </div>
+        </div >
     );
 
 

@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
-
+import { toast } from 'react-toastify';
 
 
 interface AddressProps {
@@ -65,8 +65,8 @@ function DeliveryAddressCard(
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: '#D5A983',
+            cancelButtonColor: '#D5A983',
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.value) {
@@ -85,11 +85,7 @@ function DeliveryAddressCard(
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 });
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Address Deleted successfully',
-            })
+                toast.success('Address Deleted successfully');
             setSelectedAddress(null);
             reloadData();
         } catch (error: any) {

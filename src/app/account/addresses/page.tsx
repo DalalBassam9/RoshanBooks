@@ -60,7 +60,7 @@ const Addresses: React.FC = () => {
 
                             <button
                                 onClick={() => { setShowAddressForm(true) }}
-                                className="rounded-xl  px-3 py-2 bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="rounded-xl  px-3 py-2 bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                             >
                                 Add new address
                             </button>

@@ -60,7 +60,7 @@ export default function Checkout() {
 
     React.useEffect(() => {
         getAddresses();
-    },[]);
+    }, []);
 
     const handlePlaceOrder = async () => {
         try {
@@ -69,8 +69,8 @@ export default function Checkout() {
             const response = await axios.post(
                 process.env.NEXT_PUBLIC_API_URL + '/api/checkout',
                 {
-                    items: items, 
-                    subTotal: subTotal,
+                    items: items,
+                    price: subTotal,
                     totalPrice: total,
                     addressId: defaultAddressId.addressId,
                 },
@@ -88,92 +88,124 @@ export default function Checkout() {
         }
     };
     return (
-        <div className="mt-4 grid grid-cols-2 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-            <div className="lg:col-span-2 col-span-3 bg-indigo-50 space-y-8 px-12">
-                <div className="mt-8 p-4 relative flex flex-col  bg-white shadow rounded-md">
-                    <div className="py-5  rounded-md bg-white">
-                        <div>
-                        <ToastContainer/>
 
-                            {showAddressForm && (
-                                <AddressForm
-                                    showAddressForm={showAddressForm}
-                                    setShowAddressForm={setShowAddressForm}
-                                    selectedAddress={selectedAddress}
-                                    reloadData={() => getAddresses()}
-                                    setSelectedAddress={setSelectedAddress}
-                                />
+        <div>
 
-                            )}
+            {items.length > 0 && (
 
-                            <div className="bg-white shadow sm:rounded-lg">
-                                <div className="px-4 py-5 sm:p-6">
-                                    <div className="flex justify-between">
-                                        <h3 className="text-base font-semibold leading-6 text-gray-900">Addressess</h3>
 
-                                        <button
-                                            onClick={() => { setShowAddressForm(true) }}
-                                            className="rounded-md  px-3 py-2 bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                        >
-                                            Add new address
-                                        </button>
+                <div className="mt-4 grid grid-cols-2 gap-y-6 sm:grid-cols-3  my-4 sm:gap-x-4">
 
+
+                    <div className="lg:col-span-2 col-span-3  space-y-4 px-12">
+                        <div className="mt-8 p-4 relative flex flex-col  bg-white shadow rounded-md">
+                            <div className="py-5  rounded-md bg-white">
+                                <div>
+                                    <ToastContainer />
+
+                                    {showAddressForm && (
+                                        <AddressForm
+                                            showAddressForm={showAddressForm}
+                                            setShowAddressForm={setShowAddressForm}
+                                            selectedAddress={selectedAddress}
+                                            reloadData={() => getAddresses()}
+                                            setSelectedAddress={setSelectedAddress}
+                                        />
+
+                                    )}
+
+
+                                    <div className="bg-white   border-b  border-gray-900/10  my-2 sm:rounded-lg">
+                                        <div className="px-4 py-5 sm:p-6">
+                                            <div className="flex justify-between">
+                                                <h3 className="text-base font-semibold leading-6 text-gray-900">Addressess</h3>
+
+                                                <button
+                                                    onClick={() => { setShowAddressForm(true) }}
+                                                    className="rounded-md  px-3 py-2 bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                                >
+                                                    Add new address
+                                                </button>
+
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+
+                                {addresses.length > 0 && (
+                                    <ul role="list" className="divide-y divide-gray-300">
+                                        {addresses.map((address: any) => (
+                                            <DeliveryAddressCard
+                                                address={address}
+                                                setShowAddressForm={setShowAddressForm}
+                                                reloadData={() => getAddresses()}
+                                                setSelectedAddress={setSelectedAddress}
+                                                handleShowAddressForm={handleShowAddressForm} />
+                                        ))}
+                                    </ul>
+
+                                )}
+                                {addresses.length === 0 && (
+                                    <div className="flex flex-col items-center justify-center gap-5 mt-10">
+                                        <i className="text-5xl"></i>
+                                        <h1 className="text-xl">No  Addressess create address ship</h1>
+                                    </div>
+                                )}
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div className="lg:col-span-1 col-span-3 mt-4 space-y-4 mr-6 mb-8 px-4">
+                        <div className="mt-4 p-4 relative flex flex-col  bg-white shadow rounded-md">
+                            <div className="py-5  rounded-md bg-white">
+                                <div className="px-3">
+                                    {items.map((item: any) => (
+                                        <CartItemSummary
+                                            cartItem={item}
+                                        />
+                                    ))}
+                                    <div className="mb-6 pb-6 border-b border-gray-200 text-gray-800">
+                                        <div className="w-full flex mb-3 items-center">
+                                            <div className="flex-grow">
+                                                <span className="text-gray-600">Subtotal</span>
+                                            </div>
+                                            <div className="pl-3">
+                                                <span className="font-semibold">{subTotal}</span>
+                                            </div>
+                                        </div>
+                                        <div className="w-full flex mb-3 items-center">
+                                            <div className="flex-grow">
+                                                <span className="text-gray-600">Shipping</span>
+                                            </div>
+                                            <div className="pl-3">
+                                                <span className="font-semibold">3 JOD</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
+                                        <div className="w-full flex items-center">
+                                            <div className="flex-grow">
+                                                <span className="text-gray-600">Total</span>
+                                            </div>
+                                            <div className="pl-3">
+                                                <span className="font-semibold">{total}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button className="w-full flex-none rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige" onClick={handlePlaceOrder}>Complete Order</button>
                                 </div>
                             </div>
                         </div>
-                        <ul role="list" className="divide-y divide-gray-100">
-                            {addresses.map((address: any) => (
-                                <DeliveryAddressCard
-                                    address={address}
-                                    setShowAddressForm={setShowAddressForm}
-                                    reloadData={() => getAddresses()}
-                                    setSelectedAddress={setSelectedAddress}
-                                    handleShowAddressForm={handleShowAddressForm} />
-                            ))}
-                        </ul>
                     </div>
                 </div>
 
+            )}
 
 
-            </div>
-            <div className="md:col-span-1 col-span-3  bg-indigo-50 space-y-8 px-12">
-                <div className="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
-                    <div className="">
-                        <div className="px-3">
-                            {items.map((item: any) => (
-                                <CartItemSummary
-                                    cartItem={item}
-                                />
-                            ))}
-                            <div className="mb-6 pb-6 border-b border-gray-200 text-gray-800">
-                                <div className="w-full flex mb-3 items-center">
-                                    <div className="flex-grow">
-                                        <span className="text-gray-600">Subtotal</span>
-                                    </div>
-                                    <div className="pl-3">
-                                        <span className="font-semibold">{subTotal}</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
-                                <div className="w-full flex items-center">
-                                    <div className="flex-grow">
-                                        <span className="text-gray-600">Total</span>
-                                    </div>
-                                    <div className="pl-3">
-                                        <span className="font-semibold text-gray-400 text-sm">AUD</span> <span className="font-semibold">{total}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button className="flex-none rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige" onClick={handlePlaceOrder}>Complete Order</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     )
 }

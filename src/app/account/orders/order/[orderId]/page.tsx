@@ -12,6 +12,7 @@ import useAuth from '../../../../lib/useAuth';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import orders from 'src/app/admin/orders/page';
 
 function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
@@ -75,29 +76,48 @@ function Order({ params }: { params: any }) {
                                                     quantity
                                                 </th>
                                                 <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                    Price
+                                                    Product Price
                                                 </th>
 
                                                 <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                                     total
                                                 </th>
-                                                <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                                    <span className="sr-only">Edit</span>
-                                                </th>
+
+
+
                                             </tr>
+
+
+
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
-                                            {order && order.orderItems && order.orderItems.map((order: any) => (
-
+                                            {order && order.orderItems && order.orderItems.map((orderItem: any) => (
                                                 <tr>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order?.product?.name}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.quantity}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.product.price}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.price}</td>
-                                                    <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                    </td>
+                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem?.product?.name}</td>
+                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.quantity}</td>
+                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price}</td>
+                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price * orderItem.quantity}</td>
                                                 </tr>
                                             ))}
+                                            {order &&
+                                                <tr>
+                                                    <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Sub Total</td>
+                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                        {order.orderItems.reduce((sum: number, item: any) => sum + (item.product.price * item.quantity), 0)}
+                                                    </td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Shipping</td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">3 JD</td>
+                                            </tr>
+                                            {order &&
+                                                <tr>
+                                                    <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Total Price</td>
+                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.totalPrice}</td>
+                                                </tr>
+                                            }
+
                                         </tbody>
                                     </table>
                                 </div>

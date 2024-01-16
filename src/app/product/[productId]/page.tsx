@@ -50,6 +50,9 @@ export default function product({ params }: { params: any }) {
     };
 
     const handleAddToCart = (productId: any, quantity: number) => {
+        if (!token) {
+            router.push("/login");
+        } 
         dispatch(
             addToCart({
                 productId: productId,
@@ -81,12 +84,7 @@ export default function product({ params }: { params: any }) {
             setProduct(response.data.data);
             dispatch(getMyWishlist());
         } catch (error: any) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.response.data.message || error.message,
-            })
-
+            toast.error(error.response?.data?.message || error.message);
         } finally {
             setLoading(false);
         }
