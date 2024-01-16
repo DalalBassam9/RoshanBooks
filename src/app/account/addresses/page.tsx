@@ -5,8 +5,10 @@ import SidebarProfile from '../../../components/Profile/SidebarProfile';
 import AddressForm from "../../../components/Profile/AddressForm";
 import AddressCard from "../../../components/Profile/AddressCard";
 import axios from "axios";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import Swal from "sweetalert2";
-import useAuth from '../../lib/useAuth';
 
 const Addresses: React.FC = () => {
     const [loading, setLoading] = React.useState(false);
@@ -27,12 +29,7 @@ const Addresses: React.FC = () => {
             );
             setAddresses(response.data.data);
         } catch (error: any) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.response?.data?.message || error.message,
-            });
-
+            toast.error(error.response?.data?.message || error.message);
         } finally {
             setLoading(false);
         }
@@ -45,6 +42,7 @@ const Addresses: React.FC = () => {
     return (
         <div>
             <SidebarProfile>
+                <ToastContainer />
                 {showAddressForm && (
                     <AddressForm
                         showAddressForm={showAddressForm}
@@ -62,7 +60,7 @@ const Addresses: React.FC = () => {
 
                             <button
                                 onClick={() => { setShowAddressForm(true) }}
-                                className="rounded-md  px-3 py-2 bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="rounded-xl  px-3 py-2 bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Add new address
                             </button>

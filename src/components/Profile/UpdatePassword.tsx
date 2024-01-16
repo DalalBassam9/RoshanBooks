@@ -1,10 +1,10 @@
 "use client";
 import React from 'react';
-import {  useState} from 'react';
+import { useState } from 'react';
 import axios from "axios";
 import Swal from "sweetalert2";
 import * as Yup from 'yup';
-
+import { toast } from 'react-toastify';
 
 interface PasswordUserData {
     password: string;
@@ -30,7 +30,6 @@ const UpdatePassword: React.FC = () => {
 
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [loading = false, setLoading] = React.useState<boolean>(false);
-    const [loadingPassword = false, setLoadingPassword] = React.useState<boolean>(false);
 
     const validatePasswordField = async (field: string, value: string) => {
         try {
@@ -61,7 +60,7 @@ const UpdatePassword: React.FC = () => {
     const handlePasswordSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            setLoadingPassword(true);
+            setLoading(true);
             await passwordSchema.validate(passwordData, { abortEarly: false });
 
             const response = await axios.put(process.env.NEXT_PUBLIC_API_URL + "/api/my/update-password", passwordData, {
@@ -69,28 +68,20 @@ const UpdatePassword: React.FC = () => {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
             });
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Password Updated successfully',
-            })
+            toast.success('Password Updated successfully');
         }
         catch (error: any) {
             if (error instanceof Yup.ValidationError) {
-                const errors: { [key: string]: string } = {}; 
+                const errors: { [key: string]: string } = {};
                 error.inner.forEach((error: any) => {
                     errors[error.path] = error.message;
                 });
                 setErrors(errors);
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: error.response?.data?.message || error.message, 
-                });
+                toast.error(error.response?.data?.message || error.message);
             }
         } finally {
-            setLoadingPassword(false);
+            setLoading(false);
         }
     };
     const handlePasswordCancel = () => {
@@ -154,16 +145,17 @@ const UpdatePassword: React.FC = () => {
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     <button type="button"
-                        onClick={handlePasswordCancel} className="text-sm font-semibold leading-6 text-gray-900">
+                        onClick={handlePasswordCancel} className="text-sm rounded-xl  px-3 py-2 font-semibold bg-gray-200 text-gray-900 leading-6 text-gray-900">
                         Cancel
                     </button>
                     <button
                         type="submit"
-                        className="rounded-md bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige"
+                        disabled={loading}
+                        className={`rounded-xl bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige ${loading ? 'opacity-50' : ''}`}
                     >
-                        change password
+                        {loading ? 'Changing password...' : 'Change password'}
                     </button>
-                </div>
+                    </div>
             </form>
 
         </div>

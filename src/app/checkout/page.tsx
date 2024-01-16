@@ -8,8 +8,11 @@ import { useRouter } from 'next/navigation';
 import AddressForm from "../../components/Profile/AddressForm";
 import DeliveryAddressCard from "../../components/Checkout/DeliveryAddressCard";
 import CartItemSummary from "../../components/Checkout/CartItemSummary";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import Swal from "sweetalert2";
+
 export default function Checkout() {
     const router = useRouter();
     const [addresses, setِِAddresses] = React.useState([]);
@@ -79,11 +82,7 @@ export default function Checkout() {
             );
             router.push('/checkout/thankyou');
         } catch (error: any) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.response.data.message || error.message,
-            })
+            toast.error(error.response?.data?.message || error.message);
         } finally {
             setLoading(false);
         }
@@ -94,6 +93,8 @@ export default function Checkout() {
                 <div className="mt-8 p-4 relative flex flex-col  bg-white shadow rounded-md">
                     <div className="py-5  rounded-md bg-white">
                         <div>
+                        <ToastContainer/>
+
                             {showAddressForm && (
                                 <AddressForm
                                     showAddressForm={showAddressForm}

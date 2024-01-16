@@ -138,7 +138,7 @@ function ReviewForm({ getReviews, setShowReviewForm, handleClose, product }: Rev
 
                                     <button
                                         type="submit"
-                                        className={`py-3 my-8 text-lg bg-beige rounded-xl text-white  ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        className={`py-3 my-4 text-lg bg-beige rounded-xl text-white  ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                                         disabled={loading}
                                     >
                                         {loading ? 'Loading...' : 'Rate now'}

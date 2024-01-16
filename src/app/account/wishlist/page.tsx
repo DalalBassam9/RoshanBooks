@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import ProductCard from '../../../components/Product/ProductCard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import useAuth from '../../lib/useAuth';
 
 import SidebarProfile from '../../../components/Profile/SidebarProfile';
 const Wishlist: React.FC = () => {

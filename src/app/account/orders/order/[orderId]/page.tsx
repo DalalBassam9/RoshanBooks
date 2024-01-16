@@ -9,6 +9,9 @@ import {
 import axios from "axios";
 import { Order } from "../../../../../interfaces";
 import useAuth from '../../../../lib/useAuth';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
@@ -27,7 +30,7 @@ function Order({ params }: { params: any }) {
             );
             setOrder(response.data.data);
         } catch (error: any) {
-
+            toast.error(error.response?.data?.message || error.message);
         } finally {
             setLoading(false);
         }
@@ -41,7 +44,7 @@ function Order({ params }: { params: any }) {
     return (
         <div>
             <SidebarProfile>
-
+                <ToastContainer />
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center">
                         <div className="py-5 px-8 w-full rounded-md bg-white">
@@ -52,7 +55,6 @@ function Order({ params }: { params: any }) {
                                 {order && <li className="text-sm font-medium text-gray-900">{order.address.firstName} {order.address.lastName}</li>}
                                 {order && <li className="text-sm font-medium text-gray-900">{order.address.district}</li>}
                                 {order && <li className="text-sm font-medium text-gray-900">{order.address.address}</li>}
-
 
                             </ul>
                         </div>

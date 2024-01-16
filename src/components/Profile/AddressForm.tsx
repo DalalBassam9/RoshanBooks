@@ -1,9 +1,10 @@
 "use client"
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 import axios from "axios";
 import Swal from "sweetalert2";
 import Modal from 'react-modal';
+import { toast } from 'react-toastify';
 
 interface AddressFormProps {
     showAddressForm: boolean;
@@ -14,7 +15,7 @@ interface AddressFormProps {
 }
 interface FormData {
     phone: string;
-    cityId: number | string;
+    cityId: string;
     address: string;
     firstName: any;
     lastName: string;
@@ -89,11 +90,7 @@ function AddressForm({
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/api/admin/cities-lookups");
             setCities(response.data.cities);
         } catch (error: any) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.response.data.message || error.message,
-            })
+            toast.error(error.response?.data?.message || error.message);
         }
     };
 
@@ -137,11 +134,7 @@ function AddressForm({
                     }
 
                 );
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Address updated successfully',
-                })
+                toast.success('Address updated successfully');
             } else {
                 await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/addresses`, formData,
                     {
@@ -151,11 +144,7 @@ function AddressForm({
                     }
 
                 );
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Address Created successfully',
-                })
+                toast.success('Address Created successfully');
             }
             setShowAddressForm(false);
             setSelectedAddress(null);
@@ -168,12 +157,7 @@ function AddressForm({
                 });
                 setErrors(errors);
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: error.response?.data?.message || error.message, // Use optional chaining to access nested properties
-                });
-
+                toast.error(error.response?.data?.message || error.message);
                 setShowAddressForm(false);
             }
         } finally {
@@ -186,14 +170,14 @@ function AddressForm({
             <Modal
                 isOpen={showAddressForm}
                 onRequestClose={handleClose}
-                className="m-auto p-4 bg-white rounded shadow-lg w-1/2"
+                className="m-auto p-4 my-4 bg-white rounded shadow-lg w-full h-full overflow-auto sm:h-auto sm:w-3/4 md:w-1/2"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex"
             >
                 <form noValidate autoComplete="off" onSubmit={handleSubmit} >
-                    <div className="p-6 border-b border-gray-900/10 pb-12">
-                        <h2 className="text-base font-semibold leading-7 text-gray-900">
-                            {selectedAddress ?  'Update Address'  :  'Add Address' }</h2>
-                    
+                    <div className="p-6 pb-12">
+                        <h2 className="text-base  pb-4  border-b  border-gray-900/10  font-semibold leading-7 text-gray-900">
+                            {selectedAddress ? 'Update Address' : 'Add Address'}</h2>
+
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
                                 <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
@@ -208,9 +192,9 @@ function AddressForm({
                                         onChange={(e) => handleChange('firstName', e.target.value)}
                                         autoComplete="given-name"
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.firstName} 'border-red-500' : ''}`}
-
-
                                     />
+                                    <div className="text-red-500 text-sm mt-2">{errors.firstName}</div>
+
                                 </div>
                             </div>
 
@@ -237,21 +221,24 @@ function AddressForm({
 
 
                             <div className="sm:col-span-2 sm:col-start-1">
-                                <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label className="block text-sm font-medium leading-6 text-gray-900">
                                     City
                                 </label>
                                 <div className="mt-2">
+
                                     <select
                                         className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.cityId ? 'border-red-500' : ''}`}
                                         value={formData.cityId}
                                         onChange={(e) => handleChange('cityId', e.target.value)}
                                     >
+                                        <option value="">Select a city</option>
                                         {cities.map((city: any) => (
                                             <option key={city.cityId} value={city.cityId}>
                                                 {city.name}
                                             </option>
                                         ))}
                                     </select>
+
                                     <div className="text-red-500 text-sm mt-2">{errors.cityId}</div>
 
                                 </div>
@@ -270,7 +257,7 @@ function AddressForm({
 
                                         autoComplete="phone"
 
-                                          className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.phone ? 'border-red-500' : ''}`}
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.phone ? 'border-red-500' : ''}`}
 
 
 
@@ -313,9 +300,9 @@ function AddressForm({
                                         value={formData.address}
                                         onChange={(e) => handleChange('address', e.target.value)}
                                         rows={4}
-                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.address ? 'border-red-500' : ''}`}
+                                        className={`block w-full  sm:w-auto rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.address ? 'border-red-500' : ''}`}
 
-                                                 defaultValue={''}
+                                        defaultValue={''}
                                     />
 
                                     <div className="text-red-500 text-sm mt-2">{errors.address}</div>
@@ -327,14 +314,16 @@ function AddressForm({
                         </div>
                         <div className="mt-6 flex items-center justify-end gap-x-6">
                             <button type="button"
-                                className="text-sm font-semibold leading-6 text-gray-900">
+                                onClick={handleClose}
+                                className="text-sm rounded-xl px-3 py-2   bg-gray-200 font-semibold leading-6 text-gray-900">
                                 Cancel
                             </button>
                             <button
                                 type="submit"
-                                className="rounded-md bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige"
+                                disabled={loading}
+                                className={`rounded-xl bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige ${loading ? 'opacity-50' : ''}`}
                             >
-                                Save
+                                {loading ? 'Loading...' : 'Save'}
                             </button>
                         </div>
 

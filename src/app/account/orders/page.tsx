@@ -5,6 +5,9 @@ import SidebarProfile from '../../../components/Profile/SidebarProfile';
 import { Order } from "../../../interfaces";
 import { useRouter } from "next/navigation";
 import useAuth from '../../lib/useAuth';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const Orders: React.FC = () => {
     const router = useRouter();
@@ -23,7 +26,7 @@ const Orders: React.FC = () => {
             );
             setOrders(response.data.data);
         } catch (error: any) {
-
+            toast.error(error.response?.data?.message || error.message);
 
         } finally {
             setLoading(false);
@@ -38,9 +41,9 @@ const Orders: React.FC = () => {
     return (
         <div>
             <SidebarProfile>
+                <ToastContainer />
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center">
-
                         {orders.length > 0 && (
                             <div className="sm:flex-auto">
                                 <h1 className="text-base font-semibold leading-6 text-gray-900">Orders</h1>

@@ -2,6 +2,7 @@
 import React from 'react';
 import axios from "axios";
 import Swal from "sweetalert2";
+import { toast } from 'react-toastify';
 
 interface AddressProps {
     reloadData: any,
@@ -21,9 +22,9 @@ function AddressCard(
 ) {
 
     const [loading, setLoading] = React.useState(false);
+    const [loadingDefaultAddress, setLoadingDefaultAddress] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
-
-
+    
     const handleShowAddressForm = (address: any) => {
         setSelectedAddress(address);
         setShowAddressForm(true);
@@ -31,6 +32,8 @@ function AddressCard(
 
     const setDefaultAddress = async (addressId: string) => {
         try {
+            
+            setLoadingDefaultAddress(true);
             const token = localStorage.getItem('token');
 
             if (!token) {
@@ -44,11 +47,9 @@ function AddressCard(
             });
             reloadData();
         } catch (error: any) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.response.data?.message || error.message,
-            })
+            toast.error(error.response?.data?.message || error.message);
+        } finally {
+            setLoadingDefaultAddress(false);
         }
     };
 
@@ -59,8 +60,8 @@ function AddressCard(
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: '#D5A983',
+            cancelButtonColor: '#D5A983',
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.value) {
@@ -79,19 +80,11 @@ function AddressCard(
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 });
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Address Deleted successfully',
-            })
+            toast.success('Address Deleted successfully');
             setSelectedAddress(null);
             reloadData();
         } catch (error: any) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.response.data.message || error.message,
-            })
+             toast.error(error.response?.data?.message || error.message);
         } finally {
             setLoadingForDelete(false);
         }
@@ -130,13 +123,14 @@ function AddressCard(
                     </div>
                     <div className="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
                         {address.default === 0 ? (
-                            <button
-                                type="button"
-                                onClick={() => setDefaultAddress(address.addressId)}
-                                className="inline-flex mx-1 items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                            >
-                                set default
-                            </button>
+                          <button
+                          type="button"
+                          onClick={() => setDefaultAddress(address.addressId)}
+                          disabled={loadingDefaultAddress}
+                          className={`inline-flex mx-1 text-gray-900 items-center rounded-xl bg-gray-200  px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 ${loadingDefaultAddress ? 'opacity-50' : ''}`}
+                        >
+                          {loadingDefaultAddress ? 'Setting default...' : 'Set default'}
+                        </button>
                         ) :
                             null
 
@@ -145,7 +139,7 @@ function AddressCard(
                         <button
                             type="button"
                             onClick={() => handleShowAddressForm(address)}
-                            className="inline-flex mx-1 items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                            className="inline-flex mx-1 text-white items-center rounded-xl bg-beige  px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 "
                         >
                             Edit
                         </button>
@@ -155,7 +149,7 @@ function AddressCard(
                                 deleteAddress(address.addressId),
                             ]}
                             type="button"
-                            className="inline-flex mx-1 items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                            className="inline-flex mx-1 text-gray-900 items-center rounded-xl  bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 "
                         >
                             Delete
                         </button>

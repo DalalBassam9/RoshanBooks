@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import axios from "axios";
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import Swal from "sweetalert2";
+import { toast } from 'react-toastify';
 
 interface ImageFormProps {
     setModalIsOpen: (isOpen: boolean) => void;
@@ -49,18 +50,12 @@ function UpdateUserImage(
                 },
             });
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Image update successfully',
-            })
-
+            toast.success('Image update successfully');
             setModalIsOpen(false);
             dispatch(fetchUser());
 
-        } catch (error) {
-            console.error('Error uploading image:', error);
-
+        } catch (error:any) {
+            toast.error(error.response?.data?.message || error.message);
         }
         finally {
             setLoading(false);
@@ -126,7 +121,7 @@ function UpdateUserImage(
                     <button
                         disabled={loading}
                         onClick={handleImageUpload}
-                        className="rounded-md  px-3 py-2 bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        className={`rounded-md  px-3 py-2 bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  ${loading ? 'opacity-50' : ''}`}
 
                     >
 
@@ -145,7 +140,7 @@ function UpdateUserImage(
 
                     <button
                         type="button"
-                        className="mt-3 mr-2 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                        className="mt-3 mr-2 inline-flex w-full justify-center rounded-xl bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto"
                         onClick={() => setModalIsOpen(false)}
 
                     >

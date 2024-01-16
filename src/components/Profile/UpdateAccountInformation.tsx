@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { UserState } from '../../redux/userSlice';
-
+import { toast } from 'react-toastify';
 import {
     fetchUser,
     logoutUser
@@ -86,12 +86,8 @@ const UpdateAccountInformation = () => {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
             });
+            toast.success('Info User Updated successfully');
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Info User Updated successfully',
-            });
         }
         catch (error: any) {
             if (error instanceof Yup.ValidationError) {
@@ -101,11 +97,7 @@ const UpdateAccountInformation = () => {
                 });
                 setErrors(errors);
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: error.response?.data?.message || error.message, // Use optional chaining to access the 'message' property
-                });
+                toast.error(error.response?.data?.message || error.message);
             }
         } finally {
             setLoading(false);
@@ -227,14 +219,15 @@ const UpdateAccountInformation = () => {
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     <button type="button"
-                        onClick={handleUserCancel} className="text-sm font-semibold leading-6 text-gray-900">
+                        onClick={handleUserCancel} className="text-sm  px-3 py-2   bg-gray-200 rounded-xl  font-semibold leading-6 text-gray-900">
                         Cancel
                     </button>
                     <button
                         type="submit"
-                        className="rounded-md bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        disabled={loading}
+                        className={`rounded-xl bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${loading ? 'opacity-50' : ''}`}
                     >
-                        Update
+                        {loading ? 'Loading...' : 'Update'}
                     </button>
                 </div>
             </form>

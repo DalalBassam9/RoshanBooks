@@ -16,6 +16,8 @@ import UpdateUserImage from '../../components/Profile/UpdateUserImage';
 import SidebarProfile from '../../components/Profile/SidebarProfile';
 import Modal from 'react-modal';
 import { InfoUserData } from "../../interfaces";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AccountInformation: React.FC = () => {
 
@@ -51,8 +53,8 @@ const AccountInformation: React.FC = () => {
     return (
         <div>
             <SidebarProfile>
-
-                <div className="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+                <ToastContainer />
+                <div className="mx-4 border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
                     <div className="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                         <div className="ml-4 mt-4">
                             <div className="overflow-hidden gap-6 mt-8 max-w-6xl mx-auto grid grid-cols-1 
@@ -92,19 +94,21 @@ const AccountInformation: React.FC = () => {
                         </div>
                         <div className="ml-4 mt-4 flex flex-shrink-0">
                             <div>
-                                <Modal
-                                    isOpen={modalIsOpen}
-                                    onRequestClose={handleCloseModal}
-                                    className="m-auto p-4 bg-white rounded shadow-lg lg:w-1/3  w-1/2 "
-                                    overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex"
-                                >
-                                    <UpdateUserImage setModalIsOpen={setModalIsOpen} />
-                                </Modal>
+                                {modalIsOpen && (
+                                    <Modal
+                                        isOpen={modalIsOpen}
+                                        onRequestClose={handleCloseModal}
+                                        className="m-auto p-4 bg-white rounded shadow-lg lg:w-1/3  w-1/2 "
+                                        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex"
+                                    >
+                                        <UpdateUserImage setModalIsOpen={setModalIsOpen} />
+                                    </Modal>
+                                )}
                             </div>
                             <button
                                 onClick={openModal}
                                 type="button"
-                                className="relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                className="relative ml-3 inline-flex items-center rounded-md bg-beige px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 "
                             >
                                 <span>Update Picture</span>
                             </button>
