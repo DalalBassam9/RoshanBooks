@@ -52,13 +52,14 @@ export default function product({ params }: { params: any }) {
     const handleAddToCart = (productId: any, quantity: number) => {
         if (!token) {
             router.push("/login");
-        } 
+        } else{
         dispatch(
             addToCart({
                 productId: productId,
                 quantity: quantity,
             })
         );
+        }
     };
 
     const [product, setProduct] = React.useState<Product>({

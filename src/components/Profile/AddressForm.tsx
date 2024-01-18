@@ -289,7 +289,7 @@ function AddressForm({
                                 </div>
                             </div>
 
-                            <div className="sm:col-span-4">
+                            <div className="sm:col-span-5">
                                 <label htmlFor="address" className="block text-sm font-semibold leading-6 text-gray-900">
                                     Address
                                 </label>
@@ -300,7 +300,8 @@ function AddressForm({
                                         value={formData.address}
                                         onChange={(e) => handleChange('address', e.target.value)}
                                         rows={4}
-                                        className={`block w-full  sm:w-auto rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.address ? 'border-red-500' : ''}`}
+                                      
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.address ? 'border-red-500' : ''}`}
 
                                         defaultValue={''}
                                     />

@@ -49,7 +49,7 @@ const ThankYou = () => {
                     <div className="mt-8 p-4 relative flex flex-col  bg-white shadow rounded-md">
 
                         <div className="py-5  rounded-md bg-white">
-                            <h1>Ship To</h1>
+                            <h1 className='border-b py-2 mb-2 border-gray-900/10 '>Ship To</h1>
                             {order &&
                                 <OrderAddressCard order={order} />
                             }

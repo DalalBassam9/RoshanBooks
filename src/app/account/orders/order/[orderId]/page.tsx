@@ -49,13 +49,14 @@ function Order({ params }: { params: any }) {
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center">
                         <div className="py-5 px-8 w-full rounded-md bg-white">
-                            <h1>Ship To</h1>
+
+                            <h1 className='border-b py-2 mb-2 border-gray-900/10 '>Ship To</h1>
                             <ul role="list">
 
-                                {order && <li className="text-sm font-medium text-gray-900">{order.address.phone}</li>}
-                                {order && <li className="text-sm font-medium text-gray-900">{order.address.firstName} {order.address.lastName}</li>}
-                                {order && <li className="text-sm font-medium text-gray-900">{order.address.district}</li>}
-                                {order && <li className="text-sm font-medium text-gray-900">{order.address.address}</li>}
+                                {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.phone}</li>}
+                                {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.firstName} {order.address.lastName}</li>}
+                                {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.district}</li>}
+                                {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.address}</li>}
 
                             </ul>
                         </div>

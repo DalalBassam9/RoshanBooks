@@ -95,8 +95,6 @@ export default function Checkout() {
 
 
                 <div className="mt-4 grid grid-cols-2 gap-y-6 sm:grid-cols-3  my-4 sm:gap-x-4">
-
-
                     <div className="lg:col-span-2 col-span-3  space-y-4 px-12">
                         <div className="mt-8 p-4 relative flex flex-col  bg-white shadow rounded-md">
                             <div className="py-5  rounded-md bg-white">
