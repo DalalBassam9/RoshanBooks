@@ -34,7 +34,7 @@ function ProductStatus(
                     value={status}
                     checked={productStatus === status}
                     onChange={(event) => handleStatusChange(event.target.value)}
-                    className="h-4 w-4 rounded border-gray-300 text-beige focus:ring-beige"
+                    className="h-4 w-4 rounded form-radio border-gray-300 text-beige focus:ring-beige"
 
                 />
                 <label htmlFor={`status-${index}`} className="ml-3 min-w-0 flex-1 text-gray-500">{status}</label>

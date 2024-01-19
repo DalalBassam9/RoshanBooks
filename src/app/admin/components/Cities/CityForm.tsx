@@ -124,65 +124,79 @@ function CityForm({
 
 
     return (
-        <Dialog open={showCityForm}
-            sx={{
-                '& .MuiDialog-paper': {
-                    width: '80%',
-                    maxHeight: 435,
+        <div>
+            <Dialog open={showCityForm}
+                sx={{
+                    '& .MuiDialog-paper': {
+                        width: '80%',
+                        maxHeight: 435,
 
-                },
-            }}   >
-            <DialogTitle>
-                <Box display="flex" justifyContent="space-between" alignItems="center">
+                    },
+                }}   >
+                <DialogTitle>
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
 
-                    {selectedCity ? 'Update City' : 'Add City'}
-                    <IconButton sx={{
-                        color: 'primary.main',
-                        '&:hover': {
-                            backgroundColor: 'primary.light',
+                        {selectedCity ? 'Update City' : 'Add City'}
+                        <IconButton sx={{
+                            '&:hover': {
+                                backgroundColor: '#D5A983',
 
-                        },
-                    }}
-                        edge="end" color="inherit" onClick={handleClose} aria-label="close">
-                        <CloseIcon />
-                    </IconButton>
-                </Box>
-            </DialogTitle>
+                            },
+                        }}
+                            edge="end" style={{ backgroundColor: '#D5A983', color: "white", fontWeight: 'bold' }}
+                            onClick={handleClose} aria-label="close">
+                            <CloseIcon />
+                        </IconButton>
 
-            <form onSubmit={handleSubmit}>
-                <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        name="name"
-                        label="Name"
-                        type="text"
-                        fullWidth
-                        value={formData.name}
-                        onChange={(e) => handleChange('name', e.target.value)}
-                        error={Boolean(errors.name)}
-                        helperText={errors.name}
-                    />
+                    </Box>
+                </DialogTitle>
 
-                </DialogContent>
-                <DialogActions>
-                    <Button
-                        variant="outlined" onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        type="submit"
-                        disabled={loading}
-                        startIcon={loading ? <CircularProgress size={20} /> : null}
-                    >
-                        {selectedCity ? 'Update' : 'Save'}
-                    </Button>
-                </DialogActions>
-            </form>
-        </Dialog>
+                <form onSubmit={handleSubmit}>
+                    <DialogContent>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            name="name"
+                            label="Name"
+                            type="text"
+                            fullWidth
+                            value={formData.name}
+                            sx={{
+                                '& label.Mui-focused': {
+                                    color: '#D5A983',
+                                    fontWeight: 'bold'
+                                },
+                                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: '#D5A983',
+                                },
+                            }}
+                            onChange={(e) => handleChange('name', e.target.value)}
+                            error={Boolean(errors.name)}
+                            helperText={errors.name}
+                        />
 
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            variant="outlined"
+                            style={{ color: '#A9A9A9', borderColor: '#A9A9A9' }}
+                            onClick={handleClose} >
+                            Cancel
+                        </Button>
+                        <Button
+                            variant="contained"
+                            style={{ backgroundColor: '#D5A983', color: '#fff', fontWeight: 'bold' }}
+
+                            type="submit"
+                            disabled={loading}
+                            startIcon={loading ? <CircularProgress size={20} /> : null}
+                        >
+                            {selectedCity ? 'Update' : 'Save'}
+                        </Button>
+                    </DialogActions>
+                </form>
+            </Dialog>
+        </div>
 
     );
 

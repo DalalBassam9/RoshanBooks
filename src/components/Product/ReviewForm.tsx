@@ -132,9 +132,9 @@ function ReviewForm({ getReviews, setShowReviewForm, handleClose, product }: Rev
                                 <div className="w-3/4 flex flex-col">
                                     <textarea
                                         value={formData.review}
-                                        onChange={(e) => handleChange('review', e.target.value)} rows={4} className="p-4  block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige    ">Leave a message, if you want</textarea>
+                                        onChange={(e) => handleChange('review', e.target.value)} rows={4} className="p-4 form-textarea block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige    ">Leave a message, if you want</textarea>
 
-                                    <div className="text-red-500 text-sm mt-2">{errors.review}</div>
+                                    <div className=" text-red-500 text-sm mt-2">{errors.review}</div>
 
                                     <button
                                         type="submit"

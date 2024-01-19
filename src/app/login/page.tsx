@@ -132,7 +132,7 @@ export default function Login() {
                                         onChange={(e) => handleChange('email', e.target.value)}
                                         autoComplete="email"
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
+                                        className="form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.email}</div>
 
@@ -152,7 +152,7 @@ export default function Login() {
                                         onChange={(e) => handleChange('password', e.target.value)}
                                         autoComplete="current-password"
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
+                                        className="form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.password}</div>
 
@@ -165,7 +165,7 @@ export default function Login() {
                                         id="remember-me"
                                         name="remember-me"
                                         type="checkbox"
-                                        className="h-4 w-4 rounded border-gray-300 text-beige focus:ring-beige"
+                                        className="h-4 w-4  form-radio rounded border-gray-300 text-beige focus:ring-beige"
                                     />
                                     <label htmlFor="remember-me" className="ml-3 block text-sm leading-6 text-gray-900">
                                         Remember me

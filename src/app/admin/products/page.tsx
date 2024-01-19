@@ -108,7 +108,16 @@ export default function products() {
                         <Divider />
                         <Box height={10} />
                         <Stack direction="row" spacing={2} className="my-2 mb-2">
-                            <TextField size="small" label="Search" />
+                            <TextField size="small" 
+                            sx={{
+                                '& label.Mui-focused': {
+                                    color: '#D5A983',
+                                    fontWeight: 'bold'
+                                },
+                                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: '#D5A983', // Change the border color
+                                },
+                            }} label="Search" />
                             <Typography
                                 variant="h6"
                                 component="div"
@@ -117,8 +126,9 @@ export default function products() {
                             <Link href="../admin/products/add" passHref>
 
                                 <Button component="a"
-                                    variant="outlined"
-                                    color="primary"
+                                    variant="contained"
+                                    style={{ backgroundColor: '#D5A983', color: '#fff', fontWeight: 'bold' }}
+
                                     endIcon={<AddCircleIcon />
 
                                     }

@@ -59,7 +59,7 @@ function ProductForm({
     }, []);
     return (
         <div>
-            <div className="bgcolor">
+            <div >
                 <Box sx={{ width: '100%', maxWidth: 800, p: 2, bgcolor: 'background.paper' }}>
 
                     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
@@ -73,6 +73,15 @@ function ProductForm({
                                     error={Boolean(errors.name)}
                                     helperText={errors.name}
                                     fullWidth
+                                    sx={{
+                                        '& label.Mui-focused': {
+                                            color: '#D5A983',
+                                            fontWeight: 'bold'
+                                        },
+                                        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#D5A983',
+                                        },
+                                    }}
 
                                 />
 
@@ -90,6 +99,15 @@ function ProductForm({
                                     error={Boolean(errors.description)}
                                     helperText={errors.description}
                                     fullWidth
+                                    sx={{
+                                        '& label.Mui-focused': {
+                                            color: '#D5A983',
+                                            fontWeight: 'bold'
+                                        },
+                                        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#D5A983',
+                                        },
+                                    }}
                                 />
 
                             </Grid>
@@ -113,25 +131,25 @@ function ProductForm({
 
                                         )}
 
-                                            {formData.previewUrl && (
+                                        {formData.previewUrl && (
                                             <Button startIcon={< DeleteIcon />} component="label" sx={{ marginBottom: "6px", marginTop: "6px" }} variant="outlined" color="inherit" onClick={deletePreview}>
-                                                    delete Image
-                                                </Button>
-
-                                            )}
-                                            <Button component="label" variant="outlined" color="inherit"
-                                                startIcon={<CloudUploadIcon />}>
-                                                Upload Image
-                                                <FormControl error={Boolean(errors.image)}>
-                                                    <VisuallyHiddenInput type="file"
-                                                        onChange={(e) => handleImageChange('image', e.target.files)}
-
-                                                    />
-                                                    {errors.image && <FormHelperText>{errors.image}</FormHelperText>}
-                                                </FormControl>
+                                                delete Image
                                             </Button>
-                                        </Box>
-                                   
+
+                                        )}
+                                        <Button component="label" variant="outlined" color="inherit"
+                                            startIcon={<CloudUploadIcon />}>
+                                            Upload Image
+                                            <FormControl error={Boolean(errors.image)}>
+                                                <VisuallyHiddenInput type="file"
+                                                    onChange={(e) => handleImageChange('image', e.target.files)}
+
+                                                />
+                                                {errors.image && <FormHelperText>{errors.image}</FormHelperText>}
+                                            </FormControl>
+                                        </Button>
+                                    </Box>
+
                                 </div>
                             </Grid>
 
@@ -142,7 +160,17 @@ function ProductForm({
                                     onChange={(e) => handleChange('price', e.target.value)}
                                     error={Boolean(errors.price)}
                                     helperText={errors.price}
-                                    label="Product Price" fullWidth />
+                                    label="Product Price" fullWidth
+                                    sx={{
+                                        '& label.Mui-focused': {
+                                            color: '#D5A983',
+                                            fontWeight: 'bold'
+                                        },
+                                        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#D5A983',
+                                        },
+                                    }}
+                                />
                             </Grid>
 
                             <Grid item xs={12}>
@@ -153,12 +181,30 @@ function ProductForm({
                                     onChange={(e) => handleChange('quantity', e.target.value)}
                                     error={Boolean(errors.quantity)}
                                     helperText={errors.quantity}
-                                    fullWidth />
+                                    fullWidth
+                                    sx={{
+                                        '& label.Mui-focused': {
+                                            color: '#D5A983',
+                                            fontWeight: 'bold'
+                                        },
+                                        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                            borderColor: '#D5A983',
+                                        },
+                                    }} />
                             </Grid>
 
                             <Grid item xs={12}>
                                 <FormControl fullWidth  >
-                                    <InputLabel id="category-label">Category</InputLabel>
+                                    <InputLabel
+                                        id="category-label"
+                                        sx={{
+                                            '&.Mui-focused': {
+                                                color: '#D5A983', // Change the color when focused
+                                            },
+                                        }}
+                                    >
+                                        Category
+                                    </InputLabel>
                                     <Select
                                         labelId="category-label"
                                         id="category-label"
@@ -166,7 +212,19 @@ function ProductForm({
                                         error={Boolean(errors.categoryId)}
                                         value={formData.categoryId}
                                         onChange={(e) => handleChange('categoryId', e.target.value)}
+                                        sx={{
 
+                                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                                                borderColor: '#D5A983',
+                                                fontWeight: 'bold'
+
+                                            },
+                                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                                borderColor: '#D5A983',
+                                                fontWeight: 'bold'
+                                            },
+
+                                        }}
                                     >
                                         {categories.map((category: any) => (
                                             <MenuItem key={category.categoryId} value={category.categoryId}>
@@ -184,11 +242,13 @@ function ProductForm({
 
                                     <Button
                                         variant="outlined"
+                                        style={{ color: '#A9A9A9', borderColor: '#A9A9A9' }}
                                         sx={{ marginRight: '10px' }}
-                                        color="primary" onClick={handleCancel}>Cancel</Button>
+                                        onClick={handleCancel}>Cancel</Button>
                                     <Button
-                                        variant="outlined"
-                                        color="primary"
+                                        variant="contained"
+                                        style={{ backgroundColor: '#D5A983', color: '#fff', fontWeight: 'bold' }}
+
                                         type="submit"
                                         disabled={loading}
                                         endIcon={loading ? <CircularProgress size={20} /> : null}

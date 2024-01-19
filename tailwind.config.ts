@@ -7,6 +7,18 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
 
+  plugins: [
+    require('@tailwindcss/forms')({
+      strategy: 'class',
+    }),
+  ],
+
+  purge: {
+    content: ['./src/**/*.{js,ts,jsx,tsx}'],
+    options: {
+      safelist: [/^tailwind/],
+    },
+  },
   theme: {
     extend: {
       colors: {
@@ -35,6 +47,5 @@ const config: Config = {
     },
   },
 },
-  plugins: [require('@tailwindcss/forms')],
 }
 export default config

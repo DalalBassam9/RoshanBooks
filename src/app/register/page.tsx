@@ -119,7 +119,7 @@ export default function Register() {
 
                         <form className="space-y-6" noValidate autoComplete="off" onSubmit={handleSubmit} >
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="email" className=" block text-sm font-medium leading-6 text-gray-900">
                                     Email address
                                 </label>
                                 <div className="mt-2">
@@ -131,7 +131,7 @@ export default function Register() {
                                         onChange={(e) => handleChange('email', e.target.value)}
                                         autoComplete="email"
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
+                                        className="block w-full form-input rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.email}</div>
 
@@ -151,7 +151,7 @@ export default function Register() {
                                         onChange={(e) => handleChange('password', e.target.value)}
                                         autoComplete="current-password"
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
+                                        className="form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.password}</div>
 
@@ -169,7 +169,7 @@ export default function Register() {
                                         value={formData.firstName}
                                         onChange={(e) => handleChange('firstName', e.target.value)}
                                         autoComplete="name"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
+                                        className="form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                         />
                                     <div className="text-red-500 text-sm mt-2">{errors.firstName}</div>
 
@@ -186,7 +186,7 @@ export default function Register() {
                                     value={formData.lastName}
                                     onChange={(e) => handleChange('lastName', e.target.value)}
                                     autoComplete="family-name"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
+                                    className="form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
 
                                 />
                                 <div className="text-red-500 text-sm mt-2">{errors.lastName}</div>
@@ -204,7 +204,7 @@ export default function Register() {
                                         type="text"
                                         autoComplete="phone"
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
+                                        className="form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                        />
                                     <div className="text-red-500 text-sm mt-2">{errors.phone}</div>
 
@@ -217,9 +217,9 @@ export default function Register() {
                                         id="remember-me"
                                         name="remember-me"
                                         type="checkbox"
-                                        className="h-4 w-4 rounded border-gray-300 text-beige focus:ring-beige"
+                                        className="h-4 w-4 form-radio  rounded border-gray-300 text-beige focus:ring-beige"
                                     />
-                                    <label htmlFor="remember-me" className="ml-3 block text-sm leading-6 text-gray-900">
+                                    <label htmlFor="remember-me" className="ml-3  form-label block text-sm leading-6 text-gray-900">
                                         Remember me
                                     </label>
                                 </div>

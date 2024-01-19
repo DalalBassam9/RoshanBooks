@@ -136,7 +136,7 @@ const UpdateAccountInformation = () => {
 
                     <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
                         <div className="sm:col-span-3">
-                            <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                            <label htmlFor="first-name" className="block  text-sm font-medium leading-6 text-gray-900">
                                 First name
                             </label>
                             <div className="mt-2">
@@ -146,7 +146,7 @@ const UpdateAccountInformation = () => {
                                     id="first-name"
                                     value={userData.firstName}
                                     onChange={(e) => handleChange('firstName', e.target.value)}
-                                    className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm ${errors.firstName ? 'border-red-500' : ''}`}
+                                    className={`block w-full form-input rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm ${errors.firstName ? 'border-red-500' : ''}`}
                                     autoComplete="given-name"
                                 />
 
@@ -164,7 +164,7 @@ const UpdateAccountInformation = () => {
                                     name="lastName"
                                     id="last-name" value={userData.lastName}
                                     onChange={(e) => handleChange('lastName', e.target.value)}
-                                    className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.lastName ? 'border-red-500' : ''}`}
+                                    className={`form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.lastName ? 'border-red-500' : ''}`}
 
 
                                 />
@@ -183,7 +183,7 @@ const UpdateAccountInformation = () => {
                                     id="phone"
                                     value={userData.phone}
                                     onChange={(e) => handleChange('phone', e.target.value)}
-                                    className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.phone ? 'border-red-500' : ''}`}
+                                    className={` block  form-input w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.phone ? 'border-red-500' : ''}`}
 
                                 />
 
@@ -203,7 +203,7 @@ const UpdateAccountInformation = () => {
                                     autoComplete="email"
                                     value={userData.email}
                                     onChange={(e) => handleChange('email', e.target.value)}
-                                    className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.email ? 'border-red-500' : ''}`}
+                                    className={`block form-input w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.email ? 'border-red-500' : ''}`}
 
                                 />
 

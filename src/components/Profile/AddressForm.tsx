@@ -191,7 +191,7 @@ function AddressForm({
                                         value={formData.firstName}
                                         onChange={(e) => handleChange('firstName', e.target.value)}
                                         autoComplete="given-name"
-                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.firstName} 'border-red-500' : ''}`}
+                                        className={`block w-full form-input rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.firstName} 'border-red-500' : ''}`}
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.firstName}</div>
 
@@ -210,7 +210,7 @@ function AddressForm({
                                         value={formData.lastName}
                                         onChange={(e) => handleChange('lastName', e.target.value)}
                                         autoComplete="family-name"
-                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.lastName} 'border-red-500' : ''}`}
+                                        className={`block w-full form-input rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.lastName} 'border-red-500' : ''}`}
 
                                     />
                                     <div className="text-red-500 text-sm mt-2">{errors.lastName}</div>
@@ -227,7 +227,7 @@ function AddressForm({
                                 <div className="mt-2">
 
                                     <select
-                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.cityId ? 'border-red-500' : ''}`}
+                                        className={`block w-full  form-select rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.cityId ? 'border-red-500' : ''}`}
                                         value={formData.cityId}
                                         onChange={(e) => handleChange('cityId', e.target.value)}
                                     >
@@ -257,7 +257,7 @@ function AddressForm({
 
                                         autoComplete="phone"
 
-                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.phone ? 'border-red-500' : ''}`}
+                                        className={`block w-full form-input rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.phone ? 'border-red-500' : ''}`}
 
 
 
@@ -279,7 +279,7 @@ function AddressForm({
                                         value={formData.district}
                                         onChange={(e) => handleChange('district', e.target.value)}
                                         autoComplete="district"
-                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.district ? 'border-red-500' : ''}`}
+                                        className={`block form-input w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.district ? 'border-red-500' : ''}`}
 
 
                                     />
@@ -301,7 +301,7 @@ function AddressForm({
                                         onChange={(e) => handleChange('address', e.target.value)}
                                         rows={4}
                                       
-                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.address ? 'border-red-500' : ''}`}
+                                        className={`block w-full form-textarea rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.address ? 'border-red-500' : ''}`}
 
                                         defaultValue={''}
                                     />

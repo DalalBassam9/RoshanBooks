@@ -202,7 +202,7 @@ export default function product({ params }: { params: any }) {
                                                     <select
                                                         id="quantity"
                                                         name="quantity"
-                                                        className="w-24 text-black border-2 rounded px-4 py-2 hover:bg-gray-200  focus:outline-none focus:border-beige focus:ring focus:ring-beige
+                                                        className="w-24 form-select text-black border-2 rounded px-4 py-2 hover:bg-gray-200  focus:outline-none focus:border-beige focus:ring focus:ring-beige
                                                       "
                                                         value={quantity}
                                                         onChange={handleQuantityChange}

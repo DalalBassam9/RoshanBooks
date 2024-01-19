@@ -125,7 +125,7 @@ function DeliveryAddressCard(
                             name="account"
                             type="radio"
                             defaultChecked={address.default === 1}
-                            className="h-4 w-4 border-gray-300 text-beige focus:ring-beige"
+                            className="h-4 w-4  form-radio border-gray-300 text-beige focus:ring-beige"
                         />
                     </div>
                     <Menu as="div" className="relative flex-none">

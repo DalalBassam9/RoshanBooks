@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Select, MenuItem,Stack, IconButton, Divider, TableRow, Paper, Box, Button, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Select, MenuItem, Stack, IconButton, Divider, TableRow, Paper, Box, Button, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Swal from "sweetalert2";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -80,7 +80,7 @@ export default function orders() {
         getOrders();
     }, [page, rowsPerPage]);
     return (
-        <div className="bgcolor">
+        <div>
             <Layout>
 
                 {orders.length > 0 && (
@@ -96,7 +96,15 @@ export default function orders() {
                         <Divider />
                         <Box height={10} />
                         <Stack direction="row" spacing={2} className="my-2 mb-2">
-                            <TextField size="small" label="Search" />
+                            <TextField size="small" label="Search" sx={{
+                                '& label.Mui-focused': {
+                                    color: '#D5A983',
+                                    fontWeight: 'bold'
+                                },
+                                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: '#D5A983', // Change the border color
+                                },
+                            }} />
                             <Typography
                                 variant="h6"
                                 component="div"
@@ -170,7 +178,7 @@ export default function orders() {
                                                                 <MenuItem value={'pending'}>Pending</MenuItem>
                                                                 <MenuItem value={'Shipped'}>Shipped</MenuItem>
                                                                 <MenuItem value={'Delivered'}>Delivered</MenuItem>
-                
+
                                                             </Select>
                                                         </Stack>
                                                     </TableCell>

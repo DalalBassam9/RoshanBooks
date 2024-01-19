@@ -102,130 +102,139 @@ export default function categories() {
     return (
         <div>
             <Layout>
-               
-            {showCategoryForm && (
-                <CategoryForm
-                    showCategoryForm={showCategoryForm}
-                    setShowCategoryForm={setShowCategoryForm}
-                    selectedCategory={selectedCategory}
-                    reloadData={() => getCategories()}
-                    setSelectedCategory={setSelectedCategory}
-                />
 
-            )}
-            {categories.length > 0 && (
-                <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
-                    <Typography
-                        gutterBottom
-                        variant="h5"
-                        component="div"
-                        sx={{ padding: "20px" }}
-                    >
-                        Categories List
-                    </Typography>
-                    <Divider />
-                    <Box height={10} />
-                    <Stack direction="row" spacing={2} className="my-2 mb-2">
-                        <TextField size="small" label="Search" />
+                {showCategoryForm && (
+                    <CategoryForm
+                        showCategoryForm={showCategoryForm}
+                        setShowCategoryForm={setShowCategoryForm}
+                        selectedCategory={selectedCategory}
+                        reloadData={() => getCategories()}
+                        setSelectedCategory={setSelectedCategory}
+                    />
+
+                )}
+                {categories.length > 0 && (
+                    <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
                         <Typography
-                            variant="h6"
+                            gutterBottom
+                            variant="h5"
                             component="div"
-                            sx={{ flexGrow: 1 }}
-                        ></Typography>
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            endIcon={<AddCircleIcon />}
-                            onClick={() => { setShowCategoryForm(true) }}
-
+                            sx={{ padding: "20px" }}
                         >
-                            Add Category
-                        </Button>
-                    </Stack>
-                    <Box height={10} />
-                    <TableContainer>
-                        <Table stickyHeader aria-label="sticky table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align="left" style={{ minWidth: "100px" }}>
-                                        ID
-                                    </TableCell>
-                                    <TableCell align="left" style={{ minWidth: "100px" }}>
-                                        Name
-                                    </TableCell>
-                                    <TableCell align="left" style={{ minWidth: "100px" }}>
-                                        CreateAt
-                                    </TableCell>
-                                    <TableCell align="left" style={{ minWidth: "100px" }}>
-                                        UpdateAt
-                                    </TableCell>
-                                    <TableCell align="left" style={{ minWidth: "100px" }}>
-                                        Action
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {categories
-                                    .map
-                                    ((category: any) => {
-                                        return (
-                                            <TableRow
-                                                hover
-                                                role="checkbox"
-                                                tabIndex={-1}
-                                                key={category.categoryId}
-                                            >
-                                                <TableCell align="left">{category.categoryId}</TableCell>
-                                                <TableCell align="left">{category.name}</TableCell>
-                                                <TableCell align="left">{moment(category.created_at).format("DD MMM YYYY hh:mm A")}</TableCell>
-                                                <TableCell align="left">{moment(category.updated_at).format("DD MMM YYYY hh:mm A")}</TableCell>
- 
+                            Categories List
+                        </Typography>
+                        <Divider />
+                        <Box height={10} />
+                        <Stack direction="row" spacing={2} className="my-2 mb-2">
+                            <TextField size="small" sx={{
+                                '& label.Mui-focused': {
+                                    color: '#D5A983',
+                                    fontWeight: 'bold'
+                                },
+                                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: '#D5A983', // Change the border color
+                                },
+                            }} label="Search" />
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                sx={{ flexGrow: 1 }}
+                            ></Typography>
+                            <Button
+                                variant="contained"
+                                style={{ backgroundColor: '#D5A983', color: '#fff', fontWeight: 'bold' }}
 
-                                                <TableCell align="left">
-                                                    <Stack spacing={2} direction="row">
-                                                        <EditIcon
-                                                            style={{
-                                                                fontSize: "20px",
-                                                                marginTop: "10px",
-                                                                color: "primary",
-                                                                cursor: "pointer",
-                                                            }}
-                                                            className="cursor-pointer"
-                                                            onClick={() => handleShowCategoryForm(category)
-                                                            }
-                                                        />
-                                                        <IconButton
-                                                            disabled={loadingForDelete}
-                                                            onClick={() => [
-                                                                setSelectedCategory(category),
-                                                                deleteCategory(category.categoryId),
-                                                            ]}
-                                                        >
-                                                            {loadingForDelete && selectedCategory?.categoryId === category.categoryId
-                                                                ? <CircularProgress size={24} /> :
-                                                                <DeleteIcon
-                                                                />}
-                                                        </IconButton>
-                                                    </Stack>
-                                                </TableCell>
-                                            </TableRow>
-                                        );
-                                    })}
-                            </TableBody>
-                        </Table>
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25]}
-                            component="div"
-                            count={categories.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                        />
-                    </TableContainer>
-                </Paper>
-            )
-            }
+                                endIcon={<AddCircleIcon />}
+                                onClick={() => { setShowCategoryForm(true) }}
+
+                            >
+                                Add Category
+                            </Button>
+                        </Stack>
+                        <Box height={10} />
+                        <TableContainer>
+                            <Table stickyHeader aria-label="sticky table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align="left" style={{ minWidth: "100px" }}>
+                                            ID
+                                        </TableCell>
+                                        <TableCell align="left" style={{ minWidth: "100px" }}>
+                                            Name
+                                        </TableCell>
+                                        <TableCell align="left" style={{ minWidth: "100px" }}>
+                                            CreateAt
+                                        </TableCell>
+                                        <TableCell align="left" style={{ minWidth: "100px" }}>
+                                            UpdateAt
+                                        </TableCell>
+                                        <TableCell align="left" style={{ minWidth: "100px" }}>
+                                            Action
+                                        </TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {categories
+                                        .map
+                                        ((category: any) => {
+                                            return (
+                                                <TableRow
+                                                    hover
+                                                    role="checkbox"
+                                                    tabIndex={-1}
+                                                    key={category.categoryId}
+                                                >
+                                                    <TableCell align="left">{category.categoryId}</TableCell>
+                                                    <TableCell align="left">{category.name}</TableCell>
+                                                    <TableCell align="left">{moment(category.created_at).format("DD MMM YYYY hh:mm A")}</TableCell>
+                                                    <TableCell align="left">{moment(category.updated_at).format("DD MMM YYYY hh:mm A")}</TableCell>
+
+
+                                                    <TableCell align="left">
+                                                        <Stack spacing={2} direction="row">
+                                                            <EditIcon
+                                                                style={{
+                                                                    fontSize: "20px",
+                                                                    marginTop: "10px",
+                                                                    color: "primary",
+                                                                    cursor: "pointer",
+                                                                }}
+                                                                className="cursor-pointer"
+                                                                onClick={() => handleShowCategoryForm(category)
+                                                                }
+                                                            />
+                                                            <IconButton
+                                                                disabled={loadingForDelete}
+                                                                onClick={() => [
+                                                                    setSelectedCategory(category),
+                                                                    deleteCategory(category.categoryId),
+                                                                ]}
+                                                            >
+                                                                {loadingForDelete && selectedCategory?.categoryId === category.categoryId
+                                                                    ? <CircularProgress size={24} /> :
+                                                                    <DeleteIcon
+                                                                    />}
+                                                            </IconButton>
+                                                        </Stack>
+                                                    </TableCell>
+                                                </TableRow>
+                                            );
+                                        })}
+                                </TableBody>
+                            </Table>
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25]}
+                                component="div"
+                                count={categories.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                        </TableContainer>
+                    </Paper>
+                )
+                }
 
 
             </Layout>
