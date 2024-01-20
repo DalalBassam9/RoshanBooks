@@ -20,9 +20,10 @@ import {
     XMarkIcon,
     ShoppingCartIcon,
     HeartIcon,
+    XMarkIcon,
+    
+
 } from '@heroicons/react/24/outline';
-
-
 const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     const navigation = [
@@ -30,16 +31,27 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
         { name: 'Addresses', href: '/account/addresses', icon: GlobeAltIcon, current: false },
         { name: 'Orders', href: '/account/orders', icon: ShoppingCartIcon, current: false },
         { name: 'Wishlist', href: '/account/wishlist', icon: HeartIcon, current: false },
-    ]
+        { name: 'Logout', href: '#', icon: XMarkIcon, current: false },
+
+    ];
 
     function classNames(...classes: string[]) {
         return classes.filter(Boolean).join(' ')
     }
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
-
+    const [activeItem, setActiveItem] = useState(navigation[0].name);
     const dispatch: ThunkDispatch<UserState, unknown, AnyAction> = useDispatch();
     const user = useSelector((state: { user: UserState }) => state.user.user);
+
+    const handleNavigationClick = (navItem: any) => {
+        if (navItem.name === 'Logout') {
+            dispatch(logoutUser());
+            router.push("/login");
+        } else {
+            router.push(navItem.href);
+        }
+    };
 
     useEffect(() => {
         dispatch(fetchUser());
@@ -103,20 +115,20 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
                                             <li>
 
                                                 <ul role="list" className="-mx-2 space-y-1">
+
                                                     {navigation.map((item) => (
-                                                        <li key={item.name}>
+                                                        <li key={item.name} onClick={() => handleNavigationClick(item)}>
                                                             <div
-                                                                onClick={() => router.push(item.href)}
                                                                 className={classNames(
-                                                                    item.current
-                                                                        ? 'bg-gray-50 text-beige'
+                                                                    item.name === activeItem
+                                                                        ? 'text-beige'
                                                                         : 'text-gray-700 hover:text-beige hover:bg-gray-50',
                                                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold cursor-pointer'
                                                                 )}
                                                             >
                                                                 <item.icon
                                                                     className={classNames(
-                                                                        item.current ? 'text-beige' : 'text-gray-400 group-hover:text-beige',
+                                                                        item.name === activeItem ? 'text-beige' : 'text-gray-400 group-hover:text-beige',
                                                                         'h-6 w-6 shrink-0'
                                                                     )}
                                                                     aria-hidden="true"
@@ -146,27 +158,25 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
                             <li>
                                 <ul role="list" className="-mx-2 space-y-1">
                                     {navigation.map((item) => (
-                                        <li key={item.name}>
-                                            <Link href={item.href}
-
+                                        <li key={item.name} onClick={() => handleNavigationClick(item)}>
+                                            <div
                                                 className={classNames(
-                                                    item.current
+                                                    item.name === activeItem
                                                         ? 'bg-gray-50 text-beige'
-                                                        : 'text-gray-700 hover:text-beige hover:bg-gray-50',
-                                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                                        : 'text-gray-700 hover:bg-gray-50 hover:text-beige',
+                                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold cursor-pointer'
                                                 )}
-                                                passHref >
-
-
+                                            >
                                                 <item.icon
                                                     className={classNames(
-                                                        item.current ? 'text-beige' : 'text-gray-400 group-hover:text-beige',
+                                                        item.name === activeItem ? 'text-beige' : 'text-gray-400 group-hover:text-beige',
                                                         'h-6 w-6 shrink-0'
                                                     )}
                                                     aria-hidden="true"
                                                 />
                                                 {item.name}
-                                            </Link>
+                                            </div>
+
                                         </li>
                                     ))}
                                 </ul>

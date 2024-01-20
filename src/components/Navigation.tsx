@@ -14,6 +14,7 @@ import {
 } from '../redux/userSlice';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
+import { MenuItem } from "@mui/material";
 interface Category {
     categoryId: number;
     name: string;
@@ -36,7 +37,7 @@ export default function Navigation() {
     const [categories, setCategories] = useState<Category[]>([]);
     const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         dispatch(fetchUser());
         fetchCategories();
@@ -48,7 +49,7 @@ export default function Navigation() {
         if (savedCartItemsCount) {
             setCartCount(JSON.parse(savedCartItemsCount));
         }
-      }, []);
+    }, []);
     const fetchCategories = async () => {
         try {
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/api/admin/categories-lookups")
@@ -84,7 +85,7 @@ export default function Navigation() {
                                         <input
                                             id="search"
                                             name="search"
-                                            className="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            className="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
                                             placeholder="Search"
                                             type="search"
                                         />
@@ -103,25 +104,20 @@ export default function Navigation() {
                                     )}
                                 </Disclosure.Button>
                             </div>
+                            
+                            {user && (
                             <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-                                <button
-                                    type="button"
-                                    className="relative flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                >
-                                    <span className="absolute -inset-1.5" />
-                                    <span className="sr-only">View notifications</span>
-                                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                                </button>
 
                                 {/* Profile dropdown */}
                                 <Menu as="div" className="relative ml-4 flex-shrink-0">
                                     <div>
-                                        <Menu.Button className="relative flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                        <Menu.Button className="relative flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-beige focus:ring-offset-2">
                                             <span className="absolute -inset-1.5" />
                                             <span className="sr-only">Open user menu</span>
                                             <img className="h-8 w-8 rounded-full" src={user?.image} alt="" />
                                         </Menu.Button>
                                     </div>
+                                 
                                     <Transition
                                         as={Fragment}
                                         enter="transition ease-out duration-100"
@@ -131,26 +127,42 @@ export default function Navigation() {
                                         leaveFrom="transform opacity-100 scale-100"
                                         leaveTo="transform opacity-0 scale-95"
                                     >
-                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                            {categories.map((item) => (
-                                                <Menu.Item key={item.name}>
+                                       
+
+                                            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+
+                                                <Menu.Item>
                                                     {({ active }) => (
-                                                        <Link href={`category/${item.categoryId}`} key={item.name}>
-                                                            <a className={classNames(
-                                                                activeCategoryId === item.categoryId ? 'bg-gray-100' : '',
-                                                                'block px-4 py-2 text-sm text-gray-700'
-                                                            )}
-                                                            >
-                                                                {item.name}
-                                                            </a>
+                                                        <Link href="/account"
+                                                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                        >
+                                                            my Profile
                                                         </Link>
                                                     )}
                                                 </Menu.Item>
-                                            ))}
-                                        </Menu.Items>
+
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <a
+                                                            onClick={() => {
+                                                                dispatch(logoutUser());
+                                                                router.push("/login");
+
+                                                            }}
+                                                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                        >
+                                                            Sign out
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                            </Menu.Items>
+                                       
                                     </Transition>
+                                    
                                 </Menu>
+                               
                             </div>
+                              )}
                         </div>
                         <nav className="hidden lg:flex lg:space-x-8 lg:py-2  mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
 
@@ -188,19 +200,19 @@ export default function Navigation() {
                             <div className="ml-auto flex items-center">
                                 {!user && (
                                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                        <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                             Sign in
-                                        </a>
+                                        </Link>
                                         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                        <Link href="/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                             Create account
-                                        </a>
+                                        </Link>
                                     </div>
                                 )}
                                 {user && (
                                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                                         {/* Replace "User Name" with the actual user name */}
-                                        <span className="text-sm font-medium text-gray-700">{user.firstName}</span>
+                                        <span className="text-sm font-medium text-gray-700">Hello {user.firstName}</span>
                                     </div>
                                 )}
                                 {/* Search */}
@@ -254,6 +266,7 @@ export default function Navigation() {
                                         onClick={() => {
                                             if (item.name === 'Logout') {
                                                 dispatch(logoutUser());
+                                                router.push("/login");
                                             }
                                         }}
 

@@ -33,8 +33,6 @@ const config: Config = {
 
         },
 
-        Purple: '#E3BC9A',
-        Purpl: '#E5BEA0',
         beige:"#D5A983",
       
       },
