@@ -6,7 +6,7 @@ import HeaderSection from '../components/HeaderSection';
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return <Provider store={store}>
-        <Navigation />
+   
         {children}
     </Provider>;
 }

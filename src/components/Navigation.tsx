@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import CartState from "../redux/cartSlice"; // Add this import
 import { useDispatch } from "react-redux";
 import { Fragment } from 'react'
 import axios from 'axios';
@@ -8,22 +7,13 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, ShoppingBagIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
+import { getCartItems, CartState } from '../redux/cartSlice';
 import {
     fetchUser, UserState,
-    logoutUser } from '../redux/userSlice'; // Add this import
+    logoutUser
+} from '../redux/userSlice';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
-
-const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-    imageUrl:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-
-
 interface Category {
     categoryId: number;
     name: string;
@@ -33,28 +23,32 @@ const userNavigation = [
     { name: 'Logout', href: '#' },
 ]
 
-
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-
 export default function Navigation() {
+    const [cartCartCount, setCartCount] = useState(0);
+
+    const cartItemsCount = useSelector((state: any) => state.cart.cartItemsCount);
     const user = useSelector((state: { user: UserState }) => state.user.user);
     const router = useRouter();
-    const cartItems = useSelector((state: any) => state.cart.items);
     const [categories, setCategories] = useState<Category[]>([]);
     const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
-    const dispatch= useDispatch();
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(fetchUser());
+        fetchCategories();
+        logoutUser();
+    }, [dispatch]);
 
     useEffect(() => {
-        fetchUser();
-        fetchCategories();
-       logoutUser();
-
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    }, [cartItems]);
-
+        const savedCartItemsCount = localStorage.getItem('cartItemsCount');
+        if (savedCartItemsCount) {
+            setCartCount(JSON.parse(savedCartItemsCount));
+        }
+      }, []);
     const fetchCategories = async () => {
         try {
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/api/admin/categories-lookups")
@@ -167,7 +161,7 @@ export default function Navigation() {
                                         aria-hidden="true"
                                     />
                                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                                    <span >{cartItems.length}</span>
+                                    <span >{cartItemsCount}</span>
                                 </a>
                             </div>
 
@@ -191,26 +185,27 @@ export default function Navigation() {
                                     );
                                 })}
                             </div>
-
-
                             <div className="ml-auto flex items-center">
-                                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                        Sign in
-                                
-                                    </a>
-                                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                        Create account
-                                    </a>
-                                </div>
-
-
-
+                                {!user && (
+                                    <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                                        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                            Sign in
+                                        </a>
+                                        <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                                        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                            Create account
+                                        </a>
+                                    </div>
+                                )}
+                                {user && (
+                                    <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                                        {/* Replace "User Name" with the actual user name */}
+                                        <span className="text-sm font-medium text-gray-700">{user.firstName}</span>
+                                    </div>
+                                )}
                                 {/* Search */}
-
-
                             </div>
+
                         </nav>
 
 
@@ -220,16 +215,16 @@ export default function Navigation() {
                         <div className="space-y-1 px-2 pb-3 pt-2">
                             {categories.map((item) => (
 
-                                    <Link href={`/category/${item.categoryId}`} key={item.name}
-                                        className={classNames(
-                                            activeCategoryId === item.categoryId
-                                                ? 'bg-gray-100 text-gray-900'
-                                                : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
-                                            'flex items-center rounded-md py-2 px-3 text-sm font-medium'
-                                        )}
-                                    >
-                                        {item.name}
-                                    </Link>
+                                <Link href={`/category/${item.categoryId}`} key={item.name}
+                                    className={classNames(
+                                        activeCategoryId === item.categoryId
+                                            ? 'bg-gray-100 text-gray-900'
+                                            : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
+                                        'flex items-center rounded-md py-2 px-3 text-sm font-medium'
+                                    )}
+                                >
+                                    {item.name}
+                                </Link>
 
                             ))}
                         </div>
@@ -239,7 +234,7 @@ export default function Navigation() {
                                     <img className="h-10 w-10 rounded-full" src={user?.image} alt="" />
                                 </div>
                                 <div className="ml-3">
-                                    <div className="text-base font-medium text-gray-800">jgjgj</div>
+                                    <div className="text-base font-medium text-gray-800">{user?.firstName}</div>
                                     <div className="text-sm font-medium text-gray-500">{user?.email}</div>
                                 </div>
                                 <button
@@ -261,8 +256,8 @@ export default function Navigation() {
                                                 dispatch(logoutUser());
                                             }
                                         }}
-                                    
-                                    
+
+
                                     >
                                         {item.name}
                                     </Disclosure.Button>

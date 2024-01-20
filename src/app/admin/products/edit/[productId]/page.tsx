@@ -6,12 +6,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import * as Yup from 'yup';
-import { Typography, Card, CardContent } from '@mui/material';
+import { Card, CardContent } from '@mui/material';
 import { Container } from '@mui/material';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import HomeIcon from "@mui/icons-material/Home";
 import EditIcon from '@mui/icons-material/Edit';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import Layout from '../../../components/AdminLayout';
+import useAuth from '../../../useAuth';
 
 interface FormData {
   name: any;
@@ -35,6 +37,7 @@ const productSchema = Yup.object().shape({
 
 
 function edit({ params }: { params: any }) {
+  useAuth({ middleware: 'auth' })
   const [formData, setFormData] = useState<FormData>({
     name: '',
     description: '',
@@ -83,7 +86,7 @@ function edit({ params }: { params: any }) {
     validateField(field, value);
   };
 
-  
+
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -102,7 +105,6 @@ function edit({ params }: { params: any }) {
   };
 
   const deletePreview = () => {
-    // Revoke the object URL
     if (formData.previewUrl) {
       URL.revokeObjectURL(formData.previewUrl);
     }
@@ -160,22 +162,22 @@ function edit({ params }: { params: any }) {
       })
       router.refresh();
       router.back();
-    } 
-      catch (error: any) {
-        if (error instanceof Yup.ValidationError) {
-          const errors: { [key: string]: string } = {}; // Specify the type of 'errors' as an object with string keys and string values
-          error.inner.forEach((error: any) => {
-            errors[error.path] = error.message;
-          });
-          setErrors(errors);
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.response?.data?.message || error.message, // Use optional chaining to access the 'message' property
-          });
-        }
-      } finally {
+    }
+    catch (error: any) {
+      if (error instanceof Yup.ValidationError) {
+        const errors: { [key: string]: string } = {}; // Specify the type of 'errors' as an object with string keys and string values
+        error.inner.forEach((error: any) => {
+          errors[error.path] = error.message;
+        });
+        setErrors(errors);
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response?.data?.message || error.message, // Use optional chaining to access the 'message' property
+        });
+      }
+    } finally {
       setLoading(false);
     }
   };
@@ -197,32 +199,35 @@ function edit({ params }: { params: any }) {
 
   return (
     <div>
-      <Container>
-      {loadingProduct &&
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <CircularProgress />
-        </div>}
-  
-        <Card sx={{ width: '70%', marginBottom: '20px' }}  >
-          <CardContent>
-            <Breadcrumbs breadcrumbs={breadcrumbs} />
-          </CardContent>
-        </Card>
-  
-      {formData && (
-        <ProductForm
-          loading={loading}
-          formData={formData}
-          errors={errors}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          handleImageChange={handleImageChange}
-          deletePreview={deletePreview}
-          handleCancel={handleCancel}
-          setFormData={setFormData}
-        />
-      )}
+      <Layout>
+        <Container>
+          {loadingProduct &&
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+              <CircularProgress style={{ color: '#D5A983' }} />
+            </div>
+          }
+
+          <Card sx={{ width: '70%', marginBottom: '20px' }}  >
+            <CardContent>
+              <Breadcrumbs breadcrumbs={breadcrumbs} />
+            </CardContent>
+          </Card>
+
+          {formData && (
+            <ProductForm
+              loading={loading}
+              formData={formData}
+              errors={errors}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              handleImageChange={handleImageChange}
+              deletePreview={deletePreview}
+              handleCancel={handleCancel}
+              setFormData={setFormData}
+            />
+          )}
         </Container>
+      </Layout>
     </div>
   );
 }

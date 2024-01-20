@@ -11,9 +11,10 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import SortMenu from '../../../components/SortMenu';
 import ProductStatus from '../../../components/ProductStatus';
 import { sortOptions, statusesOptions } from '../../options';
-import { Product,CategoryData } from "../../../interfaces";
+import { Product, CategoryData } from "../../../interfaces";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import FrontLayout from '../../../components/FrontLayout';
 
 export default function category({ params }: { params: any }) {
     const dispatch = useDispatch();
@@ -37,8 +38,8 @@ export default function category({ params }: { params: any }) {
         categoryId: '',
         name: '',
     });
-    const [loadingCategory , setLoadingCategory ] = React.useState(false);
-    const [loading , setLoading ] = React.useState(false);
+    const [loadingCategory, setLoadingCategory] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
 
     const getCategory = async () => {
         try {
@@ -82,9 +83,9 @@ export default function category({ params }: { params: any }) {
 
     return (
         <div>
-            <div>
+            <FrontLayout>
                 <div className="bg-white">
-                <ToastContainer/>
+                    <ToastContainer />
                     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
                             <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
@@ -115,7 +116,7 @@ export default function category({ params }: { params: any }) {
                                             <Menu.Items className="absolute right-2 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
 
                                                 <div className="py-1">
-                                                    {sortOptions.map((option:any) => (
+                                                    {sortOptions.map((option: any) => (
                                                         <SortMenu option={option} setCurrentPage={setCurrentPage} setSort={setSort} sort={sort} classNames={classNames} />
                                                     ))}
                                                 </div>
@@ -138,7 +139,7 @@ export default function category({ params }: { params: any }) {
 
                                         <div className="pt-6" id="filter-section-mobile-1">
                                             <div className="space-y-6">
-                                                {statusesOptions.map((status:any, index:number) => (
+                                                {statusesOptions.map((status: any, index: number) => (
 
                                                     <ProductStatus status={status} index={index} setProductStatus={setProductStatus} productStatus={productStatus} />
                                                 ))}
@@ -172,8 +173,8 @@ export default function category({ params }: { params: any }) {
                     </div>
 
                 </div>
-            </div>
 
-        </div>
+            </FrontLayout>
+        </div >
     );
 }

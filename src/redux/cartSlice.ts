@@ -13,8 +13,11 @@ interface CartState {
   items: CartItem[];
   loading: 'idle' | 'loading' | 'succeeded' | 'failed';
   error?: string;
+  cartItemsCount: number;
 }
-const initialState: CartState = { items: [], loading: 'idle' }
+
+const initialState: CartState = { items: [], cartItemsCount: JSON.parse(localStorage.getItem('cartItemsCount') ?? '0') || 0, 
+loading: 'idle' }
 export const addToCart = createAsyncThunk('cart/addToCart',
   async (items: CartItem, { rejectWithValue }) => {
     try {
@@ -76,8 +79,9 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     clearCart: (state) => {
-      state.items = []
-    }
+      state.cartItemsCount = 0;
+      localStorage.removeItem('cartItemsCount');
+    },
   },
   extraReducers: builder => {
     builder.addCase(getCartItems.pending, (state) => {
@@ -103,6 +107,8 @@ const cartSlice = createSlice({
     builder.addCase(addToCart.fulfilled, (state, action: PayloadAction<CartItem>) => {
       state.loading = 'idle'
       state.items.push(action.payload)
+      state.cartItemsCount += 1;
+      localStorage.setItem('cartItemsCount', JSON.stringify(state.cartItemsCount));
     })
 
     builder.addCase(addToCart.rejected, (state, action) => {
@@ -117,6 +123,8 @@ const cartSlice = createSlice({
       if (item) {
         item.quantity = action.payload.quantity;
       }
+      state.cartItemsCount = state.items.reduce((total, item) => total + item.quantity, 0);
+      localStorage.setItem('cartItemsCount', JSON.stringify(state.cartItemsCount));
     })
 
     builder.addCase(removeFromCart.pending, (state) => {
@@ -125,8 +133,12 @@ const cartSlice = createSlice({
     builder.addCase(removeFromCart.fulfilled, (state, action: PayloadAction<number>) => {
       state.loading = 'idle'
       const index = state.items.findIndex(item => item.cartId === action.payload);
-      state.items.splice(index, 1);
+      state.items.splice(index, 1); 
+      state.cartItemsCount -= 1;
+      localStorage.setItem('cartItemsCount', JSON.stringify(state.cartItemsCount));
+ 
 
+  
     })
   }
 })

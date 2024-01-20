@@ -20,7 +20,8 @@ import { sortOptions, statusesOptions } from './options';
 import { Product, Category } from "../interfaces";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import FrontLayout from '../components/FrontLayout';
+import { useSelector } from 'react-redux';
 
 export default function Home() {
   const token = localStorage.getItem('token');
@@ -33,7 +34,7 @@ export default function Home() {
   const [category, setCategory] = useState<string>('1');
   const [categories, setCategories] = useState<Category[]>([]);
   const [productStatus, setProductStatus] = useState<string>('0');
-
+  const cartItemsCount = useSelector((state: any) => state.cart.cartItemsCount);
 
   const dispatch = useDispatch();
   function classNames(...classes: string[]) {
@@ -80,11 +81,12 @@ export default function Home() {
   React.useEffect(() => {
     getProducts(sort, category, productStatus);
     fetchCategories();
-  }, [currentPage, rowsPerPage, category, sort, productStatus]);
+  }, [currentPage, rowsPerPage, category, sort, productStatus,cartItemsCount ]);
 
 
   return (
     <div>
+      <FrontLayout>
       <HeaderSection />
       <div className="bg-white">
 
@@ -194,6 +196,7 @@ export default function Home() {
         </div>
 
       </div>
+      </FrontLayout>
     </div>
   )
 }

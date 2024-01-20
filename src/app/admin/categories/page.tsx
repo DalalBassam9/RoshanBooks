@@ -1,6 +1,6 @@
 
 "use client";
-import Layout from '../components/Layout';
+import AdminLayout from '../components/AdminLayout';
 import React from "react";
 import CategoryForm from "../components/Categories/CategoryForm";
 import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Stack, Skeleton, Divider, TableRow, Paper, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, IconButton } from '@mui/material';
@@ -12,6 +12,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import axios from "axios";
 import moment from 'moment';
+import useAuth from '../useAuth';
+
 
 export default function categories() {
 
@@ -28,7 +30,7 @@ export default function categories() {
         setShowCategoryForm(true);
     };
     6
-    const handleChangePage = (event: unknown, newPage: number) => {
+    const handleChangePage = (event: any, newPage: number) => {
         setPage(newPage);
     };
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +103,7 @@ export default function categories() {
 
     return (
         <div>
-            <Layout>
+            <AdminLayout>
 
                 {showCategoryForm && (
                     <CategoryForm
@@ -236,8 +238,12 @@ export default function categories() {
                 )
                 }
 
-
-            </Layout>
+                {loading && (
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                        <CircularProgress style={{ color: '#D5A983' }} />
+                    </div>
+                )}
+            </AdminLayout>
         </div>
 
 

@@ -1,12 +1,15 @@
-import Layout from './components/Layout';// Replace with your actual content component
 
+"use client"
+import Layout from './components/AdminLayout';// Replace with your actual content component
+import useAuth from './useAuth';
 
 export default function Page() {
  
+    useAuth({ middleware: 'auth' })
 
     return (
-        <div className="bgcolor">
-            <Layout>tytyt</Layout>
+        <div>
+            <Layout>Hello Admin</Layout>
         </div>
     );
 }

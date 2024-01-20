@@ -30,7 +30,10 @@ export const fetchUser = createAsyncThunk(
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             });
-            return response.data.data;
+             const user= response.data.data;  
+             localStorage.setItem('user', JSON.stringify(user));
+             return user;
+
         }
         catch (err: any) {
             console.log(err.response.data);

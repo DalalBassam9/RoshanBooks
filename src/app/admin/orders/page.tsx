@@ -7,7 +7,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import moment from 'moment';
 import axios from "axios";
-import Layout from '../components/Layout';
+import Layout from '../components/AdminLayout';
+import useAuth from '../useAuth';
 
 interface Order {
     id: number;
@@ -54,25 +55,7 @@ export default function orders() {
         }
     };
     const handleStatusChange = async (event: React.ChangeEvent<{ value: unknown }>, orderId: number) => {
-        const newStatus = event.target.value as string;
 
-        // Update the status in the local state
-        const updatedOrders = localOrders.map(order => {
-            if (order.orderId === orderId) {
-                return { ...order, status: newStatus };
-            }
-            return order;
-        });
-
-        // Update the orders state
-        setLocalOrders(updatedOrders);
-
-        // Send a request to the Laravel API to update the status
-        try {
-            await axios.put(`https://your-api-url/orders/${orderId}`, { status: newStatus });
-        } catch (error) {
-            console.error('Failed to update order status:', error);
-        }
     };
 
 
@@ -204,8 +187,8 @@ export default function orders() {
                 )
                 }
                 {loading && (
-                    <div className="flex justify-center items-center">
-                        <CircularProgress />
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                        <CircularProgress style={{ color: '#D5A983' }} />
                     </div>
                 )}
 

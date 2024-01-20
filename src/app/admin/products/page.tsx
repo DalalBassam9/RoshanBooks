@@ -1,5 +1,5 @@
 "use client";
-import Layout from '../components/Layout';
+import Layout from '../components/AdminLayout';
 import React from "react";
 import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Stack, Skeleton, Divider, TableRow, Paper, Box, Button, IconButton, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
@@ -11,6 +11,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import axios from "axios";
 import moment from 'moment';
 import Link from 'next/link';
+import useAuth from '../useAuth';
 
 export default function products() {
     const [loading, setLoading] = React.useState(false);
@@ -108,16 +109,16 @@ export default function products() {
                         <Divider />
                         <Box height={10} />
                         <Stack direction="row" spacing={2} className="my-2 mb-2">
-                            <TextField size="small" 
-                            sx={{
-                                '& label.Mui-focused': {
-                                    color: '#D5A983',
-                                    fontWeight: 'bold'
-                                },
-                                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: '#D5A983', // Change the border color
-                                },
-                            }} label="Search" />
+                            <TextField size="small"
+                                sx={{
+                                    '& label.Mui-focused': {
+                                        color: '#D5A983',
+                                        fontWeight: 'bold'
+                                    },
+                                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: '#D5A983', // Change the border color
+                                    },
+                                }} label="Search" />
                             <Typography
                                 variant="h6"
                                 component="div"
@@ -235,17 +236,11 @@ export default function products() {
                     </Paper>
                 )
                 }
-                {
-                    products.length == 0 && (
-                        <>
-                            <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
-                                <Box height={30} >
-
-                                </Box>
-                            </Paper>
-                        </>
-                    )
-                }
+                {loading && (
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                        <CircularProgress style={{ color: '#D5A983' }} />
+                    </div>
+                )}
 
             </Layout >
         </div>

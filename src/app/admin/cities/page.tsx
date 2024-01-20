@@ -1,7 +1,6 @@
 "use client";
 
-import Layout from '../components/Layout';
-import CitiesList from '../components/Cities/CitiesList';
+import Layout from '../components/AdminLayout';
 import React from "react";
 import CityForm from "../components/Cities/CityForm";
 import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Stack, IconButton, Divider, TableRow, Paper, Box, Button, TextField } from '@mui/material';
@@ -13,6 +12,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import moment from 'moment';
 import axios from "axios";
+import useAuth from '../useAuth';
+
+
 export default function Cities() {
 
     const [loading, setLoading] = React.useState(false);
@@ -20,8 +22,6 @@ export default function Cities() {
     const [showCityForm, setShowCityForm] = React.useState(false);
     const [selectedCity, setSelectedCity] = React.useState<any>(null);
     const [cities, setCities] = React.useState([]);
-    const [errorMessage, setErrorMessage] = React.useState('');
-    const [successMessage, setSuccessMessage] = React.useState('');
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -31,7 +31,7 @@ export default function Cities() {
         setShowCityForm(true);
     };
 
-    const handleChangePage = (event: unknown, newPage: number) => {
+    const handleChangePage = (event: any, newPage: number) => {
         setPage(newPage);
     };
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -243,17 +243,11 @@ export default function Cities() {
                     </Paper>
                 )
                 }
-                {
-                    cities.length == 0 && (
-                        <>
-                            <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
-                                <Box height={30} >
-
-                                </Box>
-                            </Paper>
-                        </>
-                    )
-                }
+                {loading && (
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                        <CircularProgress style={{ color: '#D5A983' }} />
+                    </div>
+                )}
 
             </Layout>
 

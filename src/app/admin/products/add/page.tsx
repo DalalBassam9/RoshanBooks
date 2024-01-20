@@ -2,16 +2,17 @@
 import ProductForm from '../../components/Products/ProductForm';
 import axios from "axios";
 import Swal from "sweetalert2";
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
 import * as Yup from 'yup';
-import {  Card, CardContent } from '@mui/material';
+import { Card, CardContent } from '@mui/material';
 import { Container } from '@mui/material';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import HomeIcon from "@mui/icons-material/Home";
 import AddIcon from '@mui/icons-material/Add';
 import ListAltIcon from '@mui/icons-material/ListAlt';
-
+import Layout from '../../components/AdminLayout';
+import useAuth from '../../useAuth';
 
 interface FormData {
     name: any;
@@ -89,12 +90,10 @@ function add() {
         });
     };
     const deletePreview = () => {
-        // Revoke the object URL
         if (formData.previewUrl) {
             URL.revokeObjectURL(formData.previewUrl);
         }
 
-        // Update the form data
         setFormData({
             ...formData,
             image: null,
@@ -102,7 +101,6 @@ function add() {
         });
     };
     const handleCancel = () => {
-        // Reset the form data
         setFormData((prevData: FormData) => ({
             ...prevData,
             name: '',
@@ -171,25 +169,27 @@ function add() {
 
     return (
         <div>
-            <Container>
-                <Card sx={{ width: '70%', marginBottom: '20px' }}  >
-                    <CardContent>
-                        <Breadcrumbs breadcrumbs={breadcrumbs} />
-                    </CardContent>
-                </Card>
+            <Layout>
+                <Container>
+                    <Card sx={{ width: '70%', marginBottom: '20px' }}  >
+                        <CardContent>
+                            <Breadcrumbs breadcrumbs={breadcrumbs} />
+                        </CardContent>
+                    </Card>
 
-                <ProductForm
-                    loading={loading}
-                    errors={errors}
-                    formData={formData}
-                    handleSubmit={handleSubmit}
-                    handleChange={handleChange}
-                    handleImageChange={handleImageChange}
-                    deletePreview={deletePreview}
-                    setFormData={setFormData}
-                    handleCancel={handleCancel}
-                />
-            </Container>
+                    <ProductForm
+                        loading={loading}
+                        errors={errors}
+                        formData={formData}
+                        handleSubmit={handleSubmit}
+                        handleChange={handleChange}
+                        handleImageChange={handleImageChange}
+                        deletePreview={deletePreview}
+                        setFormData={setFormData}
+                        handleCancel={handleCancel}
+                    />
+                </Container>
+            </Layout>
         </div>
     );
 

@@ -13,12 +13,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import orders from 'src/app/admin/orders/page';
+import FrontLayout from '../../../../../components/FrontLayout';
 
 function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
     const [order, setOrder] = React.useState<Order | null>();
 
 
+    useAuth({ middleware: 'auth' })
     const getUserOrder = async () => {
         try {
             setLoading(true);
@@ -44,90 +46,92 @@ function Order({ params }: { params: any }) {
 
     return (
         <div>
-            <SidebarProfile>
-                <ToastContainer />
-                <div className="px-4 sm:px-6 lg:px-8">
-                    <div className="sm:flex sm:items-center">
-                        <div className="py-5 px-8 w-full rounded-md bg-white">
+            <FrontLayout>
+                <SidebarProfile>
+                    <ToastContainer />
+                    <div className="px-4 sm:px-6 lg:px-8">
+                        <div className="sm:flex sm:items-center">
+                            <div className="py-5 px-8 w-full rounded-md bg-white">
 
-                            <h1 className='border-b py-2 mb-2 border-gray-900/10 '>Ship To</h1>
-                            <ul role="list">
+                                <h1 className='border-b py-2 mb-2 border-gray-900/10 '>Ship To</h1>
+                                <ul role="list">
 
-                                {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.phone}</li>}
-                                {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.firstName} {order.address.lastName}</li>}
-                                {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.district}</li>}
-                                {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.address}</li>}
+                                    {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.phone}</li>}
+                                    {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.firstName} {order.address.lastName}</li>}
+                                    {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.district}</li>}
+                                    {order && <li className="text-sm py-1 font-medium text-gray-900">{order.address.address}</li>}
 
-                            </ul>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div className="mt-8 flow-root">
-                        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                        <div className="mt-8 flow-root">
+                            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                    <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
 
-                                    <table className="min-w-full divide-y divide-gray-300">
+                                        <table className="min-w-full divide-y divide-gray-300">
 
-                                        <thead className="bg-gray-50">
-                                            <tr>
-                                                <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                    Product Name
-                                                </th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                    quantity
-                                                </th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                    Product Price
-                                                </th>
-
-                                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                    total
-                                                </th>
-
-
-
-                                            </tr>
-
-
-
-                                        </thead>
-                                        <tbody className="divide-y divide-gray-200 bg-white">
-                                            {order && order.orderItems && order.orderItems.map((orderItem: any) => (
+                                            <thead className="bg-gray-50">
                                                 <tr>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem?.product?.name}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.quantity}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price}</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price * orderItem.quantity}</td>
-                                                </tr>
-                                            ))}
-                                            {order &&
-                                                <tr>
-                                                    <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Sub Total</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                        {order.orderItems.reduce((sum: number, item: any) => sum + (item.product.price * item.quantity), 0)}
-                                                    </td>
-                                                </tr>
-                                            }
-                                            <tr>
-                                                <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Shipping</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">3 JD</td>
-                                            </tr>
-                                            {order &&
-                                                <tr>
-                                                    <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Total Price</td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.totalPrice}</td>
-                                                </tr>
-                                            }
+                                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                        Product Name
+                                                    </th>
+                                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                        quantity
+                                                    </th>
+                                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                        Product Price
+                                                    </th>
 
-                                        </tbody>
-                                    </table>
+                                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                        total
+                                                    </th>
+
+
+
+                                                </tr>
+
+
+
+                                            </thead>
+                                            <tbody className="divide-y divide-gray-200 bg-white">
+                                                {order && order.orderItems && order.orderItems.map((orderItem: any) => (
+                                                    <tr>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem?.product?.name}</td>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.quantity}</td>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price}</td>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price * orderItem.quantity}</td>
+                                                    </tr>
+                                                ))}
+                                                {order &&
+                                                    <tr>
+                                                        <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Sub Total</td>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                            {order.orderItems.reduce((sum: number, item: any) => sum + (item.product.price * item.quantity), 0)}
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Shipping</td>
+                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">3 JD</td>
+                                                </tr>
+                                                {order &&
+                                                    <tr>
+                                                        <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Total Price</td>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.totalPrice}</td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </SidebarProfile>
+                </SidebarProfile>
+            </FrontLayout>
         </div>
     );
 }
