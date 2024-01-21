@@ -37,7 +37,6 @@ const productSchema = Yup.object().shape({
 
 
 function edit({ params }: { params: any }) {
-  useAuth({ middleware: 'auth' })
   const [formData, setFormData] = useState<FormData>({
     name: '',
     description: '',
@@ -159,6 +158,7 @@ function edit({ params }: { params: any }) {
         icon: 'success',
         title: 'Success',
         text: 'Product Created successfully',
+        confirmButtonColor: '#D5A983'
       })
       router.refresh();
       router.back();
@@ -174,7 +174,8 @@ function edit({ params }: { params: any }) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: error.response?.data?.message || error.message, // Use optional chaining to access the 'message' property
+          text: error.response?.data?.message || error.message, 
+          confirmButtonColor: '#D5A983'
         });
       }
     } finally {

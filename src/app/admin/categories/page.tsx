@@ -14,6 +14,12 @@ import axios from "axios";
 import moment from 'moment';
 import useAuth from '../useAuth';
 
+interface Category {
+    categoryId: number;
+    name: string;
+  }
+
+  type Categories =  Category[];
 
 export default function categories() {
 
@@ -21,7 +27,8 @@ export default function categories() {
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
     const [showCategoryForm, setShowCategoryForm] = React.useState(false);
     const [selectedCategory, setSelectedCategory] = React.useState<any>(null);
-    const [categories, setCategories] = React.useState([]);
+    const [categories, setCategories] = React.useState<Categories>([]);
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -68,8 +75,8 @@ export default function categories() {
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: '#D5A983',
+            cancelButtonColor: "#D5A983",
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.value) {
@@ -87,6 +94,7 @@ export default function categories() {
                 icon: 'success',
                 title: 'Success',
                 text: 'Category Deleted successfully',
+                confirmButtonColor: '#D5A983'
             })
             setSelectedCategory(null);
             getCategories();
@@ -95,6 +103,7 @@ export default function categories() {
                 icon: 'error',
                 title: 'Oops...',
                 text: error.response.data.message || error.message,
+                confirmButtonColor: '#D5A983'
             })
         } finally {
             setLoadingForDelete(false);

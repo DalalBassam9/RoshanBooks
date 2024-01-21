@@ -9,23 +9,28 @@ import moment from 'moment';
 import axios from "axios";
 import Layout from '../components/AdminLayout';
 import useAuth from '../useAuth';
+import Badge from '@mui/material/Badge';
+import Chip from '@mui/material/Chip';
 
 interface Order {
-    id: number;
+    map(arg0: (order: any) => React.JSX.Element): React.ReactNode;
+    orderId: number;
     status: string;
+    user: {
+        firstName: string;
+        lastName: string;
+    };
+    totalPrice: number;
 }
 
-interface OrdersTableProps {
-    orders: Order[];
-}
+type Orders = Order[];
 
 export default function orders() {
 
     const [loading, setLoading] = React.useState(false);
-    const [orders, setOrders] = React.useState([]);
+    const [orders, setOrders] = React.useState<Orders>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const [localOrders, setLocalOrders] = React.useState<Order[]>(orders);
 
 
     const handleChangePage = (event: unknown, newPage: number) => {
@@ -48,6 +53,7 @@ export default function orders() {
                 icon: 'error',
                 title: 'Oops...',
                 text: error.response.data.message || error.message,
+                confirmButtonColor: '#D5A983'
             })
 
         } finally {
@@ -104,7 +110,7 @@ export default function orders() {
                                             ID
                                         </TableCell>
                                         <TableCell align="left" style={{ minWidth: "100px" }}>
-                                            Status
+                                            status
                                         </TableCell>
                                         <TableCell align="left" style={{ minWidth: "100px" }}>
                                             User
@@ -135,7 +141,11 @@ export default function orders() {
                                                     key={order.orderId}
                                                 >
                                                     <TableCell align="left">{order.orderId}</TableCell>
-                                                    <TableCell align="left">{order.status}</TableCell>
+                                                    <TableCell align="left">
+                                                      
+                                                        <Chip label={order.status} />
+
+                                                    </TableCell>
                                                     <TableCell align="left">{order.user.firstName}{order.user.lastName}</TableCell>
                                                     <TableCell align="left">{order.totalPrice}</TableCell>
                                                     <TableCell align="left">{moment(order.created_at).format("DD MMM YYYY hh:mm A")}</TableCell>

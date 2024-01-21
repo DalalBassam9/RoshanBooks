@@ -21,6 +21,9 @@ const config: Config = {
   },
   theme: {
     extend: {
+      fontFamily: {
+        'cursive': ['cursive'],
+       },
       colors: {
 
         Lightblue: {

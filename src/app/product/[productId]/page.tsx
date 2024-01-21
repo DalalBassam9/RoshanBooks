@@ -128,7 +128,7 @@ export default function product({ params }: { params: any }) {
             <FrontLayout>
 
 
-                <div className="overflow-hidden rounded-lg bg-white mt-8
+                <div className="overflow-hidden rounded-lg bg-white mt-8 mb-8
           max-w-6xl
           mx-auto
           grid grid-cols-1
@@ -139,7 +139,7 @@ export default function product({ params }: { params: any }) {
                         <div>
                             <div>
                                 <ToastContainer />
-                                <section className="">
+                                <section className="my-4">
                                     <div className="container px-5 py-24 mx-auto">
                                         <div className="lg:w-4/5 mx-auto flex flex-wrap">
                                             <img alt="ecommerce" className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src="https://unibookjo.com/images/Books/58/358362588_6501157333240536_2453742449784912702_n.jpg" />
@@ -148,7 +148,7 @@ export default function product({ params }: { params: any }) {
                                                 <div className="flex  justify-between ">
                                                     <div className="flex-1 truncate">
 
-                                                        <h1 className="text-gray-900 text-2xl title-font font-medium mb-1">{product.name}</h1>
+                                                        <h1 className="text-gray-900 text-2xl title-font font-medium mb-1 py-2">{product.name}</h1>
                                                         <span className="flex items-center">
                                                             <Rating
                                                                 readOnly
@@ -173,8 +173,11 @@ export default function product({ params }: { params: any }) {
 
                                                                 handleRemoveFromWishlist(product.productId)
                                                             }  >
-                                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-beige" viewBox="0 0 20 20"
+                                                                    fill="currentColor">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                                                        clip-rule="evenodd" />
                                                                 </svg>
                                                             </button>
                                                         ) : (
@@ -182,7 +185,7 @@ export default function product({ params }: { params: any }) {
                                                                 handleAddToWishlist(product.productId);
 
                                                             }}>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 group-hover:opacity-70 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                                                 </svg>
                                                             </button>
@@ -195,15 +198,15 @@ export default function product({ params }: { params: any }) {
                                                 <p className="mt-3 text-lg text-3xl leading-relaxed">{product.description}</p>
                                                 <div className=" mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                                                     <div className="my-4">
-                                                        <span className="title-font font-medium text-2xl text-gray-900">${product.price}</span>
+                                                        <span className="title-font font-medium text-2xl text-gray-900">{product.price} JD</span>
                                                     </div>
 
-                                                    <span className="text-gray-500 mt-2 ml-1">
+                                                    <span className="text-gray-500 my-2 ml-1">
                                                         {product.quantity > 0
                                                             ? `in stock`
                                                             : "Out of stock"}
                                                     </span>
-                                                    <div className="">
+                                                    <div className="my-4">
                                                         <div>
                                                             <label htmlFor="quantity" className="mr-2">Quantity</label>
                                                             <select
@@ -220,7 +223,7 @@ export default function product({ params }: { params: any }) {
                                                             </select>
                                                         </div>
 
-                                                        <div className="flex my-6">
+                                                        <div className="flex my-8">
                                                             <button
                                                                 disabled={product.quantity === 0}
                                                                 onClick={() => {

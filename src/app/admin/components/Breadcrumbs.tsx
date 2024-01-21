@@ -23,7 +23,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => {
 
 
     return (
-        <MuiBreadcrumbs sx={{ width: '70%' }} >
+        <MuiBreadcrumbs >
             {breadcrumbs.map((breadcrumb, index) => (
                
                 <Link

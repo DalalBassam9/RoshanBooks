@@ -17,7 +17,6 @@ import {
     Bars3Icon,
     GlobeAltIcon,
     UserIcon,
-    XMarkIcon,
     ShoppingCartIcon,
     HeartIcon,
     XMarkIcon,

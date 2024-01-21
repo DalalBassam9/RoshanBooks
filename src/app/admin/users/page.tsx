@@ -1,43 +1,34 @@
 "use client";
-
-import Layout from '../components/AdminLayout';
 import React from "react";
-import CityForm from "../components/Cities/CityForm";
-import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Stack, IconButton, Divider, TableRow, Paper, Box, Button, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TablePagination, TableHead, Select, MenuItem, Stack, IconButton, Divider, TableRow, Paper, Box, Button, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Swal from "sweetalert2";
-import EditIcon from "@mui/icons-material/Edit";
 import CircularProgress from '@mui/material/CircularProgress';
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import moment from 'moment';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import Layout from '../components/AdminLayout';
 import useAuth from '../useAuth';
 
-interface City {
-    cityId: number;
-    name: string;
+interface User {
+    userId: any;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
 }
 
-type Cities = City[];
-
-export default function Cities() {
+type Users =  User[];
+export default function orders() {
 
     const [loading, setLoading] = React.useState(false);
-    const [loadingForDelete, setLoadingForDelete] = React.useState(false);
-    const [showCityForm, setShowCityForm] = React.useState(false);
-    const [selectedCity, setSelectedCity] = React.useState<any>(null);
-    const [cities, setCities] = React.useState<Cities>([]);
+    const [users, setUsers] = React.useState<Users>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
 
-    const handleShowCityForm = (city: any) => {
-        setSelectedCity(city);
-        setShowCityForm(true);
-    };
-
-    const handleChangePage = (event: any, newPage: number) => {
+    const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,12 +37,12 @@ export default function Cities() {
     };
 
 
-    const getCities = async () => {
+    const getUsers = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/admin/cities?page=${page + 1}&per_page=${rowsPerPage}`
+            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/admin/users?page=${page + 1}&per_page=${rowsPerPage}`
             );
-            setCities(response.data.data);
+            setUsers(response.data.data);
         } catch (error: any) {
             Swal.fire({
                 icon: 'error',
@@ -63,69 +54,17 @@ export default function Cities() {
             setLoading(false);
         }
     };
+   
+
 
     React.useEffect(() => {
-        getCities();
+        getUsers();
     }, [page, rowsPerPage]);
-
-
-    const deleteCity = (cityId: string) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: '#D5A983',
-            cancelButtonColor: "#D5A983",
-            confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-            if (result.value) {
-                onDelete(cityId);
-            }
-        });
-    };
-
-
-    const onDelete = async (cityId: string) => {
-        try {
-            setLoadingForDelete(true);
-            await axios.delete(process.env.NEXT_PUBLIC_API_URL + "/api/admin/cities/" + cityId);
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'City Deleted successfully',
-                confirmButtonColor: '#D5A983',
-            })
-            setSelectedCity(null);
-            getCities();
-        } catch (error: any) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.response.data.message || error.message,
-                confirmButtonColor: '#D5A983',
-            })
-        } finally {
-            setLoadingForDelete(false);
-        }
-    };
-
     return (
         <div>
-
             <Layout>
 
-                {showCityForm && (
-                    <CityForm
-                        showCityForm={showCityForm}
-                        setShowCityForm={setShowCityForm}
-                        selectedCity={selectedCity}
-                        reloadData={() => getCities()}
-                        setSelectedCity={setSelectedCity}
-                    />
-
-                )}
-                {cities.length > 0 && (
+                {users.length > 0 && (
                     <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
                         <Typography
                             gutterBottom
@@ -133,12 +72,12 @@ export default function Cities() {
                             component="div"
                             sx={{ padding: "20px" }}
                         >
-                            Cities List
+                            Users List
                         </Typography>
                         <Divider />
                         <Box height={10} />
                         <Stack direction="row" spacing={2} className="my-2 mb-2">
-                            <TextField size="small" sx={{
+                            <TextField size="small" label="Search" sx={{
                                 '& label.Mui-focused': {
                                     color: '#D5A983',
                                     fontWeight: 'bold'
@@ -146,22 +85,13 @@ export default function Cities() {
                                 '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                                     borderColor: '#D5A983', // Change the border color
                                 },
-                            }} label="Search" />
+                            }} />
                             <Typography
                                 variant="h6"
                                 component="div"
                                 sx={{ flexGrow: 1 }}
                             ></Typography>
-                            <Button
-                                variant="contained"
-                                style={{ backgroundColor: '#D5A983', color: '#fff', fontWeight: 'bold' }}
 
-                                endIcon={<AddCircleIcon />}
-                                onClick={() => setShowCityForm(true)}
-
-                            >
-                                Add City
-                            </Button>
                         </Stack>
                         <Box height={10} />
                         <TableContainer>
@@ -172,7 +102,16 @@ export default function Cities() {
                                             ID
                                         </TableCell>
                                         <TableCell align="left" style={{ minWidth: "100px" }}>
-                                            Name
+                                            First Name
+                                        </TableCell>
+                                        <TableCell align="left" style={{ minWidth: "100px" }}>
+                                            Last Name
+                                        </TableCell>
+                                        <TableCell align="left" style={{ minWidth: "100px" }}>
+                                            Email
+                                        </TableCell>
+                                        <TableCell align="left" style={{ minWidth: "100px" }}>
+                                            phone
                                         </TableCell>
                                         <TableCell align="left" style={{ minWidth: "100px" }}>
                                             CreateAt
@@ -186,49 +125,43 @@ export default function Cities() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {cities
+                                    {users
                                         .map
-                                        ((city: any) => {
+                                        ((user: any) => {
                                             return (
                                                 <TableRow
                                                     hover
                                                     role="checkbox"
                                                     tabIndex={-1}
-                                                    key={city.cityId}
+                                                    key={user.userId}
                                                 >
-                                                    <TableCell align="left">{city.cityId}</TableCell>
-                                                    <TableCell align="left">{city.name}</TableCell>
-                                                    <TableCell align="left">{moment(city.created_at).format("DD MMM YYYY hh:mm A")}</TableCell>
-                                                    <TableCell align="left">{moment(city.updated_at).format("DD MMM YYYY hh:mm A")}</TableCell>
+                                                    <TableCell align="left">{user.userId}</TableCell>
+                                                    <TableCell align="left">{user.firstName}</TableCell>
+                                                    <TableCell align="left">{user.lastName}</TableCell>
+                                                    <TableCell align="left">{user.email}</TableCell>
+                                                    <TableCell align="left">{user.phone}</TableCell>
+                                                    <TableCell align="left">{moment(user.created_at).format("DD MMM YYYY hh:mm A")}</TableCell>
+                                                    <TableCell align="left">{moment(user.updated_at).format("DD MMM YYYY hh:mm A")}</TableCell>
 
                                                     <TableCell align="left">
-                                                        <Stack spacing={2} direction="row">
+                                                    <Stack spacing={2} direction="row">
                                                             <EditIcon
                                                                 style={{
-                                                                    marginTop: "10px",
                                                                     fontSize: "20px",
+                                                                    marginTop: "10px",
                                                                     color: "primary",
                                                                     cursor: "pointer",
                                                                 }}
                                                                 className="cursor-pointer"
-                                                                onClick={() => handleShowCityForm(city)
-                                                                }
+                                                                
                                                             />
                                                             <IconButton
-                                                                disabled={loadingForDelete}
-                                                                onClick={() => [
-                                                                    setSelectedCity(city),
-                                                                    deleteCity(city.cityId),
-                                                                ]}
+                                                             
                                                             >
-                                                                {loadingForDelete && selectedCity?.cityId === city.cityId
-                                                                    ? <CircularProgress size={24} /> :
                                                                     <DeleteIcon
-                                                                    />}
+                                                                    />
                                                             </IconButton>
-
-
-                                                        </Stack>
+                                                            </Stack>
                                                     </TableCell>
                                                 </TableRow>
                                             );
@@ -238,7 +171,7 @@ export default function Cities() {
                             <TablePagination
                                 rowsPerPageOptions={[5, 10, 25]}
                                 component="div"
-                                count={cities.length}
+                                count={users.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}
                                 onPageChange={handleChangePage}
@@ -258,10 +191,8 @@ export default function Cities() {
                 )}
 
             </Layout>
-
-
         </div>
-    );
 
 
-};
+    )
+}

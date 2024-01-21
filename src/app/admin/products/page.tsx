@@ -13,10 +13,21 @@ import moment from 'moment';
 import Link from 'next/link';
 import useAuth from '../useAuth';
 
+interface Product {
+    productId: number;
+    name: string;
+    price: number;
+    quantity: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+type Products = Product[];
+
 export default function products() {
     const [loading, setLoading] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
-    const [products, setProducts] = React.useState([]);
+    const [products, setProducts] = React.useState<Products>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -41,6 +52,8 @@ export default function products() {
                 icon: 'error',
                 title: 'Oops...',
                 text: error.response.data.message || error.message,
+                confirmButtonColor: '#D5A983'
+
             })
 
         } finally {
@@ -59,8 +72,8 @@ export default function products() {
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: '#D5A983',
+            cancelButtonColor: "#D5A983",
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.value) {
@@ -78,6 +91,8 @@ export default function products() {
                 icon: 'success',
                 title: 'Success',
                 text: 'Product Deleted successfully',
+                confirmButtonColor: '#D5A983',
+         
             })
             getProducts();
         } catch (error: any) {
@@ -85,6 +100,8 @@ export default function products() {
                 icon: 'error',
                 title: 'Oops...',
                 text: error.response.data.message || error.message,
+                confirmButtonColor: '#D5A983',
+                
             })
         } finally {
             setLoadingForDelete(false);
@@ -187,7 +204,7 @@ export default function products() {
                                                     <TableCell align="left">
                                                         <Stack spacing={2} direction="row">
 
-                                                            <Link href={`../admin/products/edit/${product.productId}`} passHref>
+                                                            <Link href={`./products/edit/${product.productId}`} >
                                                                 <EditIcon
                                                                     style={{
                                                                         marginTop: "10px",

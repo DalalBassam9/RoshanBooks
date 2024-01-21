@@ -34,7 +34,7 @@ const Wishlist: React.FC = () => {
                         </div>
                     )}
 
-                    <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
+                    <div className="mt-6 mx-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
                         {products.length > 0 && (
                             products.map((product: any) => (
                                 <ProductCard key={product.productId} product={product} />

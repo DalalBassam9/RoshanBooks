@@ -41,7 +41,7 @@ const ThankYou = () => {
         <div>
 
             <FrontLayout>
-                <div className="mt-4 grid grid-cols-2 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
+                <div className="mt-4 mb-6 grid grid-cols-2 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
                     <div className="lg:col-span-2 col-span-3 space-y-8 px-12">
 
                         <div className="mt-8 p-4  bg-white shadow rounded-md">
@@ -51,9 +51,9 @@ const ThankYou = () => {
                             </div>
                         </div>
 
-                        <div className="mt-8 p-4 relative flex flex-col  bg-white shadow rounded-md">
+                        <div className="mt-4 p-4 relative flex flex-col  bg-white shadow rounded-md">
 
-                            <div className="py-5  rounded-md bg-white">
+                            <div className="py-5 my-4 rounded-md bg-white">
                                 <h1 className='border-b py-2 mb-2 border-gray-900/10 '>Ship To</h1>
                                 {order &&
                                     <OrderAddressCard order={order} />

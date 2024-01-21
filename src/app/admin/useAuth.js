@@ -13,7 +13,6 @@ export default function useAuth({middleware} = {}) {
             setIsLoading(false);
         }
       
-        if (middleware == 'auth' && !user && error) router.push('/admin')
     })
 
     const { data: user, error, mutate } = useSWR('/api/user',

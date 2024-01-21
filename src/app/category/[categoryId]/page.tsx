@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
+import HeaderSection from '../../../components/HeaderSection';
 import Pagination from '../../../components/Pagination';
 import { Fragment } from 'react'
 import ProductCard from '../../../components/Product/ProductCard';
@@ -52,6 +53,7 @@ export default function category({ params }: { params: any }) {
                 icon: 'error',
                 title: 'Oops...',
                 text: error.response.data.message || error.message,
+                confirmButtonColor: '#D5A983'
             })
 
         } finally {
@@ -70,6 +72,8 @@ export default function category({ params }: { params: any }) {
                 icon: 'error',
                 title: 'Oops...',
                 text: error.response.data.message || error.message,
+                confirmButtonColor: '#D5A983'
+
             })
         } finally {
             setLoading(false);
@@ -84,11 +88,12 @@ export default function category({ params }: { params: any }) {
     return (
         <div>
             <FrontLayout>
-                <div className="bg-white">
+                <HeaderSection />
+                <div>
                     <ToastContainer />
                     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-                            <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
+                        <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-4">
+                            <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Books</h1>
 
                             <div className="flex items-center">
                                 <Menu as="div" className="relative inline-block text-left">
@@ -113,7 +118,8 @@ export default function category({ params }: { params: any }) {
                                     >
 
                                         <Transition.Child as="div">
-                                            <Menu.Items className="absolute right-2 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+
+                                            <Menu.Items className="absolute right-2 z-10  w-40  origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
 
                                                 <div className="py-1">
                                                     {sortOptions.map((option: any) => (
@@ -134,7 +140,7 @@ export default function category({ params }: { params: any }) {
 
                                 <form className="hidden lg:block">
 
-                                    <div className="border-t border-gray-200 px-4 py-6">
+                                    <div className="px-4 py-6">
                                         <span className=" py-3  font-medium text-gray-900">Availability</span>
 
                                         <div className="pt-6" id="filter-section-mobile-1">
@@ -148,7 +154,7 @@ export default function category({ params }: { params: any }) {
                                     </div>
                                 </form>
 
-                                <div className="lg:col-span-3">
+                                <div className="lg:col-span-3 mt-5">
                                     <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
                                         {products && products.map((product: any) => (
                                             <ProductCard
@@ -164,7 +170,7 @@ export default function category({ params }: { params: any }) {
 
                     </main>
 
-                    <div className="flex justify-center">
+                    <div className="flex mb-4 justify-center">
                         <Pagination
                             currentPage={currentPage}
                             totalPages={totalPages}

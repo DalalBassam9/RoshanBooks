@@ -1,6 +1,4 @@
 "use client";
-import create from "zustand";
-import { persist } from "zustand/middleware";
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
@@ -12,9 +10,9 @@ import ListItemText from "@mui/material/ListItemText";
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { useNavigate } from "react-router-dom";
-import GroupIcon from '@mui/icons-material/Group';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import GroupIcon from '@mui/icons-material/Group';
 import HomeIcon from '@mui/icons-material/Home';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import { useState } from 'react';
@@ -36,7 +34,7 @@ const openedMixin = (theme: Theme) => ({
     overflowX: "hidden",
 });
 
-const closedMixin = (theme:any) => ({
+const closedMixin = (theme: any) => ({
     transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -117,14 +115,14 @@ export default function Sidenav() {
                 <ListItem
                     disablePadding
                     sx={{ display: "block" }}
-                     
 
-                        onClick={() => {
-                            router.push('/admin/products/');
-                        }}
 
-                    >
-                        
+                    onClick={() => {
+                        router.push('/admin/products/');
+                    }}
+
+                >
+
                     <ListItemButton
                         sx={{
                             minHeight: 48,
@@ -144,13 +142,13 @@ export default function Sidenav() {
                         </ListItemIcon>
                         <ListItemText primary="Products" sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
-                    </ListItem>
-            
+                </ListItem>
+
                 <ListItem
                     disablePadding
                     sx={{ display: "block" }}
                     onClick={() => {
-                        router.push('/admin/cities');  
+                        router.push('/admin/cities');
                     }}
                 >
                     <ListItemButton
@@ -223,6 +221,33 @@ export default function Sidenav() {
                             <ShoppingCartIcon />
                         </ListItemIcon>
                         <ListItemText primary="Orders" sx={{ opacity: open ? 1 : 0 }} />
+                    </ListItemButton>
+                </ListItem>
+
+                <ListItem
+                    disablePadding
+                    sx={{ display: "block" }}
+                    onClick={() => {
+                        router.push('/admin/users');
+                    }}
+                >
+                    <ListItemButton
+                        sx={{
+                            minHeight: 48,
+                            justifyContent: open ? "initial" : "center",
+                            px: 2.5,
+                        }}
+                    >
+                        <ListItemIcon
+                            sx={{
+                                minWidth: 0,
+                                mr: open ? 3 : "auto",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <GroupIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Users" sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                 </ListItem>
             </List>

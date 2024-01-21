@@ -1,6 +1,6 @@
 
 "use client"
-import Layout from './components/AdminLayout';// Replace with your actual content component
+import Layout from './components/AdminLayout';
 import useAuth from './useAuth';
 
 export default function Page() {

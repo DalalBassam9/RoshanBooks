@@ -1,9 +1,5 @@
 const navigation = {
-    main: [
-        { name: 'About', href: '#' },
-        { name: 'Blog', href: '#' },
-        { name: 'Jobs', href: '#' },
-    ],
+
     social: [
         {
             name: 'Facebook',
@@ -49,7 +45,7 @@ export default function Footer() {
         <div>
 
 
-            <div className="bg-white  flex justify-between w-full overflow-hidden px-6  py-8 lg:px-8">
+            <div className="bg-white  flex justify-between w-full overflow-hidden px-6  py-6 lg:px-8">
 
           
                 <div className=" flex space-x-10">
@@ -61,15 +57,6 @@ export default function Footer() {
                     ))}
                 </div>
 
-                <nav className=" flex  space-x-12" aria-label="Footer">
-                    {navigation.main.map((item) => (
-                        <div key={item.name} className="pb-6">
-                            <a href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
-                                {item.name}
-                            </a>
-                        </div>
-                    ))}
-                </nav>
 
                 <div>
                 <p className=" text-xs leading-5 text-gray-500">

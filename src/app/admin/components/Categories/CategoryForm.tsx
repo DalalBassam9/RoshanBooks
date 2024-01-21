@@ -88,6 +88,7 @@ function CategoryForm({
                     icon: 'success',
                     title: 'Success',
                     text: 'Category updated successfully',
+                    confirmButtonColor: '#D5A983'
                 })
             } else {
                 await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/admin/categories`, formData);
@@ -95,6 +96,7 @@ function CategoryForm({
                     icon: 'success',
                     title: 'Success',
                     text: 'Category Created successfully',
+                    confirmButtonColor: '#D5A983'
                 })
             }
             setShowCategoryForm(false);
@@ -108,7 +110,8 @@ function CategoryForm({
                 });
                 setErrors(errors);
             } else {
-                Swal.fire({
+                Swal.fire({      
+                    confirmButtonColor: '#D5A983',
                     icon: 'error',
                     title: 'Oops...',
                     text: error.response?.data?.message || error.message, // Use optional chaining to access nested properties
@@ -189,7 +192,7 @@ function CategoryForm({
 
                             type="submit"
                             disabled={loading}
-                            startIcon={loading ? <CircularProgress size={20} /> : null}
+                            startIcon={loading ? <CircularProgress  style={{ color: '#fff' }}  size={20} /> : null}
                         >
                             {selectedCategory ? 'Update' : 'Save'}
                         </Button>

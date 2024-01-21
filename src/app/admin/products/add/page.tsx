@@ -142,6 +142,7 @@ function add() {
                 icon: 'success',
                 title: 'Success',
                 text: 'Product Created successfully',
+                confirmButtonColor: '#D5A983'
             })
             router.push("/admin/products");
 
@@ -157,7 +158,8 @@ function add() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: error.response?.data?.message || error.message, // Use optional chaining to access nested properties
+                    text: error.response?.data?.message || error.message,
+                    confirmButtonColor: '#D5A983'
                 });
             }
         } finally {
@@ -171,7 +173,7 @@ function add() {
         <div>
             <Layout>
                 <Container>
-                    <Card sx={{ width: '70%', marginBottom: '20px' }}  >
+                    <Card sx={{ width: '79%', marginBottom: '20px' }}  >
                         <CardContent>
                             <Breadcrumbs breadcrumbs={breadcrumbs} />
                         </CardContent>

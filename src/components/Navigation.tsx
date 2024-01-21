@@ -12,6 +12,7 @@ import {
     fetchUser, UserState,
     logoutUser
 } from '../redux/userSlice';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { MenuItem } from "@mui/material";
@@ -66,11 +67,9 @@ export default function Navigation() {
                         <div className="relative flex h-16 justify-between">
                             <div className="relative z-10 flex px-2 lg:px-0">
                                 <div className="flex flex-shrink-0 items-center">
-                                    <img
-                                        className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=Purpl&shade=600"
-                                        alt="Your Company"
-                                    />
+
+                                    <h6 className=" font-bold text-2xl text-beige w-auto w-8">Rashon</h6>
+
                                 </div>
                             </div>
                             <div className="relative z-0 flex flex-1 items-center justify-center px-2 sm:absolute sm:inset-0">
@@ -94,7 +93,7 @@ export default function Navigation() {
                             </div>
                             <div className="relative z-10 flex items-center lg:hidden">
                                 {/* Mobile menu button */}
-                                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-beige">
                                     <span className="absolute -inset-0.5" />
                                     <span className="sr-only">Open menu</span>
                                     {open ? (
@@ -104,30 +103,30 @@ export default function Navigation() {
                                     )}
                                 </Disclosure.Button>
                             </div>
-                            
-                            {user && (
-                            <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
 
-                                {/* Profile dropdown */}
-                                <Menu as="div" className="relative ml-4 flex-shrink-0">
-                                    <div>
-                                        <Menu.Button className="relative flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-beige focus:ring-offset-2">
-                                            <span className="absolute -inset-1.5" />
-                                            <span className="sr-only">Open user menu</span>
-                                            <img className="h-8 w-8 rounded-full" src={user?.image} alt="" />
-                                        </Menu.Button>
-                                    </div>
-                                 
-                                    <Transition
-                                        as={Fragment}
-                                        enter="transition ease-out duration-100"
-                                        enterFrom="transform opacity-0 scale-95"
-                                        enterTo="transform opacity-100 scale-100"
-                                        leave="transition ease-in duration-75"
-                                        leaveFrom="transform opacity-100 scale-100"
-                                        leaveTo="transform opacity-0 scale-95"
-                                    >
-                                       
+                            {user && (
+                                <div className="hidden lg:relative lg:z-9 lg:ml-4 lg:flex lg:items-center">
+
+                                    {/* Profile dropdown */}
+                                    <Menu as="div" className="relative ml-4 flex-shrink-0">
+                                        <div>
+                                            <Menu.Button className="relative flex rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-beige focus:ring-offset-2">
+                                                <span className="absolute -inset-1.5" />
+                                                <span className="sr-only">Open user menu</span>
+                                                <img className="h-8 w-8 rounded-full" src={user?.image} alt="" />
+                                            </Menu.Button>
+                                        </div>
+
+                                        <Transition
+                                            as={Fragment}
+                                            enter="transition ease-out duration-100"
+                                            enterFrom="transform opacity-0 scale-95"
+                                            enterTo="transform opacity-100 scale-100"
+                                            leave="transition ease-in duration-75"
+                                            leaveFrom="transform opacity-100 scale-100"
+                                            leaveTo="transform opacity-0 scale-95"
+                                        >
+
 
                                             <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 
@@ -156,27 +155,24 @@ export default function Navigation() {
                                                     )}
                                                 </Menu.Item>
                                             </Menu.Items>
-                                       
-                                    </Transition>
-                                    
-                                </Menu>
-                               
-                            </div>
-                              )}
+
+                                        </Transition>
+
+                                    </Menu>
+
+                                </div>
+                            )}
                         </div>
                         <nav className="hidden lg:flex lg:space-x-8 lg:py-2  mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
 
                             <div className="ml-4 flow-root lg:ml-6">
-                                <a href="#" className="group -m-2 flex items-center p-2">
-                                    <ShoppingBagIcon
-                                        className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                        aria-hidden="true"
-                                    />
-                                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                                    <span >{cartItemsCount}</span>
-                                </a>
+                                <Link href="/cart" className="group -m-2 flex items-center p-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                    </svg>
+                                    <span className="ml-1">{cartItemsCount}</span>
+                                </Link>
                             </div>
-
                             <div>
 
                                 {categories.map((item) => {
@@ -251,7 +247,7 @@ export default function Navigation() {
                                 </div>
                                 <button
                                     type="button"
-                                    className="relative ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    className="relative ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-beige focus:ring-offset-2"
                                 >
                                     <span className="absolute -inset-1.5" />
                                     <span className="sr-only">View notifications</span>

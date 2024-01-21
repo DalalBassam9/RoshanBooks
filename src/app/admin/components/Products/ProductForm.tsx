@@ -12,6 +12,19 @@ import { useRouter } from "next/navigation";
 import { FormControl, FormHelperText, Select, MenuItem, InputLabel, CircularProgress } from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 
+interface ProductFormProps {
+    loading: any,
+    formData: any,
+    errors: any,
+    setFormData: any;
+    handleSubmit: any;
+    handleChange: any;
+    handleImageChange: any;
+    deletePreview: any;
+    handleCancel: any
+
+}
+
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
     clipPath: 'inset(50%)',
@@ -38,7 +51,6 @@ function ProductForm({
 }: ProductFormProps) {
     const router = useRouter();
     const [categories, setCategories] = React.useState([]);
-    const [selectedCategory, setSelectedCategory] = useState('');
 
 
     const getCategories = async () => {
@@ -50,6 +62,8 @@ function ProductForm({
                 icon: 'error',
                 title: 'Oops...',
                 text: error.response.data.message || error.message,
+                confirmButtonColor: '#D5A983'
+                
             })
         }
     };
@@ -251,7 +265,7 @@ function ProductForm({
 
                                         type="submit"
                                         disabled={loading}
-                                        endIcon={loading ? <CircularProgress size={20} /> : null}
+                                        endIcon={loading ? <CircularProgress  style={{ color: '#fff' }}   size={20} /> : null}
 
                                     >
                                         Save
@@ -269,15 +283,3 @@ function ProductForm({
 
 export default ProductForm;
 
-interface ProductFormProps {
-    loading: any,
-    formData: any,
-    errors: any,
-    setFormData: any;
-    handleSubmit: any;
-    handleChange: any;
-    handleImageChange: any;
-    deletePreview: any;
-    handleCancel: any
-
-}

@@ -89,7 +89,9 @@ function CityForm({
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    text: 'City updated successfully',
+                    text: 'City updated successfully',  
+                    confirmButtonColor: '#D5A983'
+
                 })
             } else {
                 await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/admin/cities`, formData);
@@ -97,6 +99,7 @@ function CityForm({
                     icon: 'success',
                     title: 'Success',
                     text: 'City Created successfully',
+                    confirmButtonColor: '#D5A983'
                 })
             }
             setShowCityForm(false);
@@ -113,7 +116,8 @@ function CityForm({
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: error.response?.data?.message || error.message, // Use optional chaining to access nested properties
+                    text: error.response?.data?.message || error.message,
+                    confirmButtonColor: '#D5A983'
                 });
                 setShowCityForm(false);
             }
@@ -189,7 +193,7 @@ function CityForm({
 
                             type="submit"
                             disabled={loading}
-                            startIcon={loading ? <CircularProgress size={20} /> : null}
+                            startIcon={loading ? <CircularProgress  style={{ color: '#fff' }}   size={20} /> : null}
                         >
                             {selectedCity ? 'Update' : 'Save'}
                         </Button>
