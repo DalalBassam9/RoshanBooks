@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
+import FrontLayout from '../../components/FrontLayout';
 
 interface FormData {
     phone: string;
@@ -93,6 +94,7 @@ export default function Register() {
     };
     return (
         <div>
+            <FrontLayout>
             <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <ToastContainer />
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
@@ -236,7 +238,7 @@ export default function Register() {
                     </div>
                 </div>
             </div>
-
+            </FrontLayout>
         </div>
     )
 }

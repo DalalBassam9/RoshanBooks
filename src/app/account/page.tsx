@@ -17,6 +17,7 @@ import { InfoUserData } from "../../interfaces";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FrontLayout from '../../components/FrontLayout';
+import Image from 'next/image';
 
 const AccountInformation: React.FC = () => {
 
@@ -71,9 +72,13 @@ const AccountInformation: React.FC = () => {
                                                             src={user?.image}
                                                         />
                                                     ) : (
-                                                        <img
-                                                            className='rounded-full h-44 w-44 border-beige border-4'
-                                                            src="https://www.ubuy.com.jo/skin/frontend/default/ubuycom-v1/images/default-avatar.jpg"
+
+                                                        <Image
+                                                            src="/default-avatar.jpg"
+                                                            alt="image"
+                                                            width={44}
+                                                            height={44}
+                                                            className="rounded-full h-44 w-44 border-beige border-4"
                                                         />
                                                     )}
 
