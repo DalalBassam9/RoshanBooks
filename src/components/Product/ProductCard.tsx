@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import Swal from "sweetalert2";
+import Link from 'next/link';
 
 interface ProductCardProps {
     product: Product;
@@ -83,7 +84,10 @@ function ProductCard({
         <div>
             <div className="relative  bg-white shadow-md rounded-3xl p-2 my-3 cursor-pointer">
                 <div className="overflow-x-hidden rounded-2xl relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md  lg:aspect-none group-hover:opacity-75 lg:h-80">
-                    <img className="h-full rounded-2xl w-full object-cover" src={product.image} />
+
+                    <Link href={`/product/${product.productId}`} passHref>
+                        <img className="h-full rounded-2xl w-full object-cover" src={product.image} />
+                    </Link>
                     <p className="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer group">
 
                         {isWishlisted(product.productId) ? (
@@ -118,7 +122,7 @@ function ProductCard({
                 </div>
                 <div className="mt-4 pl-2 mb-2 flex justify-between ">
                     <div>
-                        <p className="text-lg font-semibold text-gray-900 mb-0">{product.name}</p>
+                        <p className="text-lg  font-medium text-gray-900 mb-0">{product.name}</p>
                         <span className="mt-2">
                             <Rating
                                 readOnly
@@ -130,7 +134,7 @@ function ProductCard({
                                 }} size="small"
                             />
                         </span>
-                        <p className="text-xl  text-Purpl mt-0">${product.price}</p>
+                        <p className="text-xl font-bold text-beige mt-0">{product.price} JD</p>
                     </div>
                     <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
                         <button
@@ -149,7 +153,6 @@ function ProductCard({
                     </div>
                 </div>
             </div>
-
         </div >
     );
 

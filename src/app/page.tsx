@@ -1,6 +1,4 @@
 "use client"
-import Head from 'next/head'
-import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";
@@ -34,7 +32,6 @@ export default function Home() {
   const [category, setCategory] = useState<string>('1');
   const [categories, setCategories] = useState<Category[]>([]);
   const [productStatus, setProductStatus] = useState<string>('0');
-  const cartItemsCount = useSelector((state: any) => state.cart.cartItemsCount);
 
   const dispatch = useDispatch();
   function classNames(...classes: string[]) {
@@ -82,7 +79,7 @@ export default function Home() {
   React.useEffect(() => {
     getProducts(sort, category, productStatus);
     fetchCategories();
-  }, [currentPage, rowsPerPage, category, sort, productStatus, cartItemsCount]);
+  }, [currentPage, rowsPerPage, category, sort, productStatus]);
 
 
   return (
@@ -90,7 +87,6 @@ export default function Home() {
       <FrontLayout>
         <HeaderSection />
         <div>
-
           <ToastContainer />
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-2">
             <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-4">

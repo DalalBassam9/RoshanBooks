@@ -79,7 +79,7 @@ function CartItem({ cartItem }: CartItemProps) {
     return (
 
         <div >
-            <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+            <div className="justify-between mb-6 rounded-lg mb-8 bg-white p-6 shadow-md sm:flex sm:justify-start">
                 <img src={cartItem.image} alt="product-image" className="rounded-lg w-full sm:h-40 sm:w-40" />
                 <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                     <div className="mt-8 sm:mt-0">

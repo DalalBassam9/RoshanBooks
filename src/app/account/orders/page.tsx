@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import FrontLayout from '../../../components/FrontLayout';
+import moment from 'moment';
 
 const Orders: React.FC = () => {
     const router = useRouter();
@@ -61,7 +62,7 @@ const Orders: React.FC = () => {
                         </div>
                         {orders.length > 0 && (
 
-                            <div className="mt-8 flow-root">
+                            <div className="mt-4">
                                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                                         <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
@@ -92,8 +93,8 @@ const Orders: React.FC = () => {
                                                         <tr>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">#{order.orderId}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.status}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.totalPrice}</td>
-                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.created_at}</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.totalPrice} JD</td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{moment(order.created_at).format("DD MMM YYYY hh:mm A")}</td>
                                                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
 
                                                                 <button className="text-beige hover:text-beige" onClick={() => router.push(`./orders/order/${order.orderId}`)}>

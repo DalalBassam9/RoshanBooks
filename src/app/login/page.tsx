@@ -1,12 +1,13 @@
 "use client";
-import Head from 'next/head'
-import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Link from 'next/link';
 
 interface FormData {
     email: string;
@@ -26,9 +27,9 @@ export default function Login() {
     const router = useRouter();
     const [loading = false, setLoading] = React.useState<boolean>(false);
     const [errors, setErrors] = React.useState<Record<string, string>>({});
-    const [formData, setFormData] = React.useState <FormData> ({
+    const [formData, setFormData] = React.useState<FormData>({
         password: "",
-        email:""
+        email: ""
     });
     const validateField = async (field: string, value: string) => {
         try {
@@ -58,18 +59,12 @@ export default function Login() {
         try {
             setLoading(true);
             await schema.validate(formData, { abortEarly: false });
-             const response= axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData,
+            const response = axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData,
 
             );
             const token = (await response).data.access_token
             localStorage.setItem("token", token)
-
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: ' login  successfully',
-            })
-
+            toast.success('login  successfully');
             router.push("/");
         } catch (error: any) {
             if (error instanceof Yup.ValidationError) {
@@ -79,45 +74,25 @@ export default function Login() {
                 });
                 setErrors(errors);
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: error.response?.data?.message || error.message, // Use optional chaining to access nested properties
-                });
-
+                toast.error(error.response.data.message || error.message);
             }
         } finally {
             setLoading(false);
         }
 
     };
- 
     return (
-        <>
-            <Head>
-                <title>ergodnc — Login</title>
-            </Head>
+
+        <div>
             <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
-         
-
-            <ToastContainer />
+                <ToastContainer />
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-                
                     <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-
                         <div className="sm:mx-auto my-6 sm:w-full sm:max-w-md">
-                            <img
-                                className="mx-auto h-10 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                alt="Your Company"
-                            />
-                            <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                                Sign in to your account
-                            </h2>
+                            <Link href="/" passHref>
+                                <h2 className="text-3xl  text-center font-bold tracking-tight  text-beige">Roshan Books</h2>
+                            </Link>
                         </div>
-
-
-
                         <form className="space-y-6" noValidate autoComplete="off" onSubmit={handleSubmit} >
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -183,7 +158,7 @@ export default function Login() {
                                 <button
                                     disabled={loading}
                                     type="submit"
-                                    className={`flex w-full justify-center rounded-md bg-beige px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige  ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}   
+                                    className={`flex w-full justify-center rounded-md bg-beige px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige  ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 >
 
                                     {loading ? 'Loading...' : 'Sign in'}
@@ -195,10 +170,9 @@ export default function Login() {
                         </div>
                     </div>
 
-                 
+
                 </div>
             </div>
-           
-        </>
+        </div>
     )
 }

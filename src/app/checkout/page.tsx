@@ -151,7 +151,8 @@ export default function Checkout() {
                                     {addresses.length === 0 && (
                                         <div className="flex flex-col items-center justify-center gap-5 mt-10">
                                             <i className="text-5xl"></i>
-                                            <h1 className="text-xl">No  Addressess create address ship</h1>
+                                            <h1 className="text-xl"> no there address to ship
+                                                add new address   </h1>
                                         </div>
                                     )}
 
@@ -177,7 +178,7 @@ export default function Checkout() {
                                                     <span className="text-gray-600">Subtotal</span>
                                                 </div>
                                                 <div className="pl-3">
-                                                    <span className="font-semibold">{subTotal}</span>
+                                                    <span className="font-semibold">{subTotal} JD</span>
                                                 </div>
                                             </div>
                                             <div className="w-full flex mb-3 items-center">
@@ -185,7 +186,7 @@ export default function Checkout() {
                                                     <span className="text-gray-600">Shipping</span>
                                                 </div>
                                                 <div className="pl-3">
-                                                    <span className="font-semibold">3 JOD</span>
+                                                    <span className="font-semibold">3 JD</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -195,7 +196,7 @@ export default function Checkout() {
                                                     <span className="text-gray-600">Total</span>
                                                 </div>
                                                 <div className="pl-3">
-                                                    <span className="font-semibold">{total}</span>
+                                                    <span className="font-semibold">{total} JD</span>
                                                 </div>
                                             </div>
                                         </div>

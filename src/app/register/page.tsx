@@ -2,8 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import axios from "axios";
-import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Link from 'next/link';
 
 interface FormData {
     phone: string;
@@ -71,26 +74,17 @@ export default function Register() {
             await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/register`, formData,
 
             );
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: ' "Registaration successful , please login to continue"',
-            })
+            toast.success('Registaration successful , please login to continue');
             router.push("/login");
         } catch (error: any) {
             if (error instanceof Yup.ValidationError) {
-                const errors: { [key: string]: string } = {}; 
+                const errors: { [key: string]: string } = {};
                 error.inner.forEach((error: any) => {
                     errors[error.path] = error.message;
                 });
                 setErrors(errors);
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: error.response?.data?.message || error.message, 
-                });
-
+                toast.error(error.response.data.message || error.message);
             }
         } finally {
             setLoading(false);
@@ -100,22 +94,17 @@ export default function Register() {
     return (
         <div>
             <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
-         
+                <ToastContainer />
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-                 
                     <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-
                         <div className="sm:mx-auto my-6 sm:w-full sm:max-w-md">
-                            <img
-                                className="mx-auto h-10 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                alt="Your Company"
-                            />
+                            <Link href="/" passHref>
+                                <h2 className="text-3xl  text-center font-bold tracking-tight  text-beige">Roshan Books</h2>
+                            </Link>
                             <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                                Sign in to your account
+                                create new account
                             </h2>
                         </div>
-
 
                         <form className="space-y-6" noValidate autoComplete="off" onSubmit={handleSubmit} >
                             <div>
@@ -170,7 +159,7 @@ export default function Register() {
                                         onChange={(e) => handleChange('firstName', e.target.value)}
                                         autoComplete="name"
                                         className="form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
-                                        />
+                                    />
                                     <div className="text-red-500 text-sm mt-2">{errors.firstName}</div>
 
                                 </div>
@@ -205,7 +194,7 @@ export default function Register() {
                                         autoComplete="phone"
                                         required
                                         className="form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige sm:text-sm sm:leading-6"
-                                       />
+                                    />
                                     <div className="text-red-500 text-sm mt-2">{errors.phone}</div>
 
                                 </div>
@@ -238,7 +227,7 @@ export default function Register() {
                                     className={`flex w-full justify-center rounded-md bg-beige px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige  ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 >
 
-                                    {loading ? 'Loading...' : 'Sign in'}
+                                    {loading ? 'Loading...' : 'Register'}
                                 </button>
                             </div>
                         </form>

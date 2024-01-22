@@ -2,10 +2,6 @@
 import React from 'react';
 import SidebarProfile from '../../../../../components/Profile/SidebarProfile';
 import { UserState } from '../../../../../redux/userSlice';
-import {
-    fetchUser,
-    logoutUser
-} from '../../../../../redux/userSlice';
 import axios from "axios";
 import { Order } from "../../../../../interfaces";
 import useAuth from '../../../../lib/useAuth';
@@ -99,15 +95,15 @@ function Order({ params }: { params: any }) {
                                                     <tr>
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem?.product?.name}</td>
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.quantity}</td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price}</td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price * orderItem.quantity}</td>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price} JD</td>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price * orderItem.quantity} JD</td>
                                                     </tr>
                                                 ))}
                                                 {order &&
                                                     <tr>
                                                         <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Sub Total</td>
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                            {order.orderItems.reduce((sum: number, item: any) => sum + (item.product.price * item.quantity), 0)}
+                                                            {order.orderItems.reduce((sum: number, item: any) => sum + (item.product.price * item.quantity), 0)} JD
                                                         </td>
                                                     </tr>
                                                 }
@@ -118,7 +114,7 @@ function Order({ params }: { params: any }) {
                                                 {order &&
                                                     <tr>
                                                         <td colSpan={3} className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Total Price</td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.totalPrice}</td>
+                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.totalPrice} JD</td>
                                                     </tr>
                                                 }
 

@@ -198,7 +198,7 @@ export default function product({ params }: { params: any }) {
                                                 <p className="mt-3 text-lg text-3xl leading-relaxed">{product.description}</p>
                                                 <div className=" mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                                                     <div className="my-4">
-                                                        <span className="title-font font-medium text-2xl text-gray-900">{product.price} JD</span>
+                                                        <span className="title-font  text-2xl font-bold text-beige">{product.price} JD</span>
                                                     </div>
 
                                                     <span className="text-gray-500 my-2 ml-1">

@@ -147,7 +147,7 @@ export default function orders() {
 
                                                     </TableCell>
                                                     <TableCell align="left">{order.user.firstName}{order.user.lastName}</TableCell>
-                                                    <TableCell align="left">{order.totalPrice}</TableCell>
+                                                    <TableCell align="left">{order.totalPrice} JD</TableCell>
                                                     <TableCell align="left">{moment(order.created_at).format("DD MMM YYYY hh:mm A")}</TableCell>
                                                     <TableCell align="left">{moment(order.updated_at).format("DD MMM YYYY hh:mm A")}</TableCell>
 

@@ -196,7 +196,7 @@ export default function products() {
                                                 >
                                                     <TableCell align="left">{product.productId}</TableCell>
                                                     <TableCell align="left">{product.name}</TableCell>
-                                                    <TableCell align="left">{product.price}</TableCell>
+                                                    <TableCell align="left">{product.price} JD</TableCell>
                                                     <TableCell align="left">{product.quantity}</TableCell>
                                                     <TableCell align="left">{moment(product.created_at).format("DD MMM YYYY hh:mm A")}</TableCell>
                                                     <TableCell align="left">{moment(product.updated_at).format("DD MMM YYYY hh:mm A")}</TableCell>

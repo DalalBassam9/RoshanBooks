@@ -25,7 +25,7 @@ function CartItemSummary(
                         <p className="text-gray-400">x {cartItem.quantity}</p>
                     </div>
                     <div>
-                        <span className="font-semibold text-gray-600 text-xl">{cartItem.price * cartItem.quantity}</span><span className="font-semibold text-gray-600 text-sm">.00</span>
+                        <span className="font-semibold text-gray-600 text-xl">{cartItem.price * cartItem.quantity}</span><span className="font-semibold text-gray-600 text-sm">JD</span>
                     </div>
                 </div>
             </div>

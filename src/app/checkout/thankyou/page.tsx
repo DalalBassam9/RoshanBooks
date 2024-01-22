@@ -75,7 +75,7 @@ const ThankYou = () => {
                                                 <span className="text-gray-600">Total</span>
                                             </div>
                                             <div className="pl-3">
-                                                <span className="font-semibold">{order && order.totalPrice}</span>
+                                                <span className="font-semibold">{order && order.totalPrice} JD</span>
                                             </div>
                                         </div>
                                     </div>

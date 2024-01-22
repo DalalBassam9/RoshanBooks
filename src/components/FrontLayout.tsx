@@ -14,7 +14,7 @@ export default function FrontLayout({
 }) {
   return (
     <div>
-          <div>
+          <div className="flex flex-col justify-between min-h-screen">
             <Navigation  /> 
             {children}
             <Footer />

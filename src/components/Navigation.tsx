@@ -7,7 +7,6 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, ShoppingBagIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link';
-import { getCartItems, CartState } from '../redux/cartSlice';
 import {
     fetchUser, UserState,
     logoutUser
@@ -31,7 +30,6 @@ function classNames(...classes: string[]) {
 
 export default function Navigation() {
     const [cartCartCount, setCartCount] = useState(0);
-
     const cartItemsCount = useSelector((state: any) => state.cart.cartItemsCount);
     const user = useSelector((state: { user: UserState }) => state.user.user);
     const router = useRouter();
@@ -40,17 +38,17 @@ export default function Navigation() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const savedCartItemsCount = localStorage.getItem('cartItemsCount');
+        if (savedCartItemsCount) {
+            setCartCount(JSON.parse(savedCartItemsCount));
+        }
         dispatch(fetchUser());
         fetchCategories();
         logoutUser();
     }, [dispatch]);
 
-    useEffect(() => {
-        const savedCartItemsCount = localStorage.getItem('cartItemsCount');
-        if (savedCartItemsCount) {
-            setCartCount(JSON.parse(savedCartItemsCount));
-        }
-    }, []);
+
+
     const fetchCategories = async () => {
         try {
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/api/admin/categories-lookups")
@@ -67,9 +65,9 @@ export default function Navigation() {
                         <div className="relative flex h-16 justify-between">
                             <div className="relative z-10 flex px-2 lg:px-0">
                                 <div className="flex flex-shrink-0 items-center">
-
-                                    <h6 className=" font-bold text-2xl text-beige w-auto w-8">Rashon</h6>
-
+                                    <Link href="/" passHref>
+                                        <h6 className=" font-bold text-2xl text-beige w-auto w-8">Roshan</h6>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="relative z-0 flex flex-1 items-center justify-center px-2 sm:absolute sm:inset-0">
@@ -170,7 +168,9 @@ export default function Navigation() {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                     </svg>
-                                    <span className="ml-1">{cartItemsCount}</span>
+                                    {user && (
+                                        <span className="ml-1">{cartItemsCount}</span>
+                                    )}
                                 </Link>
                             </div>
                             <div>

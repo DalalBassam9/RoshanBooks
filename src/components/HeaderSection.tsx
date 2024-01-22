@@ -4,7 +4,6 @@ export default function HeaderSection() {
 
   return (
     <div className="relative isolate overflow-hidden  px-6 py-24 sm:py-32 lg:px-8">
-
       <Image
         src="/book4.jpg" // Note the leading slash
         alt="Description of the image"
@@ -39,21 +38,9 @@ export default function HeaderSection() {
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-4xl font-bold tracking-tight  text-beige sm:text-6xl">Roshan Books</h2>
         <p className="mt-6 text-xl leading-8 text-gray-700">
-        Roshan is a Books store to buy books in Arabic and English
+          Roshan is a Books store to buy books in Arabic and English
         </p>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
   )
 }

@@ -42,30 +42,25 @@ const navigation = {
 
 export default function Footer() {
     return (
-        <div>
-
-
-            <div className="bg-white  flex justify-between w-full overflow-hidden px-6  py-6 lg:px-8">
-
-          
-                <div className=" flex space-x-10">
-                    {navigation.social.map((item) => (
-                        <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
-                            <span className="sr-only">{item.name}</span>
-                            <item.icon className="h-6 w-6" aria-hidden="true" />
-                        </a>
-                    ))}
-                </div>
-
-
-                <div>
-                <p className=" text-xs leading-5 text-gray-500">
-                    &copy; 2023 Your Company, Inc. All rights reserved.
-                    </p>
-                </div>
-            </div>
-
+        <div >
+      
+        <div className="bg-white relative flex justify-between w-full overflow-hidden px-6 py-6 lg:px-8">
+          <div className="flex space-x-10">
+            {navigation.social.map((item) => (
+              <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
+                <span className="sr-only">{item.name}</span>
+                <item.icon className="h-6 w-6" aria-hidden="true" />
+              </a>
+            ))}
+          </div>
+      
+          <div>
+            <p className="text-xs leading-5 text-gray-500">
+              &copy; 2024 Roshan Books
+            </p>
+          </div>
         </div>
+      </div>
       
     )
 }
