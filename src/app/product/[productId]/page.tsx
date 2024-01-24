@@ -142,7 +142,7 @@ export default function Product({ params }: { params: any }) {
                                 <section className="my-4">
                                     <div className="container px-5 py-24 mx-auto">
                                         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                                            <img alt="ecommerce" className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src="https://unibookjo.com/images/Books/58/358362588_6501157333240536_2453742449784912702_n.jpg" />
+                                            <img alt="ecommerce" className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src={product.image} />
                                             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
 
                                                 <div className="flex  justify-between ">
