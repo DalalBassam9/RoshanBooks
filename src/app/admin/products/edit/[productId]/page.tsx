@@ -36,7 +36,7 @@ const productSchema = Yup.object().shape({
 });
 
 
-function edit({ params }: { params: any }) {
+function Edit({ params }: { params: any }) {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     description: '',
@@ -233,4 +233,4 @@ function edit({ params }: { params: any }) {
   );
 }
 
-export default edit;
+export default Edit;

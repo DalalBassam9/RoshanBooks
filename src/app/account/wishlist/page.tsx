@@ -12,7 +12,6 @@ import FrontLayout from '../../../components/FrontLayout';
 import SidebarProfile from '../../../components/Profile/SidebarProfile';
 const Wishlist: React.FC = () => {
 
-    useAuth({ middleware: 'auth' })
     const products = useSelector((state: { wishlist: WishlistState }) => state.wishlist.items);
     const dispatch = useDispatch();
     const loading = useSelector((state: any) => state.wishlist.loading);

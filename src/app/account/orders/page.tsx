@@ -16,7 +16,6 @@ const Orders: React.FC = () => {
     const [loading, setLoading] = React.useState(false);
     const [orders, setOrders] = React.useState<Order[]>([]);
 
-    useAuth({ middleware: 'auth' })
     const getUserOrders = async () => {
         try {
             setLoading(true);
@@ -90,7 +89,7 @@ const Orders: React.FC = () => {
                                                 </thead>
                                                 <tbody className="divide-y divide-gray-200 bg-white">
                                                     {orders && orders.map((order) => (
-                                                        <tr>
+                                                        <tr key={order.orderId}>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">#{order.orderId}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.status}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.totalPrice} JD</td>

@@ -25,7 +25,7 @@ interface Order {
 
 type Orders = Order[];
 
-export default function orders() {
+export default function Orders() {
 
     const [loading, setLoading] = React.useState(false);
     const [orders, setOrders] = React.useState<Orders>([]);
@@ -68,6 +68,8 @@ export default function orders() {
     React.useEffect(() => {
         getOrders();
     }, [page, rowsPerPage]);
+
+    
     return (
         <div>
             <Layout>

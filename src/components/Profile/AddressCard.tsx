@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 interface AddressProps {
     reloadData: any,
+    key: any,
     address: any,
     setSelectedAddress: any,
     setShowAddressForm: any
@@ -16,7 +17,7 @@ function AddressCard(
         setSelectedAddress,
         reloadData,
         setShowAddressForm,
-        address
+        address, key
     }: AddressProps
 
 ) {
@@ -24,7 +25,7 @@ function AddressCard(
     const [loading, setLoading] = React.useState(false);
     const [loadingDefaultAddress, setLoadingDefaultAddress] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
-    
+
     const handleShowAddressForm = (address: any) => {
         setSelectedAddress(address);
         setShowAddressForm(true);
@@ -32,7 +33,7 @@ function AddressCard(
 
     const setDefaultAddress = async (addressId: string) => {
         try {
-            
+
             setLoadingDefaultAddress(true);
             const token = localStorage.getItem('token');
 
@@ -84,7 +85,7 @@ function AddressCard(
             setSelectedAddress(null);
             reloadData();
         } catch (error: any) {
-             toast.error(error.response?.data?.message || error.message);
+            toast.error(error.response?.data?.message || error.message);
         } finally {
             setLoadingForDelete(false);
         }
@@ -123,14 +124,14 @@ function AddressCard(
                     </div>
                     <div className="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0">
                         {address.default === 0 ? (
-                          <button
-                          type="button"
-                          onClick={() => setDefaultAddress(address.addressId)}
-                          disabled={loadingDefaultAddress}
-                          className={`inline-flex mx-1 text-gray-900 items-center rounded-xl bg-gray-200  px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 ${loadingDefaultAddress ? 'opacity-50' : ''}`}
-                        >
-                          {loadingDefaultAddress ? 'Setting default...' : 'Set default'}
-                        </button>
+                            <button
+                                type="button"
+                                onClick={() => setDefaultAddress(address.addressId)}
+                                disabled={loadingDefaultAddress}
+                                className={`inline-flex mx-1 text-gray-900 items-center rounded-xl bg-gray-200  px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 ${loadingDefaultAddress ? 'opacity-50' : ''}`}
+                            >
+                                {loadingDefaultAddress ? 'Setting default...' : 'Set default'}
+                            </button>
                         ) :
                             null
 

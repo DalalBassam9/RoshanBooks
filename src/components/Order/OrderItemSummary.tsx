@@ -3,11 +3,12 @@ import React from 'react';
 
 interface OrderItemSummaryProps {
     orderItem: any,
+    key:any,
 
 }
 function OrderItemSummary(
     {
-        orderItem
+        orderItem,key
     }: OrderItemSummaryProps
 
 ) {

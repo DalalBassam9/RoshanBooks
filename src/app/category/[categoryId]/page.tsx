@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import FrontLayout from '../../../components/FrontLayout';
 
-export default function category({ params }: { params: any }) {
+export default function Category({ params }: { params: any }) {
     const dispatch = useDispatch();
 
     const handlePageChange = (page: number) => {
@@ -80,10 +80,17 @@ export default function category({ params }: { params: any }) {
         }
     };
 
+
     React.useEffect(() => {
-        getCategory();
-        getProducts(sort, productStatus);
-    }, [currentPage, rowsPerPage, sort, productStatus]);
+        const fetchData = async () => {
+            await getCategory();
+            await getProducts(sort, productStatus);
+        };
+
+        fetchData();
+    }, [currentPage, rowsPerPage, sort, productStatus, params.categoryId]);
+
+
 
     return (
         <div>
@@ -122,8 +129,8 @@ export default function category({ params }: { params: any }) {
                                             <Menu.Items className="absolute right-2 z-10  w-40  origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
 
                                                 <div className="py-1">
-                                                    {sortOptions.map((option: any) => (
-                                                        <SortMenu option={option} setCurrentPage={setCurrentPage} setSort={setSort} sort={sort} classNames={classNames} />
+                                                    {sortOptions.map((option: any,index: number) => (
+                                                        <SortMenu key={index} option={option} setCurrentPage={setCurrentPage} setSort={setSort} sort={sort} classNames={classNames} />
                                                     ))}
                                                 </div>
                                             </Menu.Items>
@@ -147,7 +154,7 @@ export default function category({ params }: { params: any }) {
                                             <div className="space-y-6">
                                                 {statusesOptions.map((status: any, index: number) => (
 
-                                                    <ProductStatus status={status} index={index} setProductStatus={setProductStatus} productStatus={productStatus} />
+                                                    <ProductStatus key={index} status={status} index={index} setProductStatus={setProductStatus} productStatus={productStatus} />
                                                 ))}
                                             </div>
                                         </div>

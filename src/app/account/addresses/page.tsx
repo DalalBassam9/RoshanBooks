@@ -14,7 +14,7 @@ import FrontLayout from '../../../components/FrontLayout';
 
 
 const Addresses: React.FC = () => {
-    useAuth({ middleware: 'auth' })
+
 
     const [loading, setLoading] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
@@ -75,8 +75,10 @@ const Addresses: React.FC = () => {
                     </div>
 
                     {addresses.length > 0 && (
-                        addresses && addresses.map((address: any) => (
-                            <AddressCard address={address}
+                        addresses && addresses.map((address: any,index:any) => (
+                            <AddressCard
+                                key={index}
+                                address={address}
                                 setShowAddressForm={setShowAddressForm}
                                 reloadData={() => getAddresses()}
                                 setSelectedAddress={setSelectedAddress}

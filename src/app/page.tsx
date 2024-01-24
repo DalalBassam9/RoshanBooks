@@ -41,6 +41,8 @@ export default function Home() {
     setCurrentPage(page);
   };
 
+
+
   const fetchCategories = async () => {
     try {
       const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/api/admin/categories-lookups")
@@ -80,8 +82,6 @@ export default function Home() {
     getProducts(sort, category, productStatus);
     fetchCategories();
   }, [currentPage, rowsPerPage, category, sort, productStatus]);
-
-
   return (
     <div>
       <FrontLayout>
@@ -117,8 +117,8 @@ export default function Home() {
                     <Transition.Child as="div">
                       <Menu.Items className="absolute right-2 z-10  w-40  origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
 
-                        {sortOptions.map((option: any) => (
-                          <SortMenu option={option} setCurrentPage={setCurrentPage} setSort={setSort} sort={sort} classNames={classNames} />
+                        {sortOptions.map((option: any,index:any) => (
+                          <SortMenu key={index} option={option} setCurrentPage={setCurrentPage} setSort={setSort} sort={sort} classNames={classNames} />
 
                         ))}
 
@@ -157,7 +157,7 @@ export default function Home() {
                 <div className="pt-6" id="filter-section-mobile-1">
                   <div className="space-y-6">
                     {statusesOptions.map((status: any, index: any) => (
-                      <ProductStatus status={status} index={index} setProductStatus={setProductStatus} productStatus={productStatus} />
+                      <ProductStatus status={status} key={index} setProductStatus={setProductStatus} productStatus={productStatus} />
 
                     ))}
                   </div>

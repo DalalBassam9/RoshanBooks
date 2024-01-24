@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 interface AddressProps {
     reloadData: any,
     address: any,
+    key: any,
     setSelectedAddress: any,
     setShowAddressForm: any,
     handleShowAddressForm: any
@@ -22,7 +23,8 @@ function DeliveryAddressCard(
         reloadData,
         setShowAddressForm,
         handleShowAddressForm,
-        address
+        address,
+        key
     }: AddressProps
 
 ) {
@@ -85,7 +87,7 @@ function DeliveryAddressCard(
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 });
-                toast.success('Address Deleted successfully');
+            toast.success('Address Deleted successfully');
             setSelectedAddress(null);
             reloadData();
         } catch (error: any) {

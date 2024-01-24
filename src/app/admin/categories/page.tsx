@@ -21,7 +21,7 @@ interface Category {
 
   type Categories =  Category[];
 
-export default function categories() {
+export default function Categories() {
 
     const [loading, setLoading] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);

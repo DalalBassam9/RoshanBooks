@@ -9,12 +9,14 @@ interface SortMenuProps {
     sort:string,
     setSort:any,
     classNames:any,
+    key:any
 
 
 }
 function SortMenu(
     {
         option,
+        key,
         setCurrentPage,
         sort,
         setSort,

@@ -15,8 +15,6 @@ function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
     const [order, setOrder] = React.useState<Order | null>();
 
-
-    useAuth({ middleware: 'auth' })
     const getUserOrder = async () => {
         try {
             setLoading(true);
@@ -35,9 +33,12 @@ function Order({ params }: { params: any }) {
         }
     };
 
-
     React.useEffect(() => {
-        getUserOrder();
+        const fetchData = async () => {
+            await getUserOrder();
+        };
+    
+        fetchData();
     }, []);
 
     return (

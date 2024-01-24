@@ -20,7 +20,7 @@ interface User {
 }
 
 type Users =  User[];
-export default function orders() {
+export default function Users() {
 
     const [loading, setLoading] = React.useState(false);
     const [users, setUsers] = React.useState<Users>([]);

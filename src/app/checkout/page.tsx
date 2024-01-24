@@ -139,6 +139,7 @@ export default function Checkout() {
                                         <ul role="list" className="divide-y divide-gray-300">
                                             {addresses.map((address: any) => (
                                                 <DeliveryAddressCard
+                                                    key={address.addressId}
                                                     address={address}
                                                     setShowAddressForm={setShowAddressForm}
                                                     reloadData={() => getAddresses()}

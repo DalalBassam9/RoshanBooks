@@ -24,7 +24,7 @@ interface Product {
 
 type Products = Product[];
 
-export default function products() {
+export default function Products() {
     const [loading, setLoading] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
     const [products, setProducts] = React.useState<Products>([]);

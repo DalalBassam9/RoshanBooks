@@ -18,7 +18,7 @@ import { ToastContainer } from 'react-toastify';
 import FrontLayout from '../../../components/FrontLayout';
 
 
-export default function product({ params }: { params: any }) {
+export default function Product({ params }: { params: any }) {
     const router = useRouter();
     const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(1);

@@ -34,7 +34,7 @@ const productSchema = Yup.object().shape({
 
 });
 
-function add() {
+function Add() {
     const [loading = false, setLoading] = React.useState<boolean>(false);
     const router = useRouter();
     const [errors, setErrors] = React.useState<Record<string, string>>({});
@@ -197,4 +197,4 @@ function add() {
 
 }
 
-export default add;
+export default Add;
