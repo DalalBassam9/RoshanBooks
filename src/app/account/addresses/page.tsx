@@ -1,6 +1,5 @@
 "use client";
 import React from 'react';
-import { UserState } from '../../../redux/userSlice';
 import SidebarProfile from '../../../components/Profile/SidebarProfile';
 import AddressForm from "../../../components/Profile/AddressForm";
 import AddressCard from "../../../components/Profile/AddressCard";
