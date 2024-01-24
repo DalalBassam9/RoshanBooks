@@ -117,81 +117,81 @@ export default function Home() {
                     <Transition.Child as="div">
                       <Menu.Items className="absolute right-2 z-10  w-40  origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
 
-                        {sortOptions.map((option: any,index:any) => (
+                        {sortOptions.map((option: any, index: any) => (
                           <SortMenu key={index} option={option} setCurrentPage={setCurrentPage} setSort={setSort} sort={sort} classNames={classNames} />
 
                         ))}
 
-                    </Menu.Items>
-                  </Transition.Child>
-                </Transition>
-              </Menu>
+                      </Menu.Items>
+                    </Transition.Child>
+                  </Transition>
+                </Menu>
+              </div>
             </div>
-        </div>
 
-        <section aria-labelledby="products-heading" className="pb-24 pt-6">
-          <h2 id="products-heading" className="sr-only">Products</h2>
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-            <form className="hidden lg:block">
-              <h3 className="sr-only">Categories</h3>
-              <div className="px-4 py-6">
-                <span className=" py-3  font-medium text-gray-900">Category</span>
+            <section aria-labelledby="products-heading" className="pb-24 pt-6">
+              <h2 id="products-heading" className="sr-only">Products</h2>
+              <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+                <form className="hidden lg:block">
+                  <h3 className="sr-only">Categories</h3>
+                  <div className="px-4 py-6">
+                    <span className=" py-3  font-medium text-gray-900">Category</span>
 
-                <div className="pt-6" id="filter-section-mobile-1">
-                  <div className="space-y-6">
-                    {categories.map((category, index) => (
-                      <FilterCategoryMenu
-                        index={index}
-                        setCategory={setCategory}
-                        category={category}
+                    <div className="pt-6" id="filter-section-mobile-1">
+                      <div className="space-y-6">
+                        {categories.map((category, index) => (
+                          <FilterCategoryMenu
+                            index={index}
+                            setCategory={setCategory}
+                            category={category}
+                          />
+
+                        ))}
+                      </div>
+
+                    </div>
+                  </div>
+                  <div className="border-t border-gray-200 px-4 py-6">
+                    <span className=" py-3  font-medium text-gray-900">Availability</span>
+
+                    <div className="pt-6" id="filter-section-mobile-1">
+                      <div className="space-y-6">
+                        {statusesOptions.map((status: any, index: any) => (
+                          <ProductStatus status={status} key={index} setProductStatus={setProductStatus} productStatus={productStatus} />
+
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+                <div className="lg:col-span-3 relative mt-5">
+                  <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
+
+                    {products.map((product: any, index: any) => (
+                      <ProductCard
+                        key={index}
+                        product={product}
+
                       />
-
                     ))}
-                  </div>
 
-                </div>
-              </div>
-              <div className="border-t border-gray-200 px-4 py-6">
-                <span className=" py-3  font-medium text-gray-900">Availability</span>
-
-                <div className="pt-6" id="filter-section-mobile-1">
-                  <div className="space-y-6">
-                    {statusesOptions.map((status: any, index: any) => (
-                      <ProductStatus status={status} key={index} setProductStatus={setProductStatus} productStatus={productStatus} />
-
-                    ))}
                   </div>
                 </div>
               </div>
-            </form>
+            </section>
 
-            <div className="lg:col-span-3 relative mt-5">
-              <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
+          </main>
 
-                {products.map((product: any) => (
-                  <ProductCard
-                    key={product.productId}
-                    product={product}
-
-                  />
-                ))}
-
-              </div>
-            </div>
+          <div className="flex mb-4 justify-center">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
-        </section>
 
-      </main>
-
-      <div className="flex mb-4 justify-center">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-      </div>
-
-    </div>
+        </div>
       </FrontLayout >
     </div >
   )

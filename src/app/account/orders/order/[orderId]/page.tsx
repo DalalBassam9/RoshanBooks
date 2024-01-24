@@ -37,7 +37,7 @@ function Order({ params }: { params: any }) {
         const fetchData = async () => {
             await getUserOrder();
         };
-    
+
         fetchData();
     }, []);
 
@@ -92,8 +92,8 @@ function Order({ params }: { params: any }) {
 
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {order && order.orderItems && order.orderItems.map((orderItem: any) => (
-                                                    <tr>
+                                                {order && order.orderItems && order.orderItems.map((orderItem: any, index: number) => (
+                                                    <tr key={index}>
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem?.product?.name}</td>
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.quantity}</td>
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price} JD</td>
