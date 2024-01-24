@@ -5,6 +5,8 @@ import {
     fetchUser,
     logoutUser
 } from '../../redux/userSlice';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UpdateAccountInformation from '../../components/Profile/UpdateAccountInformation';
@@ -29,7 +31,8 @@ const AccountInformation: React.FC = () => {
 
     });
 
-    const dispatch = useDispatch();
+    
+    const dispatch = useDispatch<ThunkDispatch<any, void, AnyAction>>();
     const user = useSelector((state: { user: any }) => state.user.user);
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
 
@@ -44,6 +47,7 @@ const AccountInformation: React.FC = () => {
     useEffect(() => {
         dispatch(fetchUser())
             .then((action: any) => {
+                // code inside the .then() block
                 if (action.payload) {
                     setUserData(action.payload);
                 }
