@@ -36,7 +36,7 @@ export default function Product({ params }: { params: any }) {
             try {
                 dispatch(addToWishlist(
                     { productId: productId }
-                ));
+                )as any) ;
 
                 getProduct();
                 toast.success('Product added to  wihlist!');
@@ -59,18 +59,22 @@ export default function Product({ params }: { params: any }) {
                 addToCart({
                     productId: productId,
                     quantity: quantity,
-                })
+                }) as any
             );
         }
     };
 
-    const [product, setProduct] = React.useState<Product>({
-        productId: '',
-        name: '',
-        description: '',
-        price: '',
-        image: '',
-    });
+        const [product, setProduct] = React.useState<Product>({
+            productId: '',
+            name: '',
+            description: '',
+            price: '',
+            image: '',
+            sumRatings: 0,
+            countRatings: 0,
+            quantity: 0,
+        });
+
     const [loading, setLoading] = React.useState(false);
 
     const getProduct = async () => {
@@ -85,7 +89,7 @@ export default function Product({ params }: { params: any }) {
 
             );
             setProduct(response.data.data);
-            dispatch(getMyWishlist());
+            dispatch(getMyWishlist() as any);
         } catch (error: any) {
             toast.error(error.response?.data?.message || error.message);
         } finally {
@@ -101,7 +105,7 @@ export default function Product({ params }: { params: any }) {
             dispatch(
                 removeFromWishlist({
                     productId: productId
-                })
+                })as any
             )
             toast.success('Product removed to  wihlist!');
         }
@@ -112,7 +116,7 @@ export default function Product({ params }: { params: any }) {
         if (Array.isArray(wishlistItems) || !params) {
             console.error(wishlistItems);
         }
-        return wishlistItems.some((item) => item && item.productId === productId);
+        return wishlistItems.some((item:any) => item && item.productId === productId);
     };
 
 

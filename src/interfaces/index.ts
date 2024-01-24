@@ -23,13 +23,13 @@ export interface Category {
 
 
 export interface Order {
-  orderId: number,
+  orderId: any,
   totalPrice: string,
   status: string,
   addressId: number,
   created_at: string,
-  orderItems: OrderItem[];
-  address: address
+  orderItems:any
+  address: any
 }
 
 export interface OrderItem {

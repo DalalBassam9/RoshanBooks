@@ -39,7 +39,7 @@ export default function Checkout() {
     };
 
     useEffect(() => {
-        dispatch(getCartItems());
+        dispatch(getCartItems() as any);
     }, [dispatch]);
 
 

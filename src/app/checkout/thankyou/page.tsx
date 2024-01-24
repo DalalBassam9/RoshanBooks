@@ -12,12 +12,7 @@ const ThankYou = () => {
     useAuth({ middleware: 'auth' })
     const router = useRouter();
     const [loading, setLoading] = React.useState(false);
-    const [order, setِِOrder] = React.useState<Order>({
-        orderId: '',
-        totalPrice: '',
-        orderItems: '',
-        address: '',
-    });
+    const [order, setِِOrder] = React.useState<Order>();
     const getPlacedOrder = async () => {
         try {
             setLoading(true);

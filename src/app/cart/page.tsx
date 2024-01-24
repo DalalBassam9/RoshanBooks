@@ -22,7 +22,7 @@ export default function Cart() {
     const total = subTotal + 3;
 
     useEffect(() => {
-        dispatch(getCartItems());
+        dispatch(getCartItems() as any);
     }, [dispatch]);
 
     return (
