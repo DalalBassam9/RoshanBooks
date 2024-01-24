@@ -55,22 +55,27 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
+interface DrawerProps {
+    theme: any;
+    open: any;
+  }
+  
 const Drawer = styled(MuiDrawer, {
-    shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
+    shouldForwardProp: (prop: string) => prop !== 'open',
+  })(({ theme, open }: DrawerProps) => ({
     width: drawerWidth,
     flexShrink: 0,
-    whiteSpace: "nowrap",
-    boxSizing: "border-box",
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
     ...(open && {
-        ...openedMixin(theme),
-        "& .MuiDrawer-paper": openedMixin(theme),
+      ...openedMixin(theme),
+      '& .MuiDrawer-paper': openedMixin(theme),
     }),
     ...(!open && {
-        ...closedMixin(theme),
-        "& .MuiDrawer-paper": closedMixin(theme),
+      ...closedMixin(theme),
+      '& .MuiDrawer-paper': closedMixin(theme),
     }),
-}));
+  }));
 
 export default function Sidenav() {
     const theme = useTheme();
@@ -78,7 +83,7 @@ export default function Sidenav() {
     const [open, setOpen] = useState(true);
 
     return (
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open} theme={theme}>
             <DrawerHeader>
                 {/* <IconButton onClick={() => setOpen(!open)}>
          <MenuIcon />
