@@ -60,16 +60,14 @@ export default function Orders() {
             setLoading(false);
         }
     };
-    const handleStatusChange = async (event: React.ChangeEvent<{ value: unknown }>, orderId: number) => {
 
-    };
 
 
     React.useEffect(() => {
         getOrders();
     }, [page, rowsPerPage]);
 
-    
+
     return (
         <div>
             <Layout>
@@ -144,7 +142,7 @@ export default function Orders() {
                                                 >
                                                     <TableCell align="left">{order.orderId}</TableCell>
                                                     <TableCell align="left">
-                                                      
+
                                                         <Chip label={order.status} />
 
                                                     </TableCell>
@@ -166,15 +164,7 @@ export default function Orders() {
                                                                 className="cursor-pointer"
 
                                                             />
-                                                            <Select
-                                                                value={order.status}
-                                                                onChange={(event: any) => handleStatusChange(event, setStuts)}
-                                                            >
-                                                                <MenuItem value={'pending'}>Pending</MenuItem>
-                                                                <MenuItem value={'Shipped'}>Shipped</MenuItem>
-                                                                <MenuItem value={'Delivered'}>Delivered</MenuItem>
 
-                                                            </Select>
                                                         </Stack>
                                                     </TableCell>
                                                 </TableRow>
