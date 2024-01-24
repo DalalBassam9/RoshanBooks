@@ -137,9 +137,9 @@ export default function Checkout() {
 
                                     {addresses.length > 0 && (
                                         <ul role="list" className="divide-y divide-gray-300">
-                                            {addresses.map((address: any, index: any) => (
+                                            {addresses.map((address: any) => (
                                                 <DeliveryAddressCard
-                                                    key={index}
+                                                    key={address.addressId}
                                                     address={address}
                                                     setShowAddressForm={setShowAddressForm}
                                                     reloadData={() => getAddresses()}
