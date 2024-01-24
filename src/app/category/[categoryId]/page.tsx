@@ -152,9 +152,9 @@ export default function Category({ params }: { params: any }) {
 
                                         <div className="pt-6" id="filter-section-mobile-1">
                                             <div className="space-y-6">
-                                                {statusesOptions.map((status: any, index: number) => (
+                                                {statusesOptions.map((status: any, index: any) => (
 
-                                                    <ProductStatus key={index} status={status} index={index} setProductStatus={setProductStatus} productStatus={productStatus} />
+                                                    <ProductStatus key={index} status={status} setProductStatus={setProductStatus} productStatus={productStatus} />
                                                 ))}
                                             </div>
                                         </div>
