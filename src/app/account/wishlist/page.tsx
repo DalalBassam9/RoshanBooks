@@ -16,7 +16,7 @@ const Wishlist: React.FC = () => {
     const loading = useSelector((state: any) => state.wishlist.loading);
 
     useEffect(() => {
-        dispatch(getMyWishlist());
+        dispatch(getMyWishlist() as any);
     }, [dispatch]);
 
 
