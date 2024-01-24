@@ -17,13 +17,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import FrontLayout from '../../../components/FrontLayout';
 
-
 export default function Product({ params }: { params: any }) {
     const router = useRouter();
     const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(1);
     const token = localStorage.getItem('token');
-    const wishlistItems = useSelector(state => state.wishlist.items);
+    const wishlistItems = useSelector((state: any) => state.wishlist.items); // Add missing type for 'state' parameter
     const handleQuantityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setQuantity(Number(event.target.value));
     };

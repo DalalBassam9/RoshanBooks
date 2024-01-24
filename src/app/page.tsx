@@ -62,7 +62,7 @@ export default function Home() {
         }
       );
       setProducts(response.data.data);
-      dispatch(getMyWishlist());
+      dispatch(getMyWishlist() as any);
       setTotalPages(response.data.meta.last_page);
     } catch (error: any) {
       Swal.fire({
