@@ -1,7 +1,6 @@
 "use client";
 import React from 'react';
 import SidebarProfile from '../../../../../components/Profile/SidebarProfile';
-import { UserState } from '../../../../../redux/userSlice';
 import axios from "axios";
 import { Order } from "../../../../../interfaces";
 import useAuth from '../../../../lib/useAuth';
