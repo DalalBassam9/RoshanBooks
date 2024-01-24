@@ -75,7 +75,7 @@ const ThankYou = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <button className="w-full flex-none rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige" onClick={() => router.push(`/account/orders/order/${order.orderId}`)} >View Order</button>
+                                <button className="w-full flex-none rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige"  onClick={() => order && router.push(`/account/orders/order/${order.orderId}`)}>View Order</button>
                             </div>
                         </div>
                     </div>
