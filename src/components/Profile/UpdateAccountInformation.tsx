@@ -1,6 +1,5 @@
 "use client";
 import React from 'react';
-import { UserState } from '../../redux/userSlice';
 import { toast } from 'react-toastify';
 import {
     fetchUser,
@@ -33,8 +32,8 @@ const userSchema = Yup.object().shape({
 
 const UpdateAccountInformation = () => {
 
-    const dispatch: ThunkDispatch<UserState, unknown, AnyAction> = useDispatch();
-    const user = useSelector((state: { user: UserState }) => state.user.user);
+    const dispatch= useDispatch();
+    const user = useSelector((state: { user:any }) => state.user.user);
 
     const [userData, setUserData] = useState<InfoUserData>({
         firstName: "",

@@ -1,7 +1,6 @@
 "use client"
 import { addToCart } from '../../redux/cartSlice';
 import { useDispatch } from 'react-redux';
-import { WishlistState } from "../../redux/wishlistSlice";
 import { removeFromWishlist, addToWishlist } from '../../redux/wishlistSlice';
 import { useSelector } from 'react-redux';
 import Rating from '@mui/material/Rating';
@@ -22,7 +21,7 @@ function ProductCard({
 }: ProductCardProps) {
     const dispatch = useDispatch();
     const router = useRouter();
-    const products = useSelector((state: { wishlist: WishlistState }) => state.wishlist.items);
+    const products = useSelector((state:any) => state.wishlist.items);
     const token: any = localStorage.getItem('token');
 
 

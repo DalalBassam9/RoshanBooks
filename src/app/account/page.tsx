@@ -1,7 +1,6 @@
 "use client";
 import React from 'react';
 import useAuth from '../lib/useAuth';
-import { UserState } from '../../redux/userSlice';
 import {
     fetchUser,
     logoutUser
@@ -31,7 +30,7 @@ const AccountInformation: React.FC = () => {
     });
 
     const dispatch = useDispatch();
-    const user = useSelector((state: { user: UserState }) => state.user.user);
+    const user = useSelector((state: { user: any }) => state.user.user);
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
 
     const openModal = () => {

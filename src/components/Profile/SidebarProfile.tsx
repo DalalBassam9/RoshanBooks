@@ -1,6 +1,5 @@
 "use client";
 import React from 'react'
-import { UserState } from '../../redux/userSlice';
 import Link from 'next/link';
 import {
     fetchUser,
@@ -40,8 +39,8 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [activeItem, setActiveItem] = useState(navigation[0].name);
-    const dispatch: ThunkDispatch<UserState, unknown, AnyAction> = useDispatch();
-    const user = useSelector((state: { user: UserState }) => state.user.user);
+    const dispatch = useDispatch();
+    const user = useSelector((state:any) => state.user.user);
 
     const handleNavigationClick = (navItem: any) => {
         if (navItem.name === 'Logout') {

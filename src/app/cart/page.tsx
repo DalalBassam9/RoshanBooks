@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import CartItem from '../../components/Cart/CartItem';
 import useAuth from '../lib/useAuth';
-import { getCartItems, CartState } from '../../redux/cartSlice';
+import { getCartItems} from '../../redux/cartSlice';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -13,7 +13,7 @@ export default function Cart() {
     const router = useRouter();
     useAuth({ middleware: 'auth' })
     const dispatch = useDispatch();
-    const items = useSelector((state: { cart: CartState }) => state.cart.items);
+    const items = useSelector((state:any) => state.cart.items);
 
     const subTotal =
         items.reduce((acc: any, item: any) => item ? acc + item.price * item.quantity : acc, 0);

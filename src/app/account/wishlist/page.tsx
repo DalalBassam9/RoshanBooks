@@ -1,6 +1,5 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { WishlistState } from "../../../redux/wishlistSlice";
 import { getMyWishlist, removeFromWishlist } from '../../../redux/wishlistSlice';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -12,7 +11,7 @@ import FrontLayout from '../../../components/FrontLayout';
 import SidebarProfile from '../../../components/Profile/SidebarProfile';
 const Wishlist: React.FC = () => {
 
-    const products = useSelector((state: { wishlist: WishlistState }) => state.wishlist.items);
+    const products = useSelector((state:any) => state.wishlist.items);
     const dispatch = useDispatch();
     const loading = useSelector((state: any) => state.wishlist.loading);
 

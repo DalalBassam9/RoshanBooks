@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import axios from 'axios';
-import { getCartItems, CartState, clearCart } from '../../redux/cartSlice';
+import { getCartItems, clearCart } from '../../redux/cartSlice';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
@@ -22,8 +22,8 @@ export default function Checkout() {
     const [loading, setLoading] = React.useState(false);
     const dispatch = useDispatch();
 
-    const state = useSelector((state: { cart: CartState }) => state);
-    const items = useSelector((state: { cart: CartState }) => state.cart.items);
+    const state = useSelector((state:any) => state);
+    const items = useSelector((state:any) => state.cart.items);
     const subTotal = items.reduce(
         (acc: any, item: any) => acc + item.price * item.quantity,
         0

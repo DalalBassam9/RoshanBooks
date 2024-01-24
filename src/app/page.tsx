@@ -7,7 +7,6 @@ import HeaderSection from '../components/HeaderSection';
 import { Fragment } from 'react'
 import ProductCard from '../components/Product/ProductCard';
 import { Menu, Transition } from '@headlessui/react'
-import { WishlistState } from "../redux/wishlistSlice";
 import { getMyWishlist } from '../redux/wishlistSlice';
 import { useDispatch } from 'react-redux';
 import SortMenu from '../components/SortMenu';
