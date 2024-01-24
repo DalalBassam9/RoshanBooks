@@ -3,11 +3,12 @@ import React from 'react';
 
 interface CartItemSummaryProps {
     cartItem: any,
+    key: any
 
 }
 function CartItemSummary(
     {
-        cartItem
+        cartItem, key
     }: CartItemSummaryProps
 
 ) {
@@ -17,8 +18,8 @@ function CartItemSummary(
             <div className="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
                 <div className="w-full flex items-center">
                     <div className="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
-                       
-                    <img src={cartItem.image} alt="" />
+
+                        <img src={cartItem.image} alt="" />
                     </div>
                     <div className="flex-grow pl-3">
                         <h6 className="font-semibold uppercase text-gray-600">{cartItem.name}</h6>

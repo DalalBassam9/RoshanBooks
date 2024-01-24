@@ -137,7 +137,7 @@ export default function Checkout() {
 
                                     {addresses.length > 0 && (
                                         <ul role="list" className="divide-y divide-gray-300">
-                                            {addresses.map((address: any,index:any) => (
+                                            {addresses.map((address: any, index: any) => (
                                                 <DeliveryAddressCard
                                                     key={index}
                                                     address={address}
@@ -168,8 +168,9 @@ export default function Checkout() {
                             <div className="mt-4 p-4 relative flex flex-col  bg-white shadow rounded-md">
                                 <div className="py-5  rounded-md bg-white">
                                     <div className="px-3">
-                                        {items.map((item: any) => (
+                                        {items.map((item: any, index: any) => (
                                             <CartItemSummary
+                                                key={index}
                                                 cartItem={item}
                                             />
                                         ))}

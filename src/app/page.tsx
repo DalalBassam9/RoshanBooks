@@ -141,7 +141,7 @@ export default function Home() {
                       <div className="space-y-6">
                         {categories.map((category, index) => (
                           <FilterCategoryMenu
-                            index={index}
+                            key={index}
                             setCategory={setCategory}
                             category={category}
                           />
@@ -168,9 +168,9 @@ export default function Home() {
                 <div className="lg:col-span-3 relative mt-5">
                   <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 lg:col-span-3">
 
-                    {products.map((product: any, index: any) => (
+                    {products.map((product: any) => (
                       <ProductCard
-                        key={index}
+                        key={product.productId}
                         product={product}
 
                       />

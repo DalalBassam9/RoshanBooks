@@ -4,13 +4,13 @@ import React from 'react';
 
 interface FilterCategoryProps {
     category: any,
-    index: any,
+    key: any,
     setCategory: any
 
 }
 function FilterCategoryMenu(
     { category,
-        index,
+        key,
         setCategory
     }: FilterCategoryProps
 
@@ -22,16 +22,16 @@ function FilterCategoryMenu(
 
     return (
         <div>
-            <div className="flex items-center" key={index}>
+            <div className="flex items-center" key={key}>
                 <input
-                    id={`filter-category-${index}`}
+                    id={`filter-category-${key}`}
                     name="name"
                     value={category.categoryId}
                     type="radio"
                     onChange={(event) => handleCategoryChange(event.target.value)}
                     className="h-4 w-4 form-radio rounded border-gray-300 text-beige focus:ring-beige"
                 />
-                <label htmlFor={`filter-category-${index}`} className="ml-3 min-w-0 flex-1 text-gray-500">{category.name}</label>
+                <label htmlFor={`filter-category-${key}`} className="ml-3 min-w-0 flex-1 text-gray-500">{category.name}</label>
 
 
 
@@ -42,6 +42,6 @@ function FilterCategoryMenu(
 
     )
 
-    }
+}
 
 export default FilterCategoryMenu;
