@@ -31,7 +31,6 @@ const schema = Yup.object({
 
 function ProductReviews({ product }: ProductProps) {
     const router = useRouter();
-    const token = localStorage.getItem('token');
     const [loading = false, setLoading] = React.useState<boolean>(false);
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [formData, setFormData] = React.useState<FormData>({

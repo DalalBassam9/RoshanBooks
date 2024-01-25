@@ -30,8 +30,8 @@ const userSchema = Yup.object().shape({
 
 const UpdateAccountInformation = () => {
 
-    const dispatch= useDispatch();
-    const user = useSelector((state: { user:any }) => state.user.user);
+    const dispatch = useDispatch();
+    const user = useSelector((state: { user: any }) => state.user.user);
 
     const [userData, setUserData] = useState<InfoUserData>({
         firstName: "",
@@ -76,11 +76,18 @@ const UpdateAccountInformation = () => {
 
         try {
             setLoading(true);
+            let token;
+            if (typeof window !== 'undefined') {
+                token = localStorage.getItem('token');
+            }
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
             await userSchema.validate(userData, { abortEarly: false });
 
             const response = await axios.put(process.env.NEXT_PUBLIC_API_URL + "/api/my/update-Information", userData, {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${token}`
                 },
             });
             toast.success('Info User Updated successfully');

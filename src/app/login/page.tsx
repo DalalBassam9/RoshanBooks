@@ -61,11 +61,12 @@ export default function Login() {
         try {
             setLoading(true);
             await schema.validate(formData, { abortEarly: false });
-            const response = axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData,
-
-            );
-            const token = (await response).data.access_token
-            localStorage.setItem("token", token)
+            const response = axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData);
+            const token = (await response).data.access_token;
+    
+            if (typeof window !== 'undefined') {
+                localStorage.setItem("token", token);
+            }
             toast.success('login  successfully');
             router.push("/");
         } catch (error: any) {

@@ -81,10 +81,17 @@ function DeliveryAddressCard(
     const onDelete = async (addressId: string) => {
         try {
             setLoadingForDelete(true);
+            let token;
+            if (typeof window !== 'undefined') {
+                token = localStorage.getItem('token');
+            }
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
             await axios.delete(process.env.NEXT_PUBLIC_API_URL + "/api/addresses/" + addressId,
                 {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${token}`
                     }
                 });
             toast.success('Address Deleted successfully');

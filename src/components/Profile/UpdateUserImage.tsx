@@ -45,10 +45,19 @@ function UpdateUserImage(
         try {
 
             setLoading(true);
+            let token;
+            if (typeof window !== 'undefined') {
+                token = localStorage.getItem('token');
+            }
+
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
+
             const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + "/api/my/update-image", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${token}`
                 },
             });
 
@@ -56,7 +65,7 @@ function UpdateUserImage(
             setModalIsOpen(false);
             dispatch(fetchUser() as any);
 
-        } catch (error:any) {
+        } catch (error: any) {
             toast.error(error.response?.data?.message || error.message);
         }
         finally {

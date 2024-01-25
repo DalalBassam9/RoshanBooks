@@ -60,11 +60,20 @@ const UpdatePassword: React.FC = () => {
         event.preventDefault();
         try {
             setLoading(true);
+            let token;
+            if (typeof window !== 'undefined') {
+                token = localStorage.getItem('token');
+            }
+    
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
+
             await passwordSchema.validate(passwordData, { abortEarly: false });
 
             const response = await axios.put(process.env.NEXT_PUBLIC_API_URL + "/api/my/update-password", passwordData, {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${token}`
                 },
             });
             toast.success('Password Updated successfully');

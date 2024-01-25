@@ -75,6 +75,7 @@ export default function Register() {
             await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/register`, formData,
 
             );
+          
             toast.success('Registaration successful , please login to continue');
             router.push("/login");
         } catch (error: any) {

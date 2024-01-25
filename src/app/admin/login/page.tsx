@@ -62,7 +62,9 @@ export default function Login() {
 
             );
             const token = (await response).data.access_token
-            localStorage.setItem("token", token)
+            if (typeof window !== 'undefined') {
+                localStorage.setItem("token", token);
+            }
 
             Swal.fire({
                 icon: 'success',

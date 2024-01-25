@@ -16,10 +16,17 @@ const ThankYou = () => {
     const getPlacedOrder = async () => {
         try {
             setLoading(true);
+            let token;
+            if (typeof window !== 'undefined') {
+                token = localStorage.getItem('token');
+            }
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/checkout/success`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${token}`
                     }
                 }
             );

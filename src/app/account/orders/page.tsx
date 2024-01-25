@@ -19,10 +19,19 @@ const Orders: React.FC = () => {
     const getUserOrders = async () => {
         try {
             setLoading(true);
+            let token;
+            if (typeof window !== 'undefined') {
+                token = localStorage.getItem('token');
+            }
+    
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
+    
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${token}`
                     }
                 }
             );

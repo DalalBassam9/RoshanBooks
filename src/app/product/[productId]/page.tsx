@@ -79,13 +79,19 @@ export default function Product({ params }: { params: any }) {
     const getProduct = async () => {
         try {
             setLoading(true);
+            let token;
+            if (typeof window !== 'undefined') {
+                token = localStorage.getItem('token');
+            }
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/products/${params.productId}`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${token}`
                     }
                 }
-
             );
             setProduct(response.data.data);
             dispatch(getMyWishlist() as any);

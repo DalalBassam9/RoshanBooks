@@ -124,12 +124,20 @@ function AddressForm({
         e.preventDefault();
         try {
             setLoading(true);
+            let token;
+            if (typeof window !== 'undefined') {
+                token = localStorage.getItem('token');
+            }
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
             await schema.validate(formData, { abortEarly: false });
             if (selectedAddress) {
                 await axios.put(process.env.NEXT_PUBLIC_API_URL + `/api/addresses/` + selectedAddress.addressId, formData,
                     {
                         headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+
+                            'Authorization': `Bearer ${token}`
                         }
                     }
 
@@ -139,7 +147,7 @@ function AddressForm({
                 await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/addresses`, formData,
                     {
                         headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            'Authorization': `Bearer ${token}`
                         }
                     }
 
@@ -300,7 +308,7 @@ function AddressForm({
                                         value={formData.address}
                                         onChange={(e) => handleChange('address', e.target.value)}
                                         rows={4}
-                                      
+
                                         className={`block w-full form-textarea rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-beige  sm:text-sm ${errors.address ? 'border-red-500' : ''}`}
 
                                         defaultValue={''}
