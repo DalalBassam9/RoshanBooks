@@ -30,6 +30,16 @@ export default function Login() {
         password: "",
         email: ""
     });
+  
+    useEffect(() => {
+        // Perform localStorage action
+        if (typeof window !== 'undefined') {
+            const token = localStorage.getItem('token');
+            // Use the token...
+        }
+    }, []);
+
+
     const validateField = async (field: string, value: string) => {
         try {
             await schema.validateAt(field, { [field]: value });
@@ -62,9 +72,7 @@ export default function Login() {
 
             );
             const token = (await response).data.access_token
-            if (typeof window !== 'undefined' && window.localStorage) {
-                localStorage.setItem("token", token);
-            }
+     
 
             Swal.fire({
                 icon: 'success',
@@ -97,10 +105,6 @@ export default function Login() {
     };
 
     return (
-        <>
-            <Head>
-                <title>ergodnc — Login</title>
-            </Head>
             <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 
 
@@ -203,6 +207,5 @@ export default function Login() {
                 </div>
             </div>
 
-        </>
     )
 }

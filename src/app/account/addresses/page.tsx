@@ -49,6 +49,7 @@ const Addresses: React.FC = () => {
 
     React.useEffect(() => {
         getAddresses();
+        
     }, []);
 
     return (
