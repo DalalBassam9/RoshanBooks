@@ -71,13 +71,10 @@ export default function Login() {
             await schema.validate(formData, { abortEarly: false });
             const response = axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData);
             token = (await response).data.access_token;
-            if (typeof window !== 'undefined') {
-                localStorage.setItem('token', token);
-                let data = localStorage.getItem('token');
-            }
-
-            if (!token) {
-                throw new Error('No authentication token found');
+            if (typeof window !== 'undefined' && window.localStorage) {
+                localStorage.setItem("token", token);
+            } else {
+                throw new Error('localStorage is not available');
             }
             Swal.fire({
                 icon: 'success',
