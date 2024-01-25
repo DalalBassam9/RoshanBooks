@@ -31,6 +31,14 @@ export default function Login() {
         email: ""
     });
 
+    useEffect(() => {
+        // Perform localStorage action
+        if (typeof window !== 'undefined') {
+            const token = localStorage.getItem('token');
+            // Use the token...
+        }
+    }, []);
+
 
     const validateField = async (field: string, value: string) => {
         try {
@@ -94,6 +102,9 @@ export default function Login() {
                 setLoading(false);
             }
         };
+
+        // Return cleanup function to avoid memory leaks
+        return () => {};
     }, []); // Empty dependency array ensures the effect runs only once on component mount
 
     // Your component JSX code here
