@@ -71,8 +71,9 @@ export default function Login() {
             await schema.validate(formData, { abortEarly: false });
             const response = axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData);
             token = (await response).data.access_token;
-            if (typeof window !== 'undefined' && window.localStorage) {
-                localStorage.setItem("token", token);
+            if (typeof localStorage !== 'undefined') {
+                const data = localStorage.getItem('token');
+                // rest of the code ...
             } else {
                 throw new Error('localStorage is not available');
             }
