@@ -1,3 +1,4 @@
+
 "use client";
 import Head from 'next/head'
 import React, { useEffect } from 'react';
@@ -31,15 +32,6 @@ export default function Login() {
         email: ""
     });
 
-    useEffect(() => {
-        // Perform localStorage action
-        if (typeof window !== 'undefined') {
-            const token = localStorage.getItem('token');
-            // Use the token...
-        }
-    }, []);
-
-
     const validateField = async (field: string, value: string) => {
         try {
             await schema.validateAt(field, { [field]: value });
@@ -72,8 +64,7 @@ export default function Login() {
             const response = axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData);
             token = (await response).data.access_token;
             if (typeof localStorage !== 'undefined') {
-                const data = localStorage.getItem('token');
-                // rest of the code ...
+                JSON.parse(localStorage.getItem('token') as string);
             } else {
                 throw new Error('localStorage is not available');
             }
