@@ -94,9 +94,6 @@ export default function Login() {
                 setLoading(false);
             }
         };
-
-        // Return cleanup function to avoid memory leaks
-        return () => {};
     }, []); // Empty dependency array ensures the effect runs only once on component mount
 
     // Your component JSX code here
