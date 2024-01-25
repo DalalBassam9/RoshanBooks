@@ -20,7 +20,7 @@ const Orders: React.FC = () => {
         try {
             setLoading(true);
             let token;
-            if (typeof window !== 'undefined') {
+            if (typeof localStorage !== null) {
                 token = localStorage.getItem('token');
             }
     
