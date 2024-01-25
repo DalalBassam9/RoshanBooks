@@ -59,7 +59,15 @@ const Addresses: React.FC = () => {
                             showAddressForm={showAddressForm}
                             setShowAddressForm={setShowAddressForm}
                             selectedAddress={selectedAddress}
-                            reloadData={() => getAddresses()}
+                            reloadData={() => {
+                                let token;
+                                if (typeof window !== 'undefined') {
+                                    token = localStorage.getItem('token');
+                                }
+                                if (token) {
+                                    getAddresses(token);
+                                }
+                            }}
                             setSelectedAddress={setSelectedAddress}
                         />
 
