@@ -73,7 +73,7 @@ export default function Login() {
             token = (await response).data.access_token;
 
             if (typeof window !== 'undefined') {
-                if (localStorage) {
+                if (typeof localStorage !== 'undefined') {
                     token = localStorage.getItem('token');
                 }
             }
