@@ -8,13 +8,14 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, ShoppingBagIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link';
 import {
-    fetchUser, UserState,
+    fetchUser,
     logoutUser
 } from '../redux/userSlice';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { MenuItem } from "@mui/material";
+
 interface Category {
     categoryId: number;
     name: string;
@@ -31,7 +32,7 @@ function classNames(...classes: string[]) {
 export default function Navigation() {
     const [cartCartCount, setCartCount] = useState(0);
     const cartItemsCount = useSelector((state: any) => state.cart.cartItemsCount);
-    const user = useSelector((state: { user: UserState }) => state.user.user);
+    const user = useSelector((state : any) => state.user.user);
     const router = useRouter();
     const [categories, setCategories] = useState<Category[]>([]);
     const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
@@ -42,7 +43,7 @@ export default function Navigation() {
         if (savedCartItemsCount) {
             setCartCount(JSON.parse(savedCartItemsCount));
         }
-        dispatch(fetchUser());
+        dispatch(fetchUser() as any);
         fetchCategories();
         logoutUser();
     }, [dispatch]);
@@ -142,7 +143,7 @@ export default function Navigation() {
                                                     {({ active }) => (
                                                         <a
                                                             onClick={() => {
-                                                                dispatch(logoutUser());
+                                                                dispatch(logoutUser() as any);
                                                                 router.push("/login");
 
                                                             }}
@@ -261,7 +262,7 @@ export default function Navigation() {
                                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                                         onClick={() => {
                                             if (item.name === 'Logout') {
-                                                dispatch(logoutUser());
+                                                dispatch(logoutUser() as any);
                                                 router.push("/login");
                                             }
                                         }}

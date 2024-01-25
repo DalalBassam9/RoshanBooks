@@ -7,8 +7,6 @@ import {
 } from '../../redux/userSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import axios from "axios";
 import Swal from "sweetalert2";
 import * as Yup from 'yup';
@@ -114,8 +112,8 @@ const UpdateAccountInformation = () => {
     };
 
     useEffect(() => {
-        dispatch(fetchUser())
-            .then((action) => {
+        dispatch(fetchUser() as any)
+            .then((action: any) => {
                 if (action.payload) {
                     setUserData(action.payload);
                 }

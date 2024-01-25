@@ -2,7 +2,6 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from "axios";
-import Swal from "sweetalert2";
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 

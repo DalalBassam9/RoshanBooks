@@ -7,8 +7,6 @@ import {
 } from '../../redux/userSlice';
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import { Fragment } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog, Transition } from '@headlessui/react'
@@ -44,7 +42,7 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
 
     const handleNavigationClick = (navItem: any) => {
         if (navItem.name === 'Logout') {
-            dispatch(logoutUser());
+            dispatch(logoutUser() as any);
             router.push("/login");
         } else {
             router.push(navItem.href);
@@ -52,7 +50,7 @@ const SidebarProfile = ({ children }: { children: React.ReactNode }) => {
     };
 
     useEffect(() => {
-        dispatch(fetchUser());
+        dispatch(fetchUser() as any);
     }, [dispatch]);
 
     return (

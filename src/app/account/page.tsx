@@ -32,7 +32,7 @@ const AccountInformation: React.FC = () => {
     });
 
     
-    const dispatch = useDispatch<ThunkDispatch<any, void, AnyAction>>();
+    const dispatch = useDispatch();
     const user = useSelector((state: { user: any }) => state.user.user);
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
 
@@ -45,7 +45,7 @@ const AccountInformation: React.FC = () => {
     };
 
     useEffect(() => {
-        dispatch(fetchUser())
+        dispatch(fetchUser() as any)
             .then((action: any) => {
                 // code inside the .then() block
                 if (action.payload) {

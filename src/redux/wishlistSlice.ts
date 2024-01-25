@@ -7,7 +7,7 @@ export interface Item {
     description: string;
     price: number;
     image: string;
-    quantity :string
+    quantity: string
 }
 
 interface WishlistState {
@@ -40,7 +40,7 @@ export const addToWishlist = createAsyncThunk('wishlist/add',
                 {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
-                       
+
                     }
                 });
             return response.data.data;
@@ -94,7 +94,7 @@ export const wishlistSlice = createSlice({
                 const index = state.items.findIndex(item => item.productId === action.payload.productId);
                 state.items.splice(index, 1);
                 state.loading = 'succeeded';
-  
+
             });
     }
 });

@@ -38,7 +38,9 @@ function UpdateUserImage(
 
     const handleImageUpload = async () => {
         const formData = new FormData();
-        formData.append('image', image);
+        if (image) {
+            formData.append('image', image);
+        }
 
         try {
 
@@ -52,7 +54,7 @@ function UpdateUserImage(
 
             toast.success('Image update successfully');
             setModalIsOpen(false);
-            dispatch(fetchUser());
+            dispatch(fetchUser() as any);
 
         } catch (error:any) {
             toast.error(error.response?.data?.message || error.message);

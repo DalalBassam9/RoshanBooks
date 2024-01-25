@@ -41,7 +41,7 @@ function ProductCard({
             try {
                 dispatch(addToWishlist(
                     { productId: productId }
-                ));
+                ) as any);
                 toast.success('Product added to  wihlist!');
 
             } catch (error: any) {
@@ -57,7 +57,7 @@ function ProductCard({
             dispatch(
                 removeFromWishlist({
                     productId: productId
-                })
+                }) as any
             )
             toast.success('Product removed to  wihlist!');
         }
@@ -70,7 +70,7 @@ function ProductCard({
                 addToCart({
                     productId: productId,
                     quantity: 1,
-                })
+                }) as any
             );
             router.push('/cart');
         }

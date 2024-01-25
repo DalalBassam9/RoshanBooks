@@ -106,7 +106,7 @@ function CartItem({ cartItem }: CartItemProps) {
                 </div>
             </div>
         </div>
-     
+
     );
 }
 
