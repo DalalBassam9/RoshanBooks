@@ -62,7 +62,7 @@ export default function Login() {
 
         validateField(field, value);
     };
-    useEffect(() => {
+
         const handleSubmit = async (e: React.FormEvent) => {
             e.preventDefault();
             try {
@@ -103,12 +103,6 @@ export default function Login() {
             }
         };
 
-        // Return cleanup function to avoid memory leaks
-        return () => {};
-    }, []); // Empty dependency array ensures the effect runs only once on component mount
-
-    // Your component JSX code here
-};
   
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
