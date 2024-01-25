@@ -63,47 +63,53 @@ export default function Login() {
         validateField(field, value);
     };
 
-        const handleSubmit = async (e: React.FormEvent) => {
-            e.preventDefault();
-            try {
-                setLoading(true);
-                await schema.validate(formData, { abortEarly: false });
-                const response = axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData);
-                const token = (await response).data.access_token;
-                
-                if (typeof window !== 'undefined' && window.localStorage) {
-                    localStorage.setItem("token", token);
-                }
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            setLoading(true);
+            let token;
+            await schema.validate(formData, { abortEarly: false });
+            const response = axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData);
+            token = (await response).data.access_token;
 
+            if (typeof window !== 'undefined') {
+                if (localStorage) {
+                    token = localStorage.getItem('token');
+                }
+            }
+
+            if (!token) {
+                throw new Error('No authentication token found');
+            }
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: ' login successfully',
+                confirmButtonColor: '#D5A983'
+            });
+
+            router.push("/admin");
+        } catch (error: any) {
+            if (error instanceof Yup.ValidationError) {
+                const errors: { [key: string]: string } = {};
+                error.inner.forEach((error: any) => {
+                    errors[error.path] = error.message;
+                });
+                setErrors(errors);
+            } else {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: ' login successfully',
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.response?.data?.message || error.message,
                     confirmButtonColor: '#D5A983'
                 });
-
-                router.push("/admin");
-            } catch (error: any) {
-                if (error instanceof Yup.ValidationError) {
-                    const errors: { [key: string]: string } = {};
-                    error.inner.forEach((error: any) => {
-                        errors[error.path] = error.message;
-                    });
-                    setErrors(errors);
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: error.response?.data?.message || error.message,
-                        confirmButtonColor: '#D5A983'
-                    });
-                }
-            } finally {
-                setLoading(false);
             }
-        };
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  
+
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
 
