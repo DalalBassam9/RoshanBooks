@@ -26,9 +26,11 @@ const Addresses: React.FC = () => {
         try {
             let token;
             if (typeof window !== 'undefined') {
-                token = localStorage.getItem('token');
+                if (typeof localStorage !== 'undefined') {
+                    token = localStorage.getItem('token');
+                }
             }
-    
+
             if (!token) {
                 throw new Error('No authentication token found');
             }
@@ -49,7 +51,7 @@ const Addresses: React.FC = () => {
 
     React.useEffect(() => {
         getAddresses();
-        
+
     }, []);
 
     return (
@@ -83,7 +85,7 @@ const Addresses: React.FC = () => {
                     </div>
 
                     {addresses.length > 0 && (
-                        addresses && addresses.map((address: any,index:any) => (
+                        addresses && addresses.map((address: any, index: any) => (
                             <AddressCard
                                 key={index}
                                 address={address}
