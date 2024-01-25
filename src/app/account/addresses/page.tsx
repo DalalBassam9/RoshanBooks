@@ -21,19 +21,9 @@ const Addresses: React.FC = () => {
     const [selectedAddress, setSelectedAddress] = React.useState<any>(null);
     const [addresses, setAddresses] = React.useState([]);
 
-    const getAddresses = async () => {
+    const getAddresses = async (token: string) => {
         setLoading(true);
         try {
-            let token;
-            if (typeof window !== 'undefined') {
-                if (typeof localStorage !== 'undefined') {
-                    token = localStorage.getItem('token');
-                }
-            }
-
-            if (!token) {
-                throw new Error('No authentication token found');
-            }
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/addresses`,
                 {
                     headers: {
@@ -48,10 +38,15 @@ const Addresses: React.FC = () => {
             setLoading(false);
         }
     };
-
+    
     React.useEffect(() => {
-        getAddresses();
-
+        let token;
+        if (typeof window !== 'undefined') {
+            token = localStorage.getItem('token');
+        }
+        if (token) {
+            getAddresses(token);
+        }
     }, []);
 
     return (
