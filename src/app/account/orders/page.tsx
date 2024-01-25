@@ -19,7 +19,7 @@ const Orders: React.FC = () => {
     const getUserOrders = async () => {
         try {
             setLoading(true);
-            const token = localStorage?.getItem('token');
+            const token = window.localStorage?.getItem('token');
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
                 {
                     headers: {
@@ -37,9 +37,7 @@ const Orders: React.FC = () => {
     };
 
     React.useEffect(() => {
-        let token;
         getUserOrders();
-      token=  localStorage?.getItem('token');
     }, []);
 
   
