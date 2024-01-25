@@ -71,11 +71,9 @@ export default function Login() {
             await schema.validate(formData, { abortEarly: false });
             const response = axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData);
             token = (await response).data.access_token;
-
-            if (typeof window !== "undefined") {
-                if (typeof window.localStorage !== 'undefined') {
-                    token = localStorage.getItem('token');
-                }
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('token', token);
+                let data = localStorage.getItem('token');
             }
 
             if (!token) {
