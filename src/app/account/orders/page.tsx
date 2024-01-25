@@ -12,7 +12,6 @@ import FrontLayout from '../../../components/FrontLayout';
 import moment from 'moment';
 
 const Orders: React.FC = () => {
-    if (typeof window !== 'undefined') {
         const router = useRouter();
         const [loading, setLoading] = React.useState(false);
         const [orders, setOrders] = React.useState<Order[]>([]);
@@ -21,9 +20,12 @@ const Orders: React.FC = () => {
             try {
                 setLoading(true);
                 let token;
+
                 if (typeof window !== 'undefined') {
-                    token = window.localStorage.getItem('token');
-                }
+                     token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token') as any) : null;
+                  }
+
+
                 const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
                     {
                         headers: {
@@ -129,7 +131,7 @@ const Orders: React.FC = () => {
                 </FrontLayout>
             </div>
         )
-    }
+    
 
 }
 export default Orders;
