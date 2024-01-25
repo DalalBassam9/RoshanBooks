@@ -28,14 +28,14 @@ function CartItem({ cartItem }: CartItemProps) {
         const newQuantity: number = quantity + 1;
         setQuantity(newQuantity);
         const payload: CartItem = { productId: cartItem.productId, quantity: newQuantity };
-        dispatch(updateQuantity(payload));
+        dispatch(updateQuantity(payload) as any);
     };
 
     const handleDecrement = async () => {
         let newQuantity = quantity - 1;
         if (newQuantity <= 0) {
             newQuantity = 0;
-            await dispatch(removeFromCart(cartItem.cartId));
+            await dispatch(removeFromCart(cartItem.cartId) as any);
             Swal.fire({
                 title: 'Removed',
                 text: 'Product removed from cart',
@@ -45,7 +45,7 @@ function CartItem({ cartItem }: CartItemProps) {
         } else {
             setQuantity(newQuantity);
             const payload: CartItem = { productId: cartItem.productId, quantity: newQuantity };
-            await dispatch(updateQuantity(payload));
+            await dispatch(updateQuantity(payload) as any);
         }
     };
 
