@@ -22,8 +22,6 @@ export default function Checkout() {
     const [addresses, setِِAddresses] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const dispatch = useDispatch();
-
-
     const state = useSelector((state: any) => state);
     const items = useSelector((state: any) => state.cart.items);
     const subTotal = items.reduce(
@@ -34,10 +32,8 @@ export default function Checkout() {
     const [showAddressForm, setShowAddressForm] = React.useState(false);
     const [selectedAddress, setSelectedAddress] = React.useState<any>(null);
 
-    let token = '';
-    if (typeof window !== 'undefined') {
-        token = window.localStorage.getItem('accessToken') ?? '';
-    }
+    const token = useSelector((state: any) => state.user.token);
+
     const handleShowAddressForm = (address: any) => {
         setSelectedAddress(address);
         setShowAddressForm(true);

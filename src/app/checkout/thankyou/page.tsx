@@ -9,7 +9,6 @@ import FrontLayout from '../../../components/FrontLayout';
 import useAuth from '../../lib/useAuth';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setToken } from '../../../redux/userSlice';
 
 
 const ThankYou = () => {
@@ -36,8 +35,6 @@ const ThankYou = () => {
         }
     };
     React.useEffect(() => {
-        const token = typeof window !== 'undefined' ? window.localStorage.getItem('accessToken') : null
-        dispatch(setToken(token || '') as any);
         getPlacedOrder();
     }, []);
 

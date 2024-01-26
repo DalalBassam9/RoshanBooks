@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import Swal from "sweetalert2";
 import useAuth from '../../lib/useAuth';
 import FrontLayout from '../../../components/FrontLayout';
-import { useSelector } from 'react-redux';
+
 
 const Addresses: React.FC = () => {
     const [loading, setLoading] = React.useState(false);
@@ -18,7 +18,6 @@ const Addresses: React.FC = () => {
     const [showAddressForm, setShowAddressForm] = React.useState(false);
     const [selectedAddress, setSelectedAddress] = React.useState<any>(null);
     const [addresses, setAddresses] = React.useState([]);
-    const token = useSelector((state: any) => state.user.token);
 
     const getAddresses = async () => {
         setLoading(true);
@@ -26,7 +25,7 @@ const Addresses: React.FC = () => {
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/addresses`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 }
             );
@@ -37,10 +36,10 @@ const Addresses: React.FC = () => {
             setLoading(false);
         }
     };
-    
+
     React.useEffect(() => {
         getAddresses();
-    },[]);
+    }, []);
 
     return (
         <div>
@@ -52,9 +51,7 @@ const Addresses: React.FC = () => {
                             showAddressForm={showAddressForm}
                             setShowAddressForm={setShowAddressForm}
                             selectedAddress={selectedAddress}
-                            reloadData={() =>  getAddresses()}
-                            
-                            
+                            reloadData={() => getAddresses()}
                             setSelectedAddress={setSelectedAddress}
                         />
 

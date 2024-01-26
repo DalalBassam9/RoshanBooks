@@ -9,25 +9,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import orders from 'src/app/admin/orders/page';
 import FrontLayout from '../../../../../components/FrontLayout';
-import { useSelector } from 'react-redux';
 
 function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
-    const token = useSelector((state: any) => state.user.token);
     const [order, setOrder] = React.useState<Order | null>();
 
     const getUserOrder = async () => {
         try {
             setLoading(true);
-        
-
-            if (!token) {
-                throw new Error('No authentication token found');
-            }
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders/${params.orderId}`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 }
             );
@@ -39,12 +32,9 @@ function Order({ params }: { params: any }) {
         }
     };
 
-    React.useEffect(() => {
-        const fetchData = async () => {
-            await getUserOrder();
-        };
 
-        fetchData();
+    React.useEffect(() => {
+        getUserOrder();
     }, []);
 
     return (
@@ -98,8 +88,8 @@ function Order({ params }: { params: any }) {
 
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {order && order.orderItems && order.orderItems.map((orderItem: any, index: number) => (
-                                                    <tr key={index}>
+                                                {order && order.orderItems && order.orderItems.map((orderItem: any) => (
+                                                    <tr>
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem?.product?.name}</td>
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.quantity}</td>
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.product.price} JD</td>

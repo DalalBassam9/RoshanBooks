@@ -11,17 +11,31 @@ interface User {
 }
 
 interface UserState {
-    token?: string | null;
+    token?: any;
     user: User | null;
     loading: boolean;
     error?: string | null;
 }
+const ls = typeof window !== "undefined" ? window.localStorage : null;
+
+const getToken = () => {
+    const token = ls?.getItem('token');
+    if (!token) {
+        return [];
+    }
+    try {
+        return JSON.parse(token);
+    } catch (error) {
+        console.error("Error parsing token from localStorage", error);
+        return [];
+    }
+};
 
 const initialState: UserState = {
     user: null,
     loading: false,
     error: null,
-    token:localStorage?.getItem('accessToken')
+    token: ls?.getItem('token') ? ls?.getItem('token') : null
 };
 
 export const loginUser = createAsyncThunk(
@@ -75,9 +89,6 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setToken: (state, action: PayloadAction<string>) => {
-            state.token = action.payload;
-        },
     },
     extraReducers: builder => {
         builder.addCase(fetchUser.pending, (state) => {
@@ -97,13 +108,12 @@ const userSlice = createSlice({
             })
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.token = action.payload.access_token;
-            localStorage.setItem("accessToken", state.token as string);
+            localStorage.setItem("token", state.token as string);
             // handle the state update when the login is successful
         });
 
     },
 });
 
-export const { setToken } = userSlice.actions
 
 export default userSlice.reducer;

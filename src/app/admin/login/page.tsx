@@ -8,8 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
-import FrontLayout from '../../components/FrontLayout';
-import { loginUser } from '../../redux/userSlice';
+import { loginUser } from '../../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 interface FormData {
     email: string;
@@ -64,7 +63,7 @@ export default function Login() {
             await schema.validate(formData, { abortEarly: false });
             dispatch(loginUser(formData) as any);
             toast.success('login  successfully');
-            router.push("/");
+            router.push("/admin");
         } catch (error: any) {
             if (error instanceof Yup.ValidationError) {
                 const errors: { [key: string]: string } = {}; // Specify the type of 'errors' object
@@ -82,7 +81,6 @@ export default function Login() {
     };
     return (
         <div>
-            <FrontLayout>
                 <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
                     <ToastContainer />
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
@@ -176,7 +174,6 @@ export default function Login() {
 
                     </div>
                 </div>
-            </FrontLayout>
         </div>
     )
 }

@@ -108,6 +108,7 @@ function ReviewForm({ getReviews, setShowReviewForm, handleClose, product }: Rev
                 <div className="py-3 relative xs:w-full  sm:mx-auto flex flex-col justify-center sm:py-12">
                     <div>
                         <div>
+                            {token}
                             <div className="px-12 py-2">
                                 <h2 className="text-gray-800 text-center text-xl font-semibold"> Add new Reiview</h2>
                             </div>
