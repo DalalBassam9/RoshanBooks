@@ -7,11 +7,11 @@ interface User {
     email: string;
     firstName: string;
     lastName: string;
-    token: undefined | string;
+    token:any;
 }
 
 interface UserState {
-    token?: any;
+    token:any;
     user: User | null;
     loading: boolean;
     error?: string | null;
@@ -35,7 +35,7 @@ const initialState: UserState = {
     user: null,
     loading: false,
     error: null,
-    token: ls?.getItem('token') ? ls?.getItem('token') : null
+    token: ls?.getItem('token') ? JSON.parse(ls?.getItem('token') || '') : null
 };
 
 export const loginUser = createAsyncThunk(
@@ -110,7 +110,7 @@ const userSlice = createSlice({
             })
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.token = action.payload.access_token;
-            localStorage.setItem("token", state.token as string);
+            localStorage.setItem("token", JSON.stringify(state.token) as string);
             // handle the state update when the login is successful
         });
 
