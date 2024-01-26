@@ -10,18 +10,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import FrontLayout from '../../../components/FrontLayout';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 const Orders: React.FC = () => {
     const router = useRouter();
     const [loading, setLoading] = React.useState(false);
     const [orders, setOrders] = React.useState<Order[]>([]);
+    const token = useSelector((state: any) => state.user.token);
     const getUserOrders = async () => {
         try {
             setLoading(true);
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${token}`
                     }
                 }
             );
@@ -87,7 +89,7 @@ const Orders: React.FC = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                                    {orders && orders.map((order,index) => (
+                                                    {orders && orders.map((order, index) => (
                                                         <tr key={index}>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">#{order.orderId}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.status}</td>

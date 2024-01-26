@@ -9,20 +9,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import orders from 'src/app/admin/orders/page';
 import FrontLayout from '../../../../../components/FrontLayout';
+import { useSelector } from 'react-redux';
 
 function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
     const [order, setOrder] = React.useState<Order | null>();
-
+    const token = useSelector((state: any) => state.user.token);
     const getUserOrder = async () => {
         try {
             setLoading(true);
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders/${params.orderId}`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
+            {
+                headers: {
+                  'Authorization': `Bearer ${token}`
                 }
+              }
             );
             setOrder(response.data.data);
         } catch (error: any) {

@@ -54,9 +54,10 @@ export const fetchUser = createAsyncThunk(
     'user/fetchUser',
     async () => {
         try {
+            const token = ls?.getItem('token');
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/user`, {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${token}`
                 }
             });
             const user = response.data.data;
@@ -73,9 +74,10 @@ export const logoutUser = createAsyncThunk(
     'user/logoutUser',
     async (_, { rejectWithValue }) => {
         try {
+            const token = ls?.getItem('token');
             const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/logout`, {}, {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${token}`
                 }
             });
             localStorage.removeItem('token');
