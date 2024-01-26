@@ -14,14 +14,15 @@ import FrontLayout from '../../../components/FrontLayout';
 
 const Addresses: React.FC = () => {
 
-
+    const token = window.localStorage.getItem('token');
+    
     const [loading, setLoading] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
     const [showAddressForm, setShowAddressForm] = React.useState(false);
     const [selectedAddress, setSelectedAddress] = React.useState<any>(null);
     const [addresses, setAddresses] = React.useState([]);
 
-    const getAddresses = async (token: string) => {
+    const getAddresses = async () => {
         setLoading(true);
         try {
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/addresses`,
@@ -40,14 +41,8 @@ const Addresses: React.FC = () => {
     };
     
     React.useEffect(() => {
-        let token;
-        if (typeof window !== 'undefined') {
-            token = localStorage.getItem('token');
-        }
-        if (token) {
-            getAddresses(token);
-        }
-    }, []);
+        getAddresses();
+    });
 
     return (
         <div>
@@ -59,15 +54,9 @@ const Addresses: React.FC = () => {
                             showAddressForm={showAddressForm}
                             setShowAddressForm={setShowAddressForm}
                             selectedAddress={selectedAddress}
-                            reloadData={() => {
-                                let token;
-                                if (typeof window !== 'undefined') {
-                                    token = localStorage.getItem('token');
-                                }
-                                if (token) {
-                                    getAddresses(token);
-                                }
-                            }}
+                            reloadData={() =>  getAddresses()}
+                            
+                            
                             setSelectedAddress={setSelectedAddress}
                         />
 
@@ -93,15 +82,7 @@ const Addresses: React.FC = () => {
                                 key={index}
                                 address={address}
                                 setShowAddressForm={setShowAddressForm}
-                                reloadData={() => {
-                                    let token;
-                                    if (typeof window !== 'undefined') {
-                                        token = localStorage.getItem('token');
-                                    }
-                                    if (token) {
-                                        getAddresses(token);
-                                    }
-                                }}
+                                reloadData={() => getAddresses()}
                                 setSelectedAddress={setSelectedAddress}
 
                             />
