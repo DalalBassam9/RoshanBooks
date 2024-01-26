@@ -21,9 +21,10 @@ const initialState: UserState = {
     user: null,
     loading: false,
     error: null,
-    token: localStorage.getItem('token') ? localStorage.getItem('token')! : '',
+    token:  window?.localStorage?.getItem('token') ? JSON.parse(localStorage.getItem('token') || '') : null
 };
 export const loginUser = createAsyncThunk(
+    
     'user/loginUser',
     async (formData: any, { rejectWithValue }) => {
         try {
