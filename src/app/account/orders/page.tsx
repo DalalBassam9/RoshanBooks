@@ -10,20 +10,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import FrontLayout from '../../../components/FrontLayout';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 const Orders: React.FC = () => {
         const router = useRouter();
         const [loading, setLoading] = React.useState(false);
         const [orders, setOrders] = React.useState<Order[]>([]);
 
+        const token = useSelector((state: any) => state.user.token);
         const getUserOrders = async () => {
             try {
                 setLoading(true);
-                let token;
-                if (typeof window !== 'undefined') {
-                    token = localStorage.getItem('token');
-                }
-
+            
                 const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
                     {
                         headers: {

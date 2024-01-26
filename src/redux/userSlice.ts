@@ -6,10 +6,12 @@ interface User {
     name: string;
     email: string;
     firstName: string;
-    lastName: string
+    lastName: string;
+    token: string;
 }
 
 interface UserState {
+    token?: string | null;
     user: User | null;
     loading: boolean;
     error?: string | null;
@@ -19,8 +21,19 @@ const initialState: UserState = {
     user: null,
     loading: false,
     error: null,
+    token:null
 };
-
+export const loginUser = createAsyncThunk(
+    'user/loginUser',
+    async (formData: any, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData);
+            return response.data;
+        } catch (error: any) {
+            return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+);
 export const fetchUser = createAsyncThunk(
     'user/fetchUser',
     async () => {
@@ -76,6 +89,10 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.error = action.error ? action.error.message : null;
             })
+            builder.addCase(loginUser.fulfilled, (state, action) => {
+                state.token = action.payload.access_token;
+                // handle the state update when the login is successful
+            });
 
     },
 });
