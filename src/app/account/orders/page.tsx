@@ -16,12 +16,14 @@ const Orders: React.FC = () => {
         const router = useRouter();
         const [loading, setLoading] = React.useState(false);
         const [orders, setOrders] = React.useState<Order[]>([]);
-        const token = useSelector((state: any) => state.user.token);
     
         const getUserOrders = async () => {
             try {
                 setLoading(true);
-            
+                let token = '';
+                if (typeof window !== 'undefined') {
+                    token = window.localStorage.getItem('accessToken') ?? '';
+                }
                 const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
                     {
                         headers: {
@@ -56,7 +58,7 @@ const Orders: React.FC = () => {
                                         <p className="mt-2 text-sm text-gray-700">
                                             A list of all my orders.
                                         </p>
-{token}
+
 
                                     </div>
                                 )}

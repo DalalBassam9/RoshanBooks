@@ -19,6 +19,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FrontLayout from '../components/FrontLayout';
 import { useSelector } from 'react-redux';
+import { setToken } from '../redux/userSlice'; // Import the setToken function from the appropriate file
 
 export default function Home() {
   const [sort, setSort] = useState<string>(sortOptions[0].sort);
@@ -30,8 +31,8 @@ export default function Home() {
   const [category, setCategory] = useState<string>('1');
   const [categories, setCategories] = useState<Category[]>([]);
   const [productStatus, setProductStatus] = useState<string>('0');
-  const token = useSelector((state: any) => state.user.token);
-  
+
+
   const dispatch = useDispatch();
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -54,7 +55,12 @@ export default function Home() {
   const getProducts = async (sortOption: string, category: string, productStatus: string) => {
     try {
       setLoading(true);
-   
+
+
+      let token = typeof window !== 'undefined' ? window.localStorage.getItem('accessToken') : null
+
+      dispatch(setToken(token || '') as any);
+
       const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/products?page=${currentPage}&per_page=${rowsPerPage}&sort=${sortOption}&category=${category}&productStatus=${productStatus}`,
         {
           headers: {
@@ -79,6 +85,7 @@ export default function Home() {
 
 
   React.useEffect(() => {
+
     getProducts(sort, category, productStatus);
     fetchCategories();
   }, [currentPage, rowsPerPage, category, sort, productStatus]);

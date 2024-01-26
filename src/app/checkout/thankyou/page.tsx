@@ -8,13 +8,16 @@ import { useRouter } from "next/navigation";
 import FrontLayout from '../../../components/FrontLayout';
 import useAuth from '../../lib/useAuth';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../../redux/userSlice';
+
 
 const ThankYou = () => {
     useAuth({ middleware: 'auth' })
     const router = useRouter();
     const [loading, setLoading] = React.useState(false);
     const token = useSelector((state: any) => state.user.token);
-
+    const dispatch = useDispatch();
     const [order, setِِOrder] = React.useState<Order>();
     const getPlacedOrder = async () => {
         try {
@@ -33,8 +36,12 @@ const ThankYou = () => {
         }
     };
     React.useEffect(() => {
+        const token = typeof window !== 'undefined' ? window.localStorage.getItem('accessToken') : null
+        dispatch(setToken(token || '') as any);
         getPlacedOrder();
     }, []);
+
+
     return (
         <div>
 
@@ -78,7 +85,7 @@ const ThankYou = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <button className="w-full flex-none rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige"  onClick={() => order && router.push(`/account/orders/order/${order.orderId}`)}>View Order</button>
+                                <button className="w-full flex-none rounded-full bg-beige px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-beige focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-beige" onClick={() => order && router.push(`/account/orders/order/${order.orderId}`)}>View Order</button>
                             </div>
                         </div>
                     </div>

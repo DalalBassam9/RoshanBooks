@@ -23,8 +23,9 @@ export default function Checkout() {
     const [loading, setLoading] = React.useState(false);
     const dispatch = useDispatch();
 
-    const state = useSelector((state:any) => state);
-    const items = useSelector((state:any) => state.cart.items);
+
+    const state = useSelector((state: any) => state);
+    const items = useSelector((state: any) => state.cart.items);
     const subTotal = items.reduce(
         (acc: any, item: any) => acc + item.price * item.quantity,
         0
@@ -33,8 +34,10 @@ export default function Checkout() {
     const [showAddressForm, setShowAddressForm] = React.useState(false);
     const [selectedAddress, setSelectedAddress] = React.useState<any>(null);
 
-    const token = useSelector((state: any) => state.user.token);
-
+    let token = '';
+    if (typeof window !== 'undefined') {
+        token = window.localStorage.getItem('accessToken') ?? '';
+    }
     const handleShowAddressForm = (address: any) => {
         setSelectedAddress(address);
         setShowAddressForm(true);
@@ -49,7 +52,7 @@ export default function Checkout() {
     const getAddresses = async () => {
         try {
             setLoading(true);
-       
+
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/addresses`,
                 {
                     headers: {
@@ -82,7 +85,7 @@ export default function Checkout() {
                 },
                 {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Authorization': `Bearer ${token}`
                     },
                 }
             );

@@ -21,7 +21,7 @@ const initialState: UserState = {
     user: null,
     loading: false,
     error: null,
-    token: typeof global?.window!== "undefined" ? localStorage?.getItem('token') : undefined
+    token: typeof window !== 'undefined' ? window.localStorage?.getItem('accessToken') : undefined
 };
 
 export const loginUser = createAsyncThunk(
@@ -74,7 +74,11 @@ export const logoutUser = createAsyncThunk(
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        setToken: (state, action: PayloadAction<string>) => {
+            state.token = action.payload;
+        },
+    },
     extraReducers: builder => {
         builder.addCase(fetchUser.pending, (state) => {
             state.loading = true;
@@ -93,14 +97,13 @@ const userSlice = createSlice({
             })
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.token = action.payload.access_token;
-
-            localStorage.setItem("token", state.token as string);
+            localStorage.setItem("accessToken", state.token as string);
             // handle the state update when the login is successful
         });
 
     },
 });
 
-
+export const { setToken } = userSlice.actions
 
 export default userSlice.reducer;
