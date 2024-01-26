@@ -21,10 +21,11 @@ const initialState: UserState = {
     user: null,
     loading: false,
     error: null,
-    token:  window?.localStorage?.getItem('token') ? JSON.parse(localStorage.getItem('token') || '') : null
+    token:  window?.localStorage?.getItem('token') ? window?.localStorage.getItem('token') : '',
 };
+
 export const loginUser = createAsyncThunk(
-    
+
     'user/loginUser',
     async (formData: any, { rejectWithValue }) => {
         try {
@@ -90,11 +91,11 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.error = action.error ? action.error.message : null;
             })
-            builder.addCase(loginUser.fulfilled, (state, action) => {
-                state.token = action.payload.access_token;
-                localStorage.setItem("token", state.token as string);
-                // handle the state update when the login is successful
-            });
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            state.token = action.payload.access_token;
+            localStorage.setItem("token", state.token as string);
+            // handle the state update when the login is successful
+        });
 
     },
 });
