@@ -21,7 +21,7 @@ const initialState: UserState = {
     user: null,
     loading: false,
     error: null,
-    token: typeof window !== 'undefined' ? window.localStorage?.getItem('accessToken') : undefined
+    token:localStorage?.getItem('accessToken')
 };
 
 export const loginUser = createAsyncThunk(
