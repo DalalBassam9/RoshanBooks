@@ -3,7 +3,7 @@ import React from 'react';
 import axios from "axios";
 import Swal from "sweetalert2";
 import { toast } from 'react-toastify';
-
+import { useSelector } from 'react-redux';
 interface AddressProps {
     reloadData: any,
     key: any,
@@ -26,6 +26,8 @@ function AddressCard(
     const [loadingDefaultAddress, setLoadingDefaultAddress] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
 
+    const token = useSelector((state: any) => state.user.token);
+
     const handleShowAddressForm = (address: any) => {
         setSelectedAddress(address);
         setShowAddressForm(true);
@@ -35,10 +37,6 @@ function AddressCard(
         try {
 
             setLoadingDefaultAddress(true);
-            let token;
-            if (typeof window !== 'undefined') {
-                token = localStorage.getItem('token');
-            }
 
             if (!token) {
                 throw new Error('No authentication token found');

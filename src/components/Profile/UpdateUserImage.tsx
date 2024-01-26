@@ -6,7 +6,7 @@ import axios from "axios";
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import Swal from "sweetalert2";
 import { toast } from 'react-toastify';
-
+import { useSelector } from 'react-redux';
 interface ImageFormProps {
     setModalIsOpen: (isOpen: boolean) => void;
 
@@ -21,6 +21,8 @@ function UpdateUserImage(
     const dispatch = useDispatch();
     const [image, setImage] = useState(null);
     const [loading = false, setLoading] = React.useState<boolean>(false);
+
+    const token = useSelector((state: any) => state.user.token);
 
     const handleImageChange = (e: any) => {
         const file = e.target.files[0];
@@ -44,11 +46,6 @@ function UpdateUserImage(
 
         try {
 
-            setLoading(true);
-            let token;
-            if (typeof window !== 'undefined') {
-                token = localStorage.getItem('token');
-            }
 
             if (!token) {
                 throw new Error('No authentication token found');

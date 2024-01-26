@@ -6,11 +6,11 @@ import {
     logoutUser
 } from '../../redux/userSlice';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import axios from "axios";
 import Swal from "sweetalert2";
 import * as Yup from 'yup';
-
+import { useSelector } from 'react-redux';
 interface InfoUserData {
     firstName: any;
     lastName: any;
@@ -32,6 +32,8 @@ const UpdateAccountInformation = () => {
 
     const dispatch = useDispatch();
     const user = useSelector((state: { user: any }) => state.user.user);
+
+    const token = useSelector((state: any) => state.user.token);
 
     const [userData, setUserData] = useState<InfoUserData>({
         firstName: "",
@@ -76,13 +78,7 @@ const UpdateAccountInformation = () => {
 
         try {
             setLoading(true);
-            let token;
-            if (typeof window !== 'undefined') {
-                token = localStorage.getItem('token');
-            }
-            if (!token) {
-                throw new Error('No authentication token found');
-            }
+      
             await userSchema.validate(userData, { abortEarly: false });
 
             const response = await axios.put(process.env.NEXT_PUBLIC_API_URL + "/api/my/update-Information", userData, {

@@ -5,6 +5,7 @@ import Rating from '@mui/material/Rating';
 import * as Yup from 'yup';
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 interface Product {
     productId: number;
@@ -32,7 +33,7 @@ const schema = Yup.object({
 
 function ReviewForm({ getReviews, setShowReviewForm, handleClose, product }: ReviewProps) {
     const router = useRouter();
-    const token = localStorage.getItem('token');
+    const token = useSelector((state: any) => state.user.token);
     const [loading = false, setLoading] = React.useState<boolean>(false);
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [formData, setFormData] = React.useState<FormData>({

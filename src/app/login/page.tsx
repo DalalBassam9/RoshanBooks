@@ -9,8 +9,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';
 import FrontLayout from '../../components/FrontLayout';
-
-
+import { loginUser } from '../../redux/userSlice';
+import { useDispatch } from 'react-redux';
 interface FormData {
     email: string;
     password: string;
@@ -27,6 +27,8 @@ const schema = Yup.object({
 
 export default function Login() {
     const router = useRouter();
+
+    const dispatch = useDispatch();
     const [loading = false, setLoading] = React.useState<boolean>(false);
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [formData, setFormData] = React.useState<FormData>({
@@ -61,12 +63,7 @@ export default function Login() {
         try {
             setLoading(true);
             await schema.validate(formData, { abortEarly: false });
-            const response = axios.post(process.env.NEXT_PUBLIC_API_URL + `/api/login`, formData);
-            const token = (await response).data.access_token;
-    
-            if (typeof window !== 'undefined') {
-                localStorage.setItem("token", token);
-            }
+            dispatch(loginUser(formData) as any);
             toast.success('login  successfully');
             router.push("/");
         } catch (error: any) {

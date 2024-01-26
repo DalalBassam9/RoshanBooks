@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from "axios";
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-
+import { useSelector } from 'react-redux';
 interface PasswordUserData {
     password: string;
     passwordConfirmation: string;
@@ -26,6 +26,8 @@ const UpdatePassword: React.FC = () => {
         passwordConfirmation: "",
 
     });
+
+    const token = useSelector((state: any) => state.user.token);
 
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [loading = false, setLoading] = React.useState<boolean>(false);
@@ -60,14 +62,7 @@ const UpdatePassword: React.FC = () => {
         event.preventDefault();
         try {
             setLoading(true);
-            let token;
-            if (typeof window !== 'undefined') {
-                token = localStorage.getItem('token');
-            }
-    
-            if (!token) {
-                throw new Error('No authentication token found');
-            }
+
 
             await passwordSchema.validate(passwordData, { abortEarly: false });
 

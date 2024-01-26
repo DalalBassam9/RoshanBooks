@@ -21,7 +21,7 @@ const initialState: UserState = {
     user: null,
     loading: false,
     error: null,
-    token:null
+    token: localStorage.getItem('token') ? localStorage.getItem('token')! : '',
 };
 export const loginUser = createAsyncThunk(
     'user/loginUser',
@@ -91,6 +91,7 @@ const userSlice = createSlice({
             })
             builder.addCase(loginUser.fulfilled, (state, action) => {
                 state.token = action.payload.access_token;
+                localStorage.setItem("token", state.token as string);
                 // handle the state update when the login is successful
             });
 

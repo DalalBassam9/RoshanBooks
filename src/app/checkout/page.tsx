@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { getCartItems, clearCart } from '../../redux/cartSlice';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import AddressForm from "../../components/Profile/AddressForm";
 import DeliveryAddressCard from "../../components/Checkout/DeliveryAddressCard";
@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import Swal from "sweetalert2";
 import FrontLayout from '../../components/FrontLayout';
 import useAuth from '../lib/useAuth';
+import { useSelector } from 'react-redux';
 
 export default function Checkout() {
     useAuth({ middleware: 'auth' })
@@ -32,6 +33,7 @@ export default function Checkout() {
     const [showAddressForm, setShowAddressForm] = React.useState(false);
     const [selectedAddress, setSelectedAddress] = React.useState<any>(null);
 
+    const token = useSelector((state: any) => state.user.token);
 
     const handleShowAddressForm = (address: any) => {
         setSelectedAddress(address);
@@ -47,13 +49,7 @@ export default function Checkout() {
     const getAddresses = async () => {
         try {
             setLoading(true);
-            let token;
-            if (typeof window !== 'undefined') {
-                token = localStorage.getItem('token');
-            }
-            if (!token) {
-                throw new Error('No authentication token found');
-            }
+       
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/addresses`,
                 {
                     headers: {

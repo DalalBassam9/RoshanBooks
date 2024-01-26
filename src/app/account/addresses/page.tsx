@@ -10,17 +10,15 @@ import { toast } from 'react-toastify';
 import Swal from "sweetalert2";
 import useAuth from '../../lib/useAuth';
 import FrontLayout from '../../../components/FrontLayout';
-
+import { useSelector } from 'react-redux';
 
 const Addresses: React.FC = () => {
-
-    const token = window.localStorage.getItem('token');
-    
     const [loading, setLoading] = React.useState(false);
     const [loadingForDelete, setLoadingForDelete] = React.useState(false);
     const [showAddressForm, setShowAddressForm] = React.useState(false);
     const [selectedAddress, setSelectedAddress] = React.useState<any>(null);
     const [addresses, setAddresses] = React.useState([]);
+    const token = useSelector((state: any) => state.user.token);
 
     const getAddresses = async () => {
         setLoading(true);
@@ -42,7 +40,7 @@ const Addresses: React.FC = () => {
     
     React.useEffect(() => {
         getAddresses();
-    });
+    },[]);
 
     return (
         <div>

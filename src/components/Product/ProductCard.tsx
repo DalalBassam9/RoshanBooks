@@ -22,8 +22,7 @@ function ProductCard({
     const dispatch = useDispatch();
     const router = useRouter();
     const products = useSelector((state:any) => state.wishlist.items);
-    const token: any = localStorage.getItem('token');
-
+    const token = useSelector((state: any) => state.user.token);
 
     const isWishlisted = (productId: any) => {
         if (Array.isArray(products)) {

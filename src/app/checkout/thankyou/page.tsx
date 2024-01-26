@@ -7,22 +7,18 @@ import { Order } from "../../../interfaces";
 import { useRouter } from "next/navigation";
 import FrontLayout from '../../../components/FrontLayout';
 import useAuth from '../../lib/useAuth';
+import { useSelector } from 'react-redux';
 
 const ThankYou = () => {
     useAuth({ middleware: 'auth' })
     const router = useRouter();
     const [loading, setLoading] = React.useState(false);
+    const token = useSelector((state: any) => state.user.token);
+
     const [order, setِِOrder] = React.useState<Order>();
     const getPlacedOrder = async () => {
         try {
             setLoading(true);
-            let token;
-            if (typeof window !== 'undefined') {
-                token = localStorage.getItem('token');
-            }
-            if (!token) {
-                throw new Error('No authentication token found');
-            }
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/checkout/success`,
                 {
                     headers: {

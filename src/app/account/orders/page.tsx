@@ -10,14 +10,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import FrontLayout from '../../../components/FrontLayout';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';// Import the RootState type from the appropriate location
 
 const Orders: React.FC = () => {
         const router = useRouter();
         const [loading, setLoading] = React.useState(false);
         const [orders, setOrders] = React.useState<Order[]>([]);
-
         const token = useSelector((state: any) => state.user.token);
+    
         const getUserOrders = async () => {
             try {
                 setLoading(true);
@@ -56,7 +56,7 @@ const Orders: React.FC = () => {
                                         <p className="mt-2 text-sm text-gray-700">
                                             A list of all my orders.
                                         </p>
-
+{token}
 
                                     </div>
                                 )}

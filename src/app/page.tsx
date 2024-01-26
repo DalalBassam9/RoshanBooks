@@ -30,7 +30,8 @@ export default function Home() {
   const [category, setCategory] = useState<string>('1');
   const [categories, setCategories] = useState<Category[]>([]);
   const [productStatus, setProductStatus] = useState<string>('0');
-
+  const token = useSelector((state: any) => state.user.token);
+  
   const dispatch = useDispatch();
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -53,13 +54,7 @@ export default function Home() {
   const getProducts = async (sortOption: string, category: string, productStatus: string) => {
     try {
       setLoading(true);
-      let token;
-      if (typeof window !== 'undefined') {
-        token = localStorage.getItem('token');
-    }
-    if (!token) {
-        throw new Error('No authentication token found');
-    }
+   
       const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/products?page=${currentPage}&per_page=${rowsPerPage}&sort=${sortOption}&category=${category}&productStatus=${productStatus}`,
         {
           headers: {

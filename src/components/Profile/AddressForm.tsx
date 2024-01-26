@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
-
+import { useSelector } from 'react-redux';
 interface AddressFormProps {
     showAddressForm: boolean;
     setShowAddressForm: (show: boolean) => void;
@@ -46,6 +46,7 @@ function AddressForm({
     setSelectedAddress,
 }: AddressFormProps) {
     const [loading = false, setLoading] = React.useState<boolean>(false);
+    const token = useSelector((state: any) => state.user.token);
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [cities, setCities] = React.useState([]);
     const [formData, setFormData] = React.useState<FormData>({
@@ -124,13 +125,6 @@ function AddressForm({
         e.preventDefault();
         try {
             setLoading(true);
-            let token;
-            if (typeof window !== 'undefined') {
-                token = localStorage.getItem('token');
-            }
-            if (!token) {
-                throw new Error('No authentication token found');
-            }
             await schema.validate(formData, { abortEarly: false });
             if (selectedAddress) {
                 await axios.put(process.env.NEXT_PUBLIC_API_URL + `/api/addresses/` + selectedAddress.addressId, formData,

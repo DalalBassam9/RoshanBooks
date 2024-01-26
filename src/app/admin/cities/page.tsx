@@ -12,7 +12,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import moment from 'moment';
 import axios from "axios";
-import useAuth from '../useAuth';
 
 interface City {
     cityId: number;
@@ -125,45 +124,46 @@ export default function Cities() {
                     />
 
                 )}
-                {cities.length > 0 && (
-                    <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
+                <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
+                    <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        sx={{ padding: "20px" }}
+                    >
+                        Cities List
+                    </Typography>
+                    <Divider />
+                    <Box height={10} />
+                    <Stack direction="row" spacing={2} className="my-2 mb-2">
+                        <TextField size="small" sx={{
+                            '& label.Mui-focused': {
+                                color: '#D5A983',
+                                fontWeight: 'bold'
+                            },
+                            '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#D5A983', // Change the border color
+                            },
+                        }} label="Search" />
                         <Typography
-                            gutterBottom
-                            variant="h5"
+                            variant="h6"
                             component="div"
-                            sx={{ padding: "20px" }}
+                            sx={{ flexGrow: 1 }}
+                        ></Typography>
+                        <Button
+                            variant="contained"
+                            style={{ backgroundColor: '#D5A983', color: '#fff', fontWeight: 'bold' }}
+
+                            endIcon={<AddCircleIcon />}
+                            onClick={() => setShowCityForm(true)}
+
                         >
-                            Cities List
-                        </Typography>
-                        <Divider />
-                        <Box height={10} />
-                        <Stack direction="row" spacing={2} className="my-2 mb-2">
-                            <TextField size="small" sx={{
-                                '& label.Mui-focused': {
-                                    color: '#D5A983',
-                                    fontWeight: 'bold'
-                                },
-                                '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                    borderColor: '#D5A983', // Change the border color
-                                },
-                            }} label="Search" />
-                            <Typography
-                                variant="h6"
-                                component="div"
-                                sx={{ flexGrow: 1 }}
-                            ></Typography>
-                            <Button
-                                variant="contained"
-                                style={{ backgroundColor: '#D5A983', color: '#fff', fontWeight: 'bold' }}
+                            Add City
+                        </Button>
+                    </Stack>
+                    <Box height={10} />
 
-                                endIcon={<AddCircleIcon />}
-                                onClick={() => setShowCityForm(true)}
-
-                            >
-                                Add City
-                            </Button>
-                        </Stack>
-                        <Box height={10} />
+                    {cities.length > 0 && (
                         <TableContainer>
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
@@ -247,10 +247,10 @@ export default function Cities() {
 
 
                         </TableContainer>
+                    )
+                    }
+                </Paper>
 
-                    </Paper>
-                )
-                }
                 {loading && (
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                         <CircularProgress style={{ color: '#D5A983' }} />

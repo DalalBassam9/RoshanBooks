@@ -12,7 +12,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import axios from "axios";
 import moment from 'moment';
-import useAuth from '../useAuth';
 
 interface Category {
     categoryId: number;
@@ -124,7 +123,6 @@ export default function Categories() {
                     />
 
                 )}
-                {categories.length > 0 && (
                     <Paper sx={{ width: "98%", overflow: "hidden", padding: "12px" }}>
                         <Typography
                             gutterBottom
@@ -162,7 +160,12 @@ export default function Categories() {
                                 Add Category
                             </Button>
                         </Stack>
+
                         <Box height={10} />
+
+
+
+                {categories.length > 0 && (
                         <TableContainer>
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
@@ -243,10 +246,11 @@ export default function Categories() {
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                             />
                         </TableContainer>
+                         )
+                        }
+        
                     </Paper>
-                )
-                }
-
+               
                 {loading && (
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                         <CircularProgress style={{ color: '#D5A983' }} />

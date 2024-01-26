@@ -9,18 +9,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import orders from 'src/app/admin/orders/page';
 import FrontLayout from '../../../../../components/FrontLayout';
+import { useSelector } from 'react-redux';
 
 function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
+    const token = useSelector((state: any) => state.user.token);
     const [order, setOrder] = React.useState<Order | null>();
 
     const getUserOrder = async () => {
         try {
             setLoading(true);
-            let token;
-            if (typeof window !== 'undefined') {
-                token = localStorage.getItem('token');
-            }
+        
 
             if (!token) {
                 throw new Error('No authentication token found');
