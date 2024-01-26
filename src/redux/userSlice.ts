@@ -7,7 +7,7 @@ interface User {
     email: string;
     firstName: string;
     lastName: string;
-    token: string;
+    token: undefined | string;
 }
 
 interface UserState {
@@ -21,7 +21,8 @@ const initialState: UserState = {
     user: null,
     loading: false,
     error: null,
-    token: typeof window !== 'undefined' ? window?.localStorage?.getItem('token') || '' : '',
+    token: typeof window !== 'undefined' ? window?.localStorage?.getItem('token') || undefined : undefined,
+
 };
 
 export const loginUser = createAsyncThunk(
