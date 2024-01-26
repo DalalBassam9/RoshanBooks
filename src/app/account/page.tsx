@@ -22,7 +22,6 @@ import Image from 'next/image';
 
 const AccountInformation: React.FC = () => {
 
-    useAuth({ middleware: 'auth' })
     const [userData, setUserData] = useState<InfoUserData>({
         firstName: "",
         lastName: "",

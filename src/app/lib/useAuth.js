@@ -38,7 +38,6 @@ export default function useAuth({middleware} = {}) {
     return {
         user,
         csrf,
-        login,
         logout,
         isLoading
     }
