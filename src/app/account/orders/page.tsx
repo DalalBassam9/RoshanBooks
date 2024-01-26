@@ -20,11 +20,9 @@ const Orders: React.FC = () => {
             try {
                 setLoading(true);
                 let token;
-
                 if (typeof window !== 'undefined') {
-                     token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token') as any) : null;
-                  }
-
+                    token = localStorage.getItem('token');
+                }
 
                 const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
                     {
