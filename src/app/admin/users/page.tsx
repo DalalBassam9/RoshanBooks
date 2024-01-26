@@ -9,7 +9,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import Layout from '../components/AdminLayout';
-import useAuth from '../useAuth';
 
 interface User {
     userId: any;
