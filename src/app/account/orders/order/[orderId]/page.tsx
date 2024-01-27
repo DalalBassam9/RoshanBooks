@@ -18,10 +18,13 @@ function Order({ params }: { params: any }) {
     const getUserOrder = async () => {
         try {
             setLoading(true);
+            const ls = typeof window !== "undefined" ? window.localStorage : null;
+            const token= ls?.getItem('token') ? ls?.getItem('token')  : null
+
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders/${params.orderId}`,
             {
                 headers: {
-                  'Authorization': `Bearer ${token}`
+                  'Authorization': `Bearer ${ls?.getItem('token')}`
                 }
               }
             );

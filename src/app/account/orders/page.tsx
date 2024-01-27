@@ -17,16 +17,18 @@ const Orders: React.FC = () => {
     const [loading, setLoading] = React.useState(false);
     const [orders, setOrders] = React.useState<Order[]>([]);
 
-    const ls = typeof window !== "undefined" ? window.localStorage : null;
-    const token= ls?.getItem('token') ? ls?.getItem('token')  : null
 
     const getUserOrders = async () => {
         try {
             setLoading(true);
+            const ls = typeof window !== "undefined" ? window.localStorage : null;
+            const token= ls?.getItem('token') ? ls?.getItem('token')  : null
+            
+
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${ls?.getItem('token') }`
                     }
                 }
             );
