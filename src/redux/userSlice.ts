@@ -18,18 +18,6 @@ interface UserState {
 }
 const ls = typeof window !== "undefined" ? window.localStorage : null;
 
-const getToken = () => {
-    const token = ls?.getItem('token');
-    if (!token) {
-        return [];
-    }
-    try {
-        return JSON.parse(token);
-    } catch (error) {
-        console.error("Error parsing token from localStorage", error);
-        return [];
-    }
-};
 
 const initialState: UserState = {
     user: null,

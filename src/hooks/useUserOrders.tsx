@@ -21,7 +21,7 @@ function useUserOrders() {
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${ls?.getItem('token')}`
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 }
             );

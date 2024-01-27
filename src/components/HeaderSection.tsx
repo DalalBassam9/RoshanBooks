@@ -3,9 +3,9 @@ import Image from 'next/image';
 export default function HeaderSection() {
 
   return (
-    <div className="relative isolate overflow-hidden  px-6 py-24 sm:py-32 lg:px-8">
+    <div className="relative isolate overflow-hidden  px-6  sm:py-32 lg:px-8">
       <Image
-        src="/book4.jpg" // Note the leading slash
+        src="/book.png" // Note the leading slash
         alt="Description of the image"
         layout="fill"
         objectFit="cover"

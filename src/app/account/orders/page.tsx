@@ -1,3 +1,4 @@
+
 "use client"
 import React, { useState } from 'react';
 import axios from "axios";
@@ -10,17 +11,35 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import FrontLayout from '../../../components/FrontLayout';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
-import useUserOrders from '../../../hooks/useUserOrders';
-
 
 const Orders: React.FC = () => {
     const router = useRouter();
+    const [loading, setLoading] = React.useState(false);
+    const [orders, setOrders] = React.useState<Order[]>([]);
 
-    const [orders, getOrders] = useUserOrders();
+    useAuth({ middleware: 'auth' })
+    const getUserOrders = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                }
+            );
+            setOrders(response.data.data);
+        } catch (error: any) {
+            toast.error(error.response?.data?.message || error.message);
 
+        } finally {
+            setLoading(false);
+        }
+    };
 
-
+    React.useEffect(() => {
+        getUserOrders();
+    }, []);
     return (
         <div>
             <FrontLayout>

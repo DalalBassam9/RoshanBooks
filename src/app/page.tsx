@@ -57,7 +57,7 @@ export default function Home() {
       const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/products?page=${currentPage}&per_page=${rowsPerPage}&sort=${sortOption}&category=${category}&productStatus=${productStatus}`,
         {
           headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
         }
       );
