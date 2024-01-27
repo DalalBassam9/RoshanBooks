@@ -11,39 +11,14 @@ import { toast } from 'react-toastify';
 import FrontLayout from '../../../components/FrontLayout';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import getUserOrders from '../../../hooks/getUserOrders';
+
 
 const Orders: React.FC = () => {
     const router = useRouter();
-    const [loading, setLoading] = React.useState(false);
-    const [orders, setOrders] = React.useState<Order[]>([]);
+ 
+    const [orders, getOrders]  = getUserOrders();
 
-
-    const getUserOrders = async () => {
-        try {
-            setLoading(true);
-            const ls = typeof window !== "undefined" ? window.localStorage : null;
-            const token= ls?.getItem('token') ? ls?.getItem('token')  : null
-            
-
-            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${ls?.getItem('token') }`
-                    }
-                }
-            );
-            setOrders(response.data.data);
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || error.message);
-
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    React.useEffect(() => {
-        getUserOrders();
-    }, []);
 
 
     return (
@@ -53,7 +28,8 @@ const Orders: React.FC = () => {
                     <ToastContainer />
                     <div className="px-4 sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
-                            {orders.length > 0 && (
+                     
+                            {Array.isArray(orders) && orders.length > 0 && (
                                 <div className="sm:flex-auto">
                                     <h1 className="text-base font-semibold leading-6 text-gray-900">Orders</h1>
                                     <p className="mt-2 text-sm text-gray-700">
@@ -65,7 +41,7 @@ const Orders: React.FC = () => {
                             )}
 
                         </div>
-                        {orders.length > 0 && (
+                        {Array.isArray(orders) && orders.length > 0 && (
 
                             <div className="mt-4">
                                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -94,7 +70,7 @@ const Orders: React.FC = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                                    {orders && orders.map((order, index) => (
+                                                    {orders && orders.map((order:any, index:any) => (
                                                         <tr key={index}>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">#{order.orderId}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.status}</td>
@@ -116,7 +92,7 @@ const Orders: React.FC = () => {
                             </div>
                         )}
 
-                        {orders.length === 0 && (
+                        {Array.isArray(orders) && orders.length === 0 && (
                             <div className="flex flex-col items-center justify-center gap-5 mt-10">
                                 <i className="text-5xl"></i>
                                 <h1 className="text-xl">My orders is empty</h1>

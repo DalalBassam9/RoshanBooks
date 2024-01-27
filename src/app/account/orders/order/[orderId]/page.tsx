@@ -14,21 +14,24 @@ import { useSelector } from 'react-redux';
 function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
     const [order, setOrder] = React.useState<Order | null>();
-    const token = useSelector((state: any) => state.user.token);
-    const getUserOrder = async () => {
+       const getUserOrder = async () => {
         try {
             setLoading(true);
-            const ls = typeof window !== "undefined" ? window.localStorage : null;
-            const token= ls?.getItem('token') ? ls?.getItem('token')  : null
-
+            if (typeof window !== 'undefined') {
+                const token = localStorage.getItem('token');
+                // other localStorage operations
+           
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders/${params.orderId}`,
             {
                 headers: {
-                  'Authorization': `Bearer ${ls?.getItem('token')}`
+                  'Authorization': `Bearer ${token}`
                 }
               }
-            );
+            ); 
+
             setOrder(response.data.data);
+          }
+
         } catch (error: any) {
             toast.error(error.response?.data?.message || error.message);
         } finally {
@@ -38,7 +41,9 @@ function Order({ params }: { params: any }) {
 
 
     React.useEffect(() => {
+
         getUserOrder();
+        const token = localStorage.getItem('token');
     }, []);
 
     return (
