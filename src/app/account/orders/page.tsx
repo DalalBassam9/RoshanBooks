@@ -16,7 +16,10 @@ const Orders: React.FC = () => {
     const router = useRouter();
     const [loading, setLoading] = React.useState(false);
     const [orders, setOrders] = React.useState<Order[]>([]);
-    const token = useSelector((state: any) => state.user.token);
+
+    const ls = typeof window !== "undefined" ? window.localStorage : null;
+    const token= ls?.getItem('token') ? ls?.getItem('token')  : null
+
     const getUserOrders = async () => {
         try {
             setLoading(true);
