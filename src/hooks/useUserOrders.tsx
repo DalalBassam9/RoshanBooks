@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 
-function getUserOrders()  {
+function useUserOrders() {
     const [loading, setLoading] = useState(false);
     const [orders, setOrders] = useState<Order[]>([]);
 
@@ -16,12 +16,12 @@ function getUserOrders()  {
         try {
             setLoading(true);
             const ls = typeof window !== "undefined" ? window.localStorage : null;
-            const token= ls?.getItem('token') ? ls?.getItem('token')  : null
+            const token = ls?.getItem('token') ? ls?.getItem('token') : null
 
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${ls?.getItem('token') }`
+                        'Authorization': `Bearer ${ls?.getItem('token')}`
                     }
                 }
             );
@@ -37,7 +37,7 @@ function getUserOrders()  {
         getOrders();
     }, []);
 
-    return  [orders, loading, getOrders] ;
+    return [orders, loading, getOrders];
 }
 
-export default getUserOrders;
+export default useUserOrders;

@@ -11,13 +11,13 @@ import { toast } from 'react-toastify';
 import FrontLayout from '../../../components/FrontLayout';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-import getUserOrders from '../../../hooks/getUserOrders';
+import useUserOrders from '../../../hooks/useUserOrders';
 
 
 const Orders: React.FC = () => {
     const router = useRouter();
- 
-    const [orders, getOrders]  = getUserOrders();
+
+    const [orders, getOrders] = useUserOrders();
 
 
 
@@ -28,7 +28,7 @@ const Orders: React.FC = () => {
                     <ToastContainer />
                     <div className="px-4 sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
-                     
+
                             {Array.isArray(orders) && orders.length > 0 && (
                                 <div className="sm:flex-auto">
                                     <h1 className="text-base font-semibold leading-6 text-gray-900">Orders</h1>
@@ -70,7 +70,7 @@ const Orders: React.FC = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                                    {orders && orders.map((order:any, index:any) => (
+                                                    {orders && orders.map((order: any, index: any) => (
                                                         <tr key={index}>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">#{order.orderId}</td>
                                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{order.status}</td>
