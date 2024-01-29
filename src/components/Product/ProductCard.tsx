@@ -82,30 +82,26 @@ function ProductCard({
         <div>
             <div className="relative  bg-white shadow-md rounded-3xl p-2 my-3 cursor-pointer">
                 <div className="overflow-x-hidden rounded-2xl relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 lg:h-80">
-                    <p className="right-0 z-3 bottom-6 mt-4 rounded-l-full absolute text-center font-bold text-xl text-white px-2 py-1 bg-beige">{product.price} JD</p>
+                    <p className="right-0 z-3  mt-4 rounded-l-full absolute text-center font-bold text-xl text-white px-2 py-1 bg-beige">{product.price} JD</p>
 
                     <Link href={`/product/${product.productId}`} passHref>
-                        <img className="h-full rounded-2xl w-full object-cover" src={product.image} />
+                        <img className="h-full rounded-2xl w-full object-cover   border  border-2 border-beige    " src={product.image} />
                     </Link>
                 </div>
-                <div className="mt-4 pl-2   mb-2 flex justify-center ">
-                    <div>
-                        <p className="text-lg  font-medium text-gray-900 mb-0">{product.name}</p>
-                        <span className="mt-2">
-                            <Rating
-                                readOnly
-                                precision={0.5}
-                                name="read-only"
-                                value={product?.sumRatings || 0}
-                                style={{
-                                    color: "#E5BEA0"
-                                }} size="small"
-                            />
-                        </span>
-                    </div>
-
+                <div className="mt-4 mb-2 mx-auto max-w-2xl lg:mx-0 flex flex-col items-center justify-center">
+                    <h2 className="text-lg font-medium text-gray-900 mb-0">{product.name}</h2>
+                    <span className="mt-2">
+                        <Rating
+                            readOnly
+                            precision={0.5}
+                            name="read-only"
+                            value={product?.sumRatings || 0}
+                            style={{
+                                color: "#E5BEA0"
+                            }} size="small"
+                        />
+                    </span>
                 </div>
-
                 <div className="-mt-px  border-t border-gray-300 flex divide-x divide-gray-300">
                     <div className="flex w-0 flex-1">
                         <a

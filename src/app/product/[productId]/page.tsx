@@ -137,7 +137,7 @@ export default function Product({ params }: { params: any }) {
             <FrontLayout>
 
 
-                <div className="overflow-hidden rounded-lg bg-white mt-8 mb-8
+                <div className="overflow-hidden rounded-2xl   border  border-2 border-beige  bg-white mt-8 mb-8
           max-w-6xl
           mx-auto
           grid grid-cols-1
@@ -151,7 +151,7 @@ export default function Product({ params }: { params: any }) {
                                 <section className="my-4">
                                     <div className="container px-5 py-24 mx-auto">
                                         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                                            <img alt="ecommerce" className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src={product.image} />
+                                            <img alt="ecommerce" className="lg:w-1/2 w-full object-cover    object-center rounded border border-gray-200" src={product.image} />
                                             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
 
                                                 <div className="flex  justify-between ">

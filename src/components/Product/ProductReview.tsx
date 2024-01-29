@@ -94,7 +94,7 @@ function ProductReviews({ product }: ProductProps) {
                             <div className="flex gap-2 items-center">
                                 <div className="flex p-3 items-centter justify-center  rounded-full h-20 w-20 text-white">
                                     <div className="md:w-full h-full">
-                                        <img src={review.user.image} alt="bag" className="w-full h-full object-fit object-cover" />
+                                        <img src={review.user.image} alt="bag" className="w-full  rounded-full   h-full object-fit object-cover" />
                                     </div>
                                 </div>
                                 <div>
