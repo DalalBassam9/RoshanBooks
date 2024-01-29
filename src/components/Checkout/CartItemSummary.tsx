@@ -17,7 +17,7 @@ function CartItemSummary(
         <div>
             <div className="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
                 <div className="w-full flex items-center">
-                    <div className="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
+                    <div className="overflow-hidden rounded-lg w-20 h-30 bg-gray-50 border border-gray-200">
 
                         <img src={cartItem.image} alt="" />
                     </div>
