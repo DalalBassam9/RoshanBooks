@@ -1,9 +1,11 @@
 
 
 export const sortOptions = [
-  { sort: 'price_asc', label: 'Price: Low to High' },
+  { sort: 'rating', label: 'Rating: Best Rating' },
   { sort: 'price_desc', label: 'Price: High to Low' },
-  { sort: 'rating', label: 'Best Rating' },
+  { sort: 'price_asc', label: 'Price: Low to High' },
+
+
 ];
 
 

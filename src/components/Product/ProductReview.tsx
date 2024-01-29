@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReviewForm from "./ReviewForm";
 import { Product } from "../../interfaces";
+import moment from 'moment';
 
 interface ProductProps {
     product: Product;
@@ -100,11 +101,10 @@ function ProductReviews({ product }: ProductProps) {
                                 <div>
                                     <span className="text-sm">{review.user.firstName}</span>
                                     <div>
-                                        <span className="text-sm leading-none text-gray-900 ">14 July 2021</span>
+                                        <span className="text-sm leading-none text-gray-900 ">{moment(review.created_at).format("DD MMM YYYY hh:mm A")}</span>
                                     </div>
                                 </div>
                             </div>
-
                             <Rating
                                 readOnly
                                 precision={0.5}
@@ -114,11 +114,9 @@ function ProductReviews({ product }: ProductProps) {
                                     color: "#E5BEA0"
                                 }}
                                 size="medium"
-
                             />
-
                         </div>
-                        <span className="text-sm mt-4 text-gray-500">{review.review}</span>
+                        <span className="text-xl mt-2 text-gray-900">{review.review}</span>
                     </div>
                 ))}
             </div>

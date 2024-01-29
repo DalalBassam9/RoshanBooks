@@ -79,17 +79,12 @@ export default function Product({ params }: { params: any }) {
     const getProduct = async () => {
         try {
             setLoading(true);
-            let token;
-            if (typeof window !== 'undefined') {
-                token = localStorage.getItem('token');
-            }
-            if (!token) {
-                throw new Error('No authentication token found');
-            }
+
             const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/products/${params.productId}`,
                 {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 }
             );
@@ -135,8 +130,6 @@ export default function Product({ params }: { params: any }) {
         <div>
 
             <FrontLayout>
-
-
                 <div className="overflow-hidden rounded-2xl   border  border-2 border-beige  bg-white mt-8 mb-8
           max-w-6xl
           mx-auto
