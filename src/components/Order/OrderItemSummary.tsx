@@ -26,7 +26,7 @@ function OrderItemSummary(
                         <p className="text-gray-400">x {orderItem.quantity}</p>
                     </div>
                     <div>
-                        <span className="font-semibold text-gray-600 text-xl">{orderItem.price}</span><span className="font-semibold text-gray-600 text-sm"> JD</span>
+                        <span className="font-semibold text-gray-600 text-xl">{orderItem.product.price * orderItem.quantity}</span><span className="font-semibold text-gray-600 text-sm"> JD</span>
                     </div>
                 </div>
             </div>
