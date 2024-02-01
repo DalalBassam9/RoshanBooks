@@ -14,23 +14,22 @@ import { useSelector } from 'react-redux';
 function Order({ params }: { params: any }) {
     const [loading, setLoading] = React.useState(false);
     const [order, setOrder] = React.useState<Order | null>();
-       const getUserOrder = async () => {
+    const getUserOrder = async () => {
         try {
             setLoading(true);
             if (typeof window !== 'undefined') {
                 const token = localStorage.getItem('token');
-                // other localStorage operations
-           
-            const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders/${params.orderId}`,
-            {
-                headers: {
-                  'Authorization': `Bearer ${token}`
-                }
-              }
-            ); 
 
-            setOrder(response.data.data);
-          }
+                const response = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/api/my/orders/${params.orderId}`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }
+                );
+
+                setOrder(response.data.data);
+            }
 
         } catch (error: any) {
             toast.error(error.response?.data?.message || error.message);
@@ -88,16 +87,10 @@ function Order({ params }: { params: any }) {
                                                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                                         total
                                                     </th>
-
-
-
                                                 </tr>
-
-
-
                                             </thead>
                                             <tbody className="divide-y divide-gray-200 bg-white">
-                                                {order && order.orderItems && order.orderItems.map((orderItem: any,index:any) => (
+                                                {order && order.orderItems && order.orderItems.map((orderItem: any, index: any) => (
                                                     <tr key={index} >
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem?.product?.name}</td>
                                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{orderItem.quantity}</td>

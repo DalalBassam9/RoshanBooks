@@ -161,9 +161,6 @@ export default function Checkout() {
 
                                 </div>
                             </div>
-
-
-
                         </div>
 
                         <div className="lg:col-span-1 col-span-3 mt-4 space-y-4 mr-6 mb-8 px-4">

@@ -32,7 +32,7 @@ function classNames(...classes: string[]) {
 export default function Navigation() {
     const [cartCartCount, setCartCount] = useState(0);
     const cartItemsCount = useSelector((state: any) => state.cart.cartItemsCount);
-    const user = useSelector((state : any) => state.user.user);
+    const user = useSelector((state: any) => state.user.user);
     const router = useRouter();
     const [categories, setCategories] = useState<Category[]>([]);
     const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);

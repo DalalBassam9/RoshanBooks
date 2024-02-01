@@ -32,14 +32,8 @@ function FilterCategoryMenu(
                     className="h-4 w-4 form-radio rounded border-gray-300 text-beige focus:ring-beige"
                 />
                 <label htmlFor={`filter-category-${key}`} className="ml-3 min-w-0 flex-1 text-gray-500">{category.name}</label>
-
-
-
             </div>
-
         </div>
-
-
     )
 
 }

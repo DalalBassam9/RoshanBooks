@@ -18,7 +18,7 @@ interface User {
     phone: string;
 }
 
-type Users =  User[];
+type Users = User[];
 export default function Users() {
 
     const [loading, setLoading] = React.useState(false);
@@ -53,7 +53,7 @@ export default function Users() {
             setLoading(false);
         }
     };
-   
+
 
 
     React.useEffect(() => {
@@ -143,7 +143,7 @@ export default function Users() {
                                                     <TableCell align="left">{moment(user.updated_at).format("DD MMM YYYY hh:mm A")}</TableCell>
 
                                                     <TableCell align="left">
-                                                    <Stack spacing={2} direction="row">
+                                                        <Stack spacing={2} direction="row">
                                                             <EditIcon
                                                                 style={{
                                                                     fontSize: "20px",
@@ -152,15 +152,15 @@ export default function Users() {
                                                                     cursor: "pointer",
                                                                 }}
                                                                 className="cursor-pointer"
-                                                                
+
                                                             />
                                                             <IconButton
-                                                             
+
                                                             >
-                                                                    <DeleteIcon
-                                                                    />
+                                                                <DeleteIcon
+                                                                />
                                                             </IconButton>
-                                                            </Stack>
+                                                        </Stack>
                                                     </TableCell>
                                                 </TableRow>
                                             );

@@ -132,7 +132,7 @@ const cartSlice = createSlice({
     })
     builder.addCase(removeFromCart.fulfilled, (state, action: PayloadAction<CartItem>) => {
       state.loading = 'idle'
-      const index = state.items.findIndex((item: any) => item.cartId === action.payload);
+      const index = state.items.findIndex((item: any) => item.cartId === action.payload.cartId);
       state.items.splice(index, 1); 
       state.cartItemsCount -= 1;
       localStorage.setItem('cartItemsCount', JSON.stringify(state.cartItemsCount));

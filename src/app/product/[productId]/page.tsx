@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { getMyWishlist, removeFromWishlist, addToWishlist } from '../../../redux/wishlistSlice';
 import { Product } from "../../../interfaces";
 import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
@@ -122,7 +122,7 @@ export default function Product({ params }: { params: any }) {
 
     useEffect(() => {
         getProduct()
-    }, []);
+    }, [params.productId]);
 
 
 
@@ -130,14 +130,12 @@ export default function Product({ params }: { params: any }) {
         <div>
 
             <FrontLayout>
-                <div className="overflow-hidden rounded-2xl   border  border-2 border-beige  bg-white mt-8 mb-8
-          max-w-6xl
-          mx-auto
-          grid grid-cols-1
-          gap-6
-          sm:px-6
-          lg:max-w-7xl  shadow">
-                    {product && (
+                {loading ? (
+                    <div className="flex justify-center items-center">
+                        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-beige"></div>
+                    </div>
+                ) : (
+                    <div className="overflow-hidden rounded-2xl   border  border-2 border-beige  bg-white mt-8 mb-8  shadow lg:max-w-7xl sm:px-6 grid grid-cols-1 gap-6 mx-auto max-w-6xl">
                         <div>
                             <div>
                                 <ToastContainer />
@@ -249,14 +247,9 @@ export default function Product({ params }: { params: any }) {
                                                         </div>
 
                                                     </div>
-
-
-
-
                                                 </div>
 
                                                 <div className="pt-10">
-
                                                 </div>
 
                                             </div>
@@ -270,13 +263,12 @@ export default function Product({ params }: { params: any }) {
                                         <ProductReview product={params} />
                                     </div>
                                 </section>
-
                             </div>
-
                         </div>
-
-                    )}
-                </div>
+                        <div>
+                        </div>
+                    </div>
+                )}
             </FrontLayout>
         </div>
     );

@@ -11,7 +11,7 @@ import FrontLayout from '../../../components/FrontLayout';
 import SidebarProfile from '../../../components/Profile/SidebarProfile';
 const Wishlist: React.FC = () => {
 
-    const products = useSelector((state:any) => state.wishlist.items);
+    const products = useSelector((state: any) => state.wishlist.items);
     const dispatch = useDispatch();
     const loading = useSelector((state: any) => state.wishlist.loading);
 

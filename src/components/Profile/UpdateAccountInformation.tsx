@@ -78,7 +78,7 @@ const UpdateAccountInformation = () => {
 
         try {
             setLoading(true);
-      
+
             await userSchema.validate(userData, { abortEarly: false });
 
             const response = await axios.put(process.env.NEXT_PUBLIC_API_URL + "/api/my/update-Information", userData, {
@@ -127,13 +127,8 @@ const UpdateAccountInformation = () => {
         <div>
 
             <form noValidate autoComplete="off" onSubmit={handleSubmit} >
-
-
                 <div className="mt-8  border-t border-gray-900/10">
-
                     <h2 className="text-base my-4  font-semibold leading-7 text-gray-900">Personal Information</h2>
-
-
                     <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
                         <div className="sm:col-span-3">
                             <label htmlFor="first-name" className="block  text-sm font-medium leading-6 text-gray-900">
@@ -210,10 +205,6 @@ const UpdateAccountInformation = () => {
                                 <div className="text-red-500 text-sm mt-2">{errors.email}</div>
                             </div>
                         </div>
-
-
-
-
                     </div>
                 </div>
 

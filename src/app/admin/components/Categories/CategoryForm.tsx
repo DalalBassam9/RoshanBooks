@@ -110,7 +110,7 @@ function CategoryForm({
                 });
                 setErrors(errors);
             } else {
-                Swal.fire({      
+                Swal.fire({
                     confirmButtonColor: '#D5A983',
                     icon: 'error',
                     title: 'Oops...',
@@ -192,7 +192,7 @@ function CategoryForm({
 
                             type="submit"
                             disabled={loading}
-                            startIcon={loading ? <CircularProgress  style={{ color: '#fff' }}  size={20} /> : null}
+                            startIcon={loading ? <CircularProgress style={{ color: '#fff' }} size={20} /> : null}
                         >
                             {selectedCategory ? 'Update' : 'Save'}
                         </Button>

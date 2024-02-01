@@ -129,7 +129,7 @@ export default function Category({ params }: { params: any }) {
                                             <Menu.Items className="absolute right-2 z-10  w-40  origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
 
                                                 <div className="py-1">
-                                                    {sortOptions.map((option: any,index: number) => (
+                                                    {sortOptions.map((option: any, index: number) => (
                                                         <SortMenu key={index} option={option} setCurrentPage={setCurrentPage} setSort={setSort} sort={sort} classNames={classNames} />
                                                     ))}
                                                 </div>

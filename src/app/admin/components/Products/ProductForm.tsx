@@ -63,7 +63,7 @@ function ProductForm({
                 title: 'Oops...',
                 text: error.response.data.message || error.message,
                 confirmButtonColor: '#D5A983'
-                
+
             })
         }
     };
@@ -265,7 +265,7 @@ function ProductForm({
 
                                         type="submit"
                                         disabled={loading}
-                                        endIcon={loading ? <CircularProgress  style={{ color: '#fff' }}   size={20} /> : null}
+                                        endIcon={loading ? <CircularProgress style={{ color: '#fff' }} size={20} /> : null}
 
                                     >
                                         Save

@@ -89,7 +89,7 @@ function CityForm({
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    text: 'City updated successfully',  
+                    text: 'City updated successfully',
                     confirmButtonColor: '#D5A983'
 
                 })
@@ -193,7 +193,7 @@ function CityForm({
 
                             type="submit"
                             disabled={loading}
-                            startIcon={loading ? <CircularProgress  style={{ color: '#fff' }}   size={20} /> : null}
+                            startIcon={loading ? <CircularProgress style={{ color: '#fff' }} size={20} /> : null}
                         >
                             {selectedCity ? 'Update' : 'Save'}
                         </Button>
